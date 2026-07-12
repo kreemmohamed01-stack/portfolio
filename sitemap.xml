@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+>
+  <url>
+    <loc>https://kreemaly.com/</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://kreemaly.com/mypho.jpeg</image:loc>
+      <image:title>Kreem Ali portrait</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://kreemaly.com/ovaphoto.jpeg</image:loc>
+      <image:title>Ova Perfume project preview</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://kreemaly.com/Screenshot%202026-07-12%20235646.png</image:loc>
+      <image:title>Aspen HYSYS gas separation flow sheet</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://kreemaly.com/Screenshot%202026-07-12%20235548.png</image:loc>
+      <image:title>Aspen HYSYS ammonia process flow sheet</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://kreemaly.com/protofolio.html</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kreemaly.com/about.html</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://kreemaly.com/mypho.jpeg</image:loc>
+      <image:title>Kreem Ali portrait</image:title>
+    </image:image>
+  </url>
+</urlset>

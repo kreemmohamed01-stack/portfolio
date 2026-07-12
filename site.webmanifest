@@ -1,0 +1,21 @@
+{
+  "name": "Kreem Ali Portfolio",
+  "short_name": "Kreem Ali",
+  "description": "Portfolio of Kreem Ali featuring web development, Easy Order stores, and Aspen HYSYS engineering content.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#04080f",
+  "theme_color": "#04080f",
+  "icons": [
+    {
+      "src": "favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
