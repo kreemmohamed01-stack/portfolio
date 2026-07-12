@@ -1144,6 +1144,329 @@
       line-height: 1.8;
     }
 
+    .engineering-layout {
+      display: grid;
+      gap: 24px;
+    }
+
+    .engineering-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+      gap: 24px;
+      align-items: stretch;
+      padding: 24px;
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at top right, rgba(110, 247, 203, 0.12), transparent 32%),
+        radial-gradient(circle at bottom left, rgba(87, 221, 255, 0.12), transparent 28%),
+        linear-gradient(180deg, rgba(8, 19, 31, 0.96), rgba(3, 10, 17, 0.98));
+      border: 1px solid rgba(87, 221, 255, 0.16);
+      box-shadow: 0 22px 48px rgba(0, 0, 0, 0.24);
+    }
+
+    .engineering-logo-card {
+      min-height: 260px;
+      border-radius: 26px;
+      border: 1px dashed rgba(111, 221, 255, 0.28);
+      background:
+        linear-gradient(180deg, rgba(11, 28, 46, 0.86), rgba(6, 16, 28, 0.92));
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      text-align: center;
+    }
+
+    .aspen-logo {
+      display: grid;
+      justify-items: center;
+      gap: 14px;
+    }
+
+    .aspen-logo-mark {
+      position: relative;
+      width: 128px;
+      height: 128px;
+      border: 7px solid #ffd33f;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 26px rgba(255, 211, 63, 0.18);
+    }
+
+    .aspen-logo-mark::after {
+      content: "";
+      position: absolute;
+      width: 88px;
+      height: 88px;
+      right: -11px;
+      bottom: -11px;
+      border-right: 7px solid rgba(255, 211, 63, 0.96);
+      border-bottom: 7px solid rgba(255, 211, 63, 0.96);
+      border-radius: 0 0 80px 0;
+      transform: rotate(12deg);
+    }
+
+    .aspen-logo-wave {
+      display: flex;
+      align-items: end;
+      gap: 7px;
+      height: 58px;
+      transform: translateY(-2px);
+    }
+
+    .aspen-logo-wave span {
+      display: block;
+      width: 10px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #ffe16c, #ffc928);
+      box-shadow: 0 0 14px rgba(255, 211, 63, 0.18);
+    }
+
+    .aspen-logo-wave span:nth-child(1),
+    .aspen-logo-wave span:nth-child(7) {
+      height: 28px;
+    }
+
+    .aspen-logo-wave span:nth-child(2),
+    .aspen-logo-wave span:nth-child(6) {
+      height: 40px;
+    }
+
+    .aspen-logo-wave span:nth-child(3),
+    .aspen-logo-wave span:nth-child(5) {
+      height: 50px;
+    }
+
+    .aspen-logo-wave span:nth-child(4) {
+      height: 64px;
+      width: 12px;
+    }
+
+    .aspen-logo-wordmark {
+      display: grid;
+      gap: 2px;
+      text-align: center;
+      line-height: 1;
+    }
+
+    .aspen-logo-wordmark strong {
+      font-family: "Cairo", sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: #8dc08f;
+      text-transform: lowercase;
+    }
+
+    .aspen-logo-wordmark strong span {
+      color: #ffd33f;
+    }
+
+    .aspen-logo-wordmark em {
+      font-style: normal;
+      font-family: "Orbitron", sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.26em;
+      color: #0f766e;
+      padding-left: 0.26em;
+    }
+
+    .engineering-logo-card strong {
+      display: block;
+      font-family: "Orbitron", sans-serif;
+      font-size: 0.92rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #effcff;
+      margin-bottom: 12px;
+    }
+
+    .engineering-logo-card span {
+      color: #aac7dc;
+      line-height: 1.8;
+      font-size: 0.94rem;
+    }
+
+    .engineering-copy {
+      display: grid;
+      align-content: start;
+      gap: 16px;
+    }
+
+    .engineering-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: fit-content;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(87, 221, 255, 0.18);
+      background: rgba(87, 221, 255, 0.08);
+      color: #dff8ff;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: "Orbitron", sans-serif;
+    }
+
+    .engineering-kicker::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-2);
+      box-shadow: 0 0 14px rgba(110, 247, 203, 0.62);
+    }
+
+    .engineering-copy h3 {
+      font-size: clamp(1.8rem, 3vw, 3rem);
+      line-height: 1.12;
+      color: #f3fbff;
+      max-width: 18ch;
+    }
+
+    .engineering-copy p {
+      color: #c1d8ea;
+      line-height: 1.95;
+      font-size: 1rem;
+      max-width: 62ch;
+    }
+
+    .engineering-points {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 18px;
+    }
+
+    .engineering-points li {
+      position: relative;
+      padding-left: 20px;
+      color: #e9f8ff;
+      line-height: 1.8;
+      font-size: 0.98rem;
+    }
+
+    .engineering-points li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.9em;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 14px rgba(87, 221, 255, 0.38);
+      transform: translateY(-50%);
+    }
+
+    .engineering-youtube {
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 74, 74, 0.2);
+      background: linear-gradient(180deg, rgba(20, 11, 15, 0.92), rgba(12, 8, 11, 0.98));
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.2);
+      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+    }
+
+    .engineering-youtube:hover,
+    .engineering-youtube:focus-visible {
+      transform: translateY(-4px);
+      border-color: rgba(255, 74, 74, 0.42);
+      box-shadow: 0 24px 40px rgba(0, 0, 0, 0.24), 0 0 20px rgba(255, 74, 74, 0.12);
+      outline: none;
+    }
+
+    .engineering-youtube svg {
+      width: 28px;
+      height: 28px;
+      flex: 0 0 auto;
+    }
+
+    .engineering-youtube-copy {
+      display: grid;
+      gap: 4px;
+    }
+
+    .engineering-youtube-copy strong {
+      color: #fff2f2;
+      font-family: "Orbitron", sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .engineering-youtube-copy span {
+      color: #d2dde8;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      max-width: 30ch;
+    }
+
+    .engineering-projects {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .engineering-project-card {
+      min-height: 230px;
+      padding: 20px 18px;
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(10, 20, 33, 0.96), rgba(4, 11, 19, 0.98));
+      border: 1px solid rgba(87, 221, 255, 0.12);
+      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.2);
+      display: grid;
+      align-content: start;
+      gap: 12px;
+    }
+
+    .engineering-project-card img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 1px solid rgba(87, 221, 255, 0.12);
+      background: rgba(255, 255, 255, 0.02);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+      cursor: zoom-in;
+    }
+
+    .engineering-project-card strong {
+      color: #effcff;
+      font-family: "Orbitron", sans-serif;
+      font-size: 0.88rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .engineering-project-card p {
+      color: #b8d1e4;
+      line-height: 1.8;
+      font-size: 0.94rem;
+    }
+
+    .engineering-project-card span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(87, 221, 255, 0.18);
+      background: rgba(87, 221, 255, 0.08);
+      color: #e7fbff;
+      font-size: 0.76rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
     .works-layout {
       display: grid;
       gap: 26px;
@@ -1380,6 +1703,40 @@
       text-transform: uppercase;
       animation: servicePop 0.8s ease both;
       box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .shot-tech-stack {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 10px;
+    }
+
+    .shot-tech-item {
+      display: grid;
+      justify-items: center;
+      gap: 8px;
+      padding: 12px 10px;
+      border-radius: 18px;
+      border: 1px solid rgba(87, 221, 255, 0.14);
+      background: linear-gradient(180deg, rgba(12, 25, 40, 0.92), rgba(6, 15, 24, 0.98));
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.16);
+      text-align: center;
+    }
+
+    .shot-tech-item svg {
+      width: 28px;
+      height: 28px;
+      flex: 0 0 auto;
+    }
+
+    .shot-tech-item span {
+      color: #eefbff;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.4;
+      font-family: "Orbitron", sans-serif;
     }
 
     .shot-visit-button {
@@ -1837,6 +2194,11 @@
         grid-template-columns: 1fr;
       }
 
+      .engineering-hero,
+      .engineering-projects {
+        grid-template-columns: 1fr;
+      }
+
       .hero-overlay {
         min-height: 100vh;
         padding: 24px 0;
@@ -2026,6 +2388,81 @@
         padding: 9px 12px;
       }
 
+      .engineering-hero {
+        padding: 18px;
+        border-radius: 24px;
+        gap: 18px;
+      }
+
+      .engineering-logo-card {
+        min-height: 180px;
+        border-radius: 22px;
+      }
+
+      .aspen-logo-mark {
+        width: 108px;
+        height: 108px;
+      }
+
+      .aspen-logo-mark::after {
+        width: 72px;
+        height: 72px;
+      }
+
+      .aspen-logo-wave {
+        gap: 6px;
+        height: 50px;
+      }
+
+      .aspen-logo-wave span {
+        width: 8px;
+      }
+
+      .aspen-logo-wordmark strong,
+      .aspen-logo-wordmark em {
+        font-size: 1.55rem;
+      }
+
+      .engineering-copy h3 {
+        font-size: 1.7rem;
+        max-width: none;
+      }
+
+      .engineering-copy p {
+        font-size: 0.94rem;
+      }
+
+      .engineering-points {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .engineering-points li {
+        font-size: 0.9rem;
+        padding-left: 18px;
+      }
+
+      .engineering-youtube {
+        width: 100%;
+        align-items: flex-start;
+        padding: 14px;
+        border-radius: 18px;
+      }
+
+      .engineering-youtube-copy strong {
+        font-size: 0.72rem;
+      }
+
+      .engineering-youtube-copy span {
+        font-size: 0.86rem;
+      }
+
+      .engineering-project-card {
+        min-height: auto;
+        padding: 18px 16px;
+        border-radius: 20px;
+      }
+
       .section-head h2 {
         font-size: 1.55rem;
         letter-spacing: 0.12em;
@@ -2154,6 +2591,26 @@
         padding: 6px 8px;
       }
 
+      .shot-tech-stack {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .shot-tech-item {
+        padding: 10px 8px;
+        border-radius: 16px;
+      }
+
+      .shot-tech-item svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .shot-tech-item span {
+        font-size: 0.6rem;
+        letter-spacing: 0.06em;
+      }
+
       .social-float {
         right: 12px;
         bottom: 12px;
@@ -2211,13 +2668,13 @@
             </div>
 
             <div class="hero-socials" aria-label="Social links">
-              <a class="hero-social-link is-pending" href="#main" aria-label="YouTube link coming soon" title="YouTube coming soon">
+              <a class="hero-social-link" href="https://youtu.be/xfTmhNLhDeE?si=1fm2mzsgUjguJ0lk" target="_blank" rel="noreferrer" aria-label="YouTube" title="YouTube">
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path fill="#FF3131" d="M21.2 7.2a2.96 2.96 0 0 0-2.08-2.1C17.28 4.6 12 4.6 12 4.6s-5.28 0-7.12.5A2.96 2.96 0 0 0 2.8 7.2 30.6 30.6 0 0 0 2.3 12a30.6 30.6 0 0 0 .5 4.8 2.96 2.96 0 0 0 2.08 2.1c1.84.5 7.12.5 7.12.5s5.28 0 7.12-.5a2.96 2.96 0 0 0 2.08-2.1 30.6 30.6 0 0 0 .5-4.8 30.6 30.6 0 0 0-.5-4.8Z"/>
                   <path fill="#fff" d="m10 15.45 4.9-3.45L10 8.55v6.9Z"/>
                 </svg>
               </a>
-              <a class="hero-social-link is-pending" href="#main" aria-label="GitHub link coming soon" title="GitHub coming soon">
+              <a class="hero-social-link" href="https://github.com/kreemmohamed01-stack" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub">
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path fill="#F5F9FF" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.21.68-.48v-1.68c-2.78.61-3.36-1.17-3.36-1.17-.45-1.15-1.1-1.45-1.1-1.45-.9-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.33 1.08 2.9.82.09-.64.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.26.1-2.63 0 0 .84-.27 2.75 1.03A9.55 9.55 0 0 1 12 6.84c.85 0 1.71.11 2.51.33 1.9-1.3 2.74-1.03 2.74-1.03.56 1.37.21 2.38.11 2.63.64.7 1.03 1.59 1.03 2.68 0 3.85-2.33 4.69-4.56 4.94.36.31.68.91.68 1.84v2.73c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/>
                 </svg>
@@ -2235,7 +2692,7 @@
                   </defs>
                 </svg>
               </a>
-              <a class="hero-social-link is-pending" href="#main" aria-label="LinkedIn link coming soon" title="LinkedIn coming soon">
+              <a class="hero-social-link" href="https://www.linkedin.com/in/kreem-aly-b21264421?jobid=1234&lipi=urn%3Ali%3Apage%3Ad_jobs_easyapply_pdfgenresume%3Bqyj3m7rNTMGBFWh8ISsVdw%3D%3D&licu=urn%3Ali%3Acontrol%3Ad_jobs_easyapply_pdfgenresume-v02_profile" target="_blank" rel="noreferrer" aria-label="LinkedIn" title="LinkedIn">
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path fill="#0A66C2" d="M4.75 3A1.75 1.75 0 0 0 3 4.75v14.5C3 20.22 3.78 21 4.75 21h14.5c.97 0 1.75-.78 1.75-1.75V4.75C21 3.78 20.22 3 19.25 3H4.75ZM8.1 18H5.55V9.8H8.1V18ZM6.82 8.68a1.48 1.48 0 1 1 0-2.96 1.48 1.48 0 0 1 0 2.96ZM18 18h-2.54v-3.99c0-.95-.02-2.18-1.33-2.18-1.33 0-1.54 1.04-1.54 2.1V18h-2.54V9.8h2.44v1.12h.03c.34-.64 1.17-1.32 2.41-1.32 2.58 0 3.06 1.7 3.06 3.9V18Z"/>
                 </svg>
@@ -2302,7 +2759,7 @@
         </div>
 
         <div class="cv-frame" data-open-cv role="button" tabindex="0" aria-label="Open CV full screen">
-          <img src="protofolio-assets/cv.jpeg" alt="CV Full Preview">
+          <img src="سي%20في.png" alt="CV Full Preview">
         </div>
         <div class="cv-download-wrap">
           <a class="cv-download-button" href="protofolio-assets/cv.pdf" download="Kreem-Mo-Hassan-CV.pdf" aria-label="Download CV PDF">
@@ -2388,6 +2845,64 @@
                 </div>
               </div>
             </a>
+            <div class="shot-tech-stack" aria-label="Technologies used in Ova Store">
+              <div class="shot-tech-item">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path fill="#E44D26" d="M4.43 3 5.98 20.3 12 22l6.02-1.7L19.57 3H4.43Z"/>
+                  <path fill="#F16529" d="M12 20.56V4.8h6.13L16.8 19.2 12 20.56Z"/>
+                  <path fill="#EBEBEB" d="m12 10.9-3.03.01-.2-2.28H12V6.4H6.33l.05.6.55 6.13H12V10.9Zm0 5.78-.01.01-2.53-.7-.16-1.8H7.02l.31 3.54 4.66 1.3.01-.01v-2.34Z"/>
+                  <path fill="#fff" d="M11.99 10.9v2.23h2.82l-.27 2.86-2.55.7v2.34l4.67-1.3.03-.38.54-6.02.06-.73h-5.3Zm0-4.5v2.23h5.5l.05-.52.11-1.11.06-.6h-5.72Z"/>
+                </svg>
+                <span>HTML5</span>
+              </div>
+              <div class="shot-tech-item">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path fill="#264DE4" d="M4.43 3 5.98 20.3 12 22l6.02-1.7L19.57 3H4.43Z"/>
+                  <path fill="#2965F1" d="M12 20.56V4.8h6.13L16.8 19.2 12 20.56Z"/>
+                  <path fill="#EBEBEB" d="M12 13.13H9.47l-.17-1.91H7.02l.33 3.68H12v-1.77Zm-4.9-4.5.06.71.17 1.88H12V9H9.36l-.17-1.86H12V4.91H6.89l.05.6.16 1.82Z"/>
+                  <path fill="#fff" d="M12 18.99v-1.85l-.01.01-2.13-.58-.14-1.62H7.45l.28 3.18 4.26 1.19Zm2.82-7.77-.22 2.47H12v2.23h2.42l-.23 2.45-2.19.59v1.85l4.27-1.19.03-.34.45-5.06.05-.6.39-4.31.03-.3H12v2.23h2.96l-.19 1.98Z"/>
+                </svg>
+                <span>CSS3</span>
+              </div>
+              <div class="shot-tech-item">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path fill="#F7DF1E" d="M3 3h18v18H3V3Z"/>
+                  <path fill="#000" d="m11.41 17.07 1.38-.84c.27.48.52.88 1.11.88.57 0 .93-.22.93-1.08v-5.85h1.69v5.88c0 1.79-1.05 2.61-2.58 2.61-1.38 0-2.18-.71-2.59-1.6Zm-4.1-.18 1.38-.8c.36.59.69 1.08 1.48 1.08.75 0 1.23-.38 1.23-.9 0-.62-.49-.84-1.32-1.2l-.45-.19c-1.29-.55-2.14-1.24-2.14-2.7 0-1.34 1.02-2.36 2.62-2.36 1.14 0 1.96.39 2.55 1.42l-1.4.9c-.31-.55-.64-.77-1.15-.77-.52 0-.85.33-.85.77 0 .54.33.75 1.1 1.08l.45.19c1.52.65 2.37 1.31 2.37 2.8 0 1.61-1.26 2.49-2.95 2.49-1.65 0-2.71-.79-3.23-1.81Z"/>
+                </svg>
+                <span>JavaScript</span>
+              </div>
+              <div class="shot-tech-item">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect x="3.5" y="5" width="17" height="10.5" rx="2" stroke="#6EF7CB" stroke-width="1.8"/>
+                  <path d="M9 19h6" stroke="#6EF7CB" stroke-width="1.8" stroke-linecap="round"/>
+                  <path d="M12 15.5V19" stroke="#6EF7CB" stroke-width="1.8" stroke-linecap="round"/>
+                  <rect x="8" y="7.8" width="8" height="5" rx="1.2" fill="#57DDFF" opacity=".18"/>
+                </svg>
+                <span>Responsive</span>
+              </div>
+              <div class="shot-tech-item">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 4.2c1.78 0 3.12.7 4.1 1.74.99 1.04 1.56 2.53 1.56 4.26 0 3.22-2.08 5.7-5.66 9.4-3.58-3.7-5.66-6.18-5.66-9.4 0-1.73.57-3.22 1.56-4.26.98-1.04 2.32-1.74 4.1-1.74Z" stroke="#6EF7CB" stroke-width="1.8"/>
+                  <circle cx="12" cy="10" r="2.2" fill="#57DDFF"/>
+                </svg>
+                <span>UI / UX</span>
+              </div>
+              <div class="shot-tech-item">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 15.5c2.2 0 2.8-7 5-7s2.8 7 5 7 2.8-7 5-7" stroke="#57DDFF" stroke-width="1.8" stroke-linecap="round"/>
+                  <path d="M5 18.5c2.2 0 2.8-7 5-7s2.8 7 5 7 2.8-7 5-7" stroke="#6EF7CB" stroke-width="1.8" stroke-linecap="round" opacity=".75"/>
+                </svg>
+                <span>Animation</span>
+              </div>
+              <div class="shot-tech-item">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect x="4" y="5" width="9" height="14" rx="2" stroke="#57DDFF" stroke-width="1.8"/>
+                  <rect x="14.5" y="8" width="5.5" height="8.5" rx="1.5" stroke="#6EF7CB" stroke-width="1.8"/>
+                  <path d="M8.2 16.2h.01" stroke="#57DDFF" stroke-width="2.2" stroke-linecap="round"/>
+                </svg>
+                <span>Mobile First</span>
+              </div>
+            </div>
             <a class="shot-visit-button" href="https://ovaperfume.com" target="_blank" rel="noreferrer" aria-label="Tap the image to visit Ova Store">
               Tap The Image To Visit Ova Store
             </a>
@@ -2407,6 +2922,81 @@
     </div>
   </section>
 
+  <section class="section" id="engineering">
+    <div class="container">
+      <div class="section-shell">
+        <div class="section-head">
+          <h2>Aspen HYSYS</h2>
+          <p>A calm and organized space for engineering projects, training content, and Aspen HYSYS learning resources.</p>
+        </div>
+
+        <div class="engineering-layout">
+          <div class="engineering-hero">
+            <div class="engineering-logo-card">
+              <div class="aspen-logo" aria-label="Aspen HYSYS logo">
+                <div class="aspen-logo-mark" aria-hidden="true">
+                  <div class="aspen-logo-wave">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+                <div class="aspen-logo-wordmark">
+                  <strong>aspen<span>tech</span></strong>
+                  <em>HYSYS</em>
+                </div>
+              </div>
+            </div>
+
+            <div class="engineering-copy">
+              <span class="engineering-kicker">Engineering Education</span>
+              <h3>Aspen HYSYS, engineering projects, and technical content.</h3>
+              <p>
+                I teach Aspen HYSYS, explain engineering concepts in a simpler way, and build practical learning content for students, fresh graduates, and anyone who wants to understand simulations, workflows, and real project thinking more clearly.
+              </p>
+              <ul class="engineering-points">
+                <li>Aspen HYSYS tutorials and practical explanations.</li>
+                <li>Engineering project showcases and step-by-step breakdowns.</li>
+                <li>Training content, technical notes, and future course materials.</li>
+                <li>A dedicated space for logos, project images, and learning resources.</li>
+              </ul>
+              <a class="engineering-youtube" href="https://youtu.be/xfTmhNLhDeE?si=1fm2mzsgUjguJ0lk" target="_blank" rel="noreferrer" aria-label="Open Aspen HYSYS YouTube content">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path fill="#FF3131" d="M21.2 7.2a2.96 2.96 0 0 0-2.08-2.1C17.28 4.6 12 4.6 12 4.6s-5.28 0-7.12.5A2.96 2.96 0 0 0 2.8 7.2 30.6 30.6 0 0 0 2.3 12a30.6 30.6 0 0 0 .5 4.8 2.96 2.96 0 0 0 2.08 2.1c1.84.5 7.12.5 7.12.5s5.28 0 7.12-.5a2.96 2.96 0 0 0 2.08-2.1 30.6 30.6 0 0 0 .5-4.8 30.6 30.6 0 0 0-.5-4.8Z"/>
+                  <path fill="#fff" d="m10 15.45 4.9-3.45L10 8.55v6.9Z"/>
+                </svg>
+                <span class="engineering-youtube-copy">
+                  <strong>YouTube</strong>
+                  <span>I teach people, share course-style content, and explain Aspen HYSYS and engineering topics in a practical way.</span>
+                </span>
+              </a>
+            </div>
+          </div>
+
+          <div class="engineering-projects">
+            <article class="engineering-project-card">
+              <img class="lightbox-trigger-image" src="Screenshot%202026-07-12%20235646.png" alt="Aspen HYSYS gas separation and compression flow sheet" role="button" tabindex="0" aria-label="Open gas separation flow sheet full screen">
+              <strong>Gas Separation Flow Sheet</strong>
+              <p>A practical Aspen HYSYS flow sheet showing cooling, valve control, separation, and gas compression steps.</p>
+              <span>Aspen HYSYS Project</span>
+            </article>
+
+            <article class="engineering-project-card">
+              <img class="lightbox-trigger-image" src="Screenshot%202026-07-12%20235548.png" alt="Aspen HYSYS ammonia process flow sheet" role="button" tabindex="0" aria-label="Open ammonia process flow sheet full screen">
+              <strong>Ammonia Process Flow Sheet</strong>
+              <p>An Aspen HYSYS process model for reforming, cooling, separation, compression, and ammonia product routing.</p>
+              <span>Engineering Simulation</span>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   </main>
 
   <footer class="footer">
@@ -2417,13 +3007,15 @@
 
   <div class="image-lightbox" id="cv-lightbox" aria-hidden="true">
     <button class="lightbox-close" type="button" aria-label="Close CV preview">&times;</button>
-    <img class="lightbox-image" src="protofolio-assets/cv.jpeg" alt="CV Full Screen Preview">
+    <img class="lightbox-image" src="سي%20في.png" alt="CV Full Screen Preview">
   </div>
 
   <script>
     const cvTrigger = document.querySelector('[data-open-cv]');
     const cvLightbox = document.getElementById('cv-lightbox');
     const closeLightboxButton = cvLightbox ? cvLightbox.querySelector('.lightbox-close') : null;
+    const lightboxImage = cvLightbox ? cvLightbox.querySelector('.lightbox-image') : null;
+    const flowSheetImages = document.querySelectorAll('.lightbox-trigger-image');
     const interactiveSelector = 'a, button, [role="button"]';
     let audioContext;
     let noiseBuffer;
@@ -2603,8 +3195,10 @@
 
     registerInteractionAudio();
 
-    if (cvTrigger && cvLightbox && closeLightboxButton) {
-      const openLightbox = () => {
+    if (cvLightbox && closeLightboxButton && lightboxImage) {
+      const openLightbox = (imageSrc = lightboxImage.getAttribute('src'), imageAlt = lightboxImage.getAttribute('alt')) => {
+        lightboxImage.setAttribute('src', imageSrc);
+        lightboxImage.setAttribute('alt', imageAlt || 'Full screen preview');
         cvLightbox.classList.add('is-open');
         cvLightbox.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
@@ -2616,12 +3210,30 @@
         document.body.style.overflow = '';
       };
 
-      cvTrigger.addEventListener('click', openLightbox);
-      cvTrigger.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          openLightbox();
-        }
+      if (cvTrigger) {
+        cvTrigger.addEventListener('click', () => {
+          openLightbox('سي%20في.png', 'CV Full Screen Preview');
+        });
+        cvTrigger.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openLightbox('سي%20في.png', 'CV Full Screen Preview');
+          }
+        });
+      }
+
+      flowSheetImages.forEach((image) => {
+        const openCurrentImage = () => {
+          openLightbox(image.getAttribute('src'), image.getAttribute('alt'));
+        };
+
+        image.addEventListener('click', openCurrentImage);
+        image.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openCurrentImage();
+          }
+        });
       });
 
       closeLightboxButton.addEventListener('click', closeLightbox);
