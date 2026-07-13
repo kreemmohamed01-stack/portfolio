@@ -23,6 +23,8 @@
   <meta property="og:url" content="https://kreemaly.com/">
   <meta property="og:image" content="https://kreemaly.com/mypho.jpeg">
   <meta property="og:image:alt" content="Kreem Ali portrait">
+  <meta property="og:image:width" content="1023">
+  <meta property="og:image:height" content="1537">
   <meta property="profile:first_name" content="Kreem">
   <meta property="profile:last_name" content="Ali">
   <meta name="twitter:card" content="summary_large_image">
@@ -2175,6 +2177,82 @@
       line-height: 1.7;
     }
 
+    .official-links-section {
+      padding: 0 0 30px;
+    }
+
+    .official-links-card {
+      display: grid;
+      gap: 18px;
+      padding: 24px 26px;
+      border-radius: 28px;
+      border: 1px solid rgba(107, 224, 255, 0.16);
+      background:
+        linear-gradient(180deg, rgba(8, 19, 31, 0.92), rgba(4, 12, 21, 0.98));
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.24);
+    }
+
+    .official-links-head {
+      display: grid;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .official-links-head h2 {
+      font-size: clamp(1.4rem, 2.6vw, 2.2rem);
+      color: #f2fbff;
+    }
+
+    .official-links-head p {
+      max-width: 760px;
+      margin: 0 auto;
+      color: #bed5e8;
+      line-height: 1.85;
+      font-size: 0.96rem;
+    }
+
+    .official-links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+    }
+
+    .official-link-card {
+      display: grid;
+      gap: 5px;
+      min-height: 96px;
+      padding: 16px 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(87, 221, 255, 0.14);
+      background: rgba(255, 255, 255, 0.02);
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .official-link-card:hover,
+    .official-link-card:focus-visible {
+      transform: translateY(-3px);
+      border-color: rgba(111, 221, 255, 0.34);
+      background: rgba(10, 25, 40, 0.86);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
+      outline: none;
+    }
+
+    .official-link-card strong {
+      color: #effbff;
+      font-size: 0.92rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .official-link-card span {
+      color: #96afc6;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      direction: ltr;
+      text-align: left;
+      word-break: break-word;
+    }
+
     .footer {
       text-align: center;
       color: var(--muted);
@@ -2935,6 +3013,28 @@
       .business-whatsapp-copy span {
         font-size: 0.79rem;
       }
+
+      .official-links-section {
+        padding-bottom: 24px;
+      }
+
+      .official-links-card {
+        padding: 20px 14px;
+        border-radius: 22px;
+      }
+
+      .official-links-head p {
+        font-size: 0.9rem;
+        line-height: 1.8;
+      }
+
+      .official-links-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .official-link-card {
+        min-height: auto;
+      }
     }
 
   </style>
@@ -3319,6 +3419,53 @@
             </span>
           </a>
           <span class="business-cta-note">Available for brand websites, business landing pages, and Easy Order store builds.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="official-links-section" aria-labelledby="official-links-title">
+    <div class="container">
+      <div class="official-links-card">
+        <div class="official-links-head">
+          <h2 id="official-links-title">Official Links</h2>
+          <p>
+            These are the main official pages for Kreem Ali, including social profiles, portfolio work, and direct contact links.
+          </p>
+        </div>
+        <div class="official-links-grid">
+          <a class="official-link-card" href="https://youtu.be/xfTmhNLhDeE?si=1fm2mzsgUjguJ0lk" target="_blank" rel="me noopener noreferrer">
+            <strong>YouTube</strong>
+            <span>youtube.com</span>
+          </a>
+          <a class="official-link-card" href="https://github.com/kreemmohamed01-stack" target="_blank" rel="me noopener noreferrer">
+            <strong>GitHub</strong>
+            <span>github.com/kreemmohamed01-stack</span>
+          </a>
+          <a class="official-link-card" href="https://www.instagram.com/_kimokono112/" target="_blank" rel="me noopener noreferrer">
+            <strong>Instagram</strong>
+            <span>instagram.com/_kimokono112</span>
+          </a>
+          <a class="official-link-card" href="https://www.linkedin.com/in/kreem-aly-b21264421/" target="_blank" rel="me noopener noreferrer">
+            <strong>LinkedIn</strong>
+            <span>linkedin.com/in/kreem-aly-b21264421</span>
+          </a>
+          <a class="official-link-card" href="https://wa.me/201211179625" target="_blank" rel="noopener noreferrer">
+            <strong>WhatsApp</strong>
+            <span>wa.me/201211179625</span>
+          </a>
+          <a class="official-link-card" href="https://ovaperfume.com" target="_blank" rel="noopener noreferrer">
+            <strong>Ova Project</strong>
+            <span>ovaperfume.com</span>
+          </a>
+          <a class="official-link-card" href="about.html">
+            <strong>About Page</strong>
+            <span>kreemaly.com/about.html</span>
+          </a>
+          <a class="official-link-card" href="protofolio-assets/cv.pdf" download="Kreem-Ali-CV.pdf">
+            <strong>CV PDF</strong>
+            <span>Download professional resume</span>
+          </a>
         </div>
       </div>
     </div>
