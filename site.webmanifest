@@ -1,7 +1,7 @@
-{
-  "name": "Kreem Ali Portfolio",
-  "short_name": "Kreem Ali",
-  "description": "Portfolio of Kreem Ali featuring web development, Easy Order stores, and Aspen HYSYS engineering content.",
+﻿{
+  "name": "Kreem Aly | Kreemaly Portfolio",
+  "short_name": "Kreemaly",
+  "description": "Portfolio of Kreem Aly featuring web development, Easy Order stores, presentation design, and Aspen HYSYS engineering content.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#04080f",
@@ -19,3 +19,4 @@
     }
   ]
 }
+
