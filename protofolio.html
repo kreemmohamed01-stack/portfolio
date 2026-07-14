@@ -15,13 +15,13 @@
   <meta property="og:title" content="Kreem Aly | Kreemaly Portfolio Archive">
   <meta property="og:description" content="Portfolio archive for Kreem Aly with websites, Easy Order work, brand visuals, and official contact paths.">
   <meta property="og:url" content="https://www.kreemaly.com/protofolio.html">
-  <meta property="og:image" content="https://www.kreemaly.com/mypho.jpeg">
+  <meta property="og:image" content="https://www.kreemaly.com/assets/images/profile-main.jpeg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Kreem Aly | Kreemaly Portfolio Archive">
   <meta name="twitter:description" content="Archive of Kreem Aly portfolio work, service offers, and contact links.">
-  <meta name="twitter:image" content="https://www.kreemaly.com/mypho.jpeg">
-  <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <meta name="twitter:image" content="https://www.kreemaly.com/assets/images/profile-main.jpeg">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/icons/favicon-48.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
   <script type="application/ld+json">
     {
@@ -287,7 +287,7 @@
     .welcome-screen {
       background:
         linear-gradient(115deg, rgba(3, 8, 14, 0.82), rgba(3, 8, 14, 0.48)),
-        url("protofolio-assets/intro-background.jpg") center center / cover no-repeat;
+        url("assets/images/portfolio-intro-background.jpg") center center / cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -825,22 +825,163 @@
     }
 
     .cv-frame {
-      border-radius: 0;
-      overflow: hidden;
+      display: block;
       max-width: 720px;
       margin-inline: auto;
+      padding: 18px;
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at top, rgba(120, 232, 255, 0.22), transparent 34%),
+        linear-gradient(145deg, rgba(7, 19, 33, 0.96), rgba(3, 10, 18, 0.98));
+      border: 1px solid rgba(133, 230, 255, 0.16);
+      box-shadow:
+        0 32px 72px rgba(0, 0, 0, 0.28),
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+      position: relative;
       cursor: zoom-in;
-      transition: transform 0.28s ease;
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+      animation: cvFrameFloat 5.5s ease-in-out infinite;
     }
 
     .cv-frame:hover {
-      transform: translateY(-4px);
+      transform: translateY(-8px) scale(1.01);
+      border-color: rgba(133, 230, 255, 0.34);
+      box-shadow:
+        0 38px 86px rgba(0, 0, 0, 0.34),
+        0 0 34px rgba(111, 221, 255, 0.18);
     }
 
-    .cv-frame img {
+    .cv-frame::before,
+    .cv-frame::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .cv-frame::before {
+      inset: 14px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .cv-frame::after {
+      width: 140px;
+      height: 140px;
+      right: -24px;
+      top: -24px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(111, 221, 255, 0.28), transparent 68%);
+      opacity: 0.72;
+    }
+
+    .cv-frame:hover::after {
+      transform: scale(1.08);
+      opacity: 0.92;
+    }
+
+    .cv-frame-shell {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      border-radius: 22px;
+      padding: 14px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+        rgba(4, 12, 21, 0.94);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    }
+
+    .cv-frame-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(4, 13, 22, 0.78);
+      border: 1px solid rgba(133, 230, 255, 0.2);
+      color: #eefcff;
+      font-family: "Orbitron", sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      backdrop-filter: blur(12px);
+    }
+
+    .cv-frame-badge::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7df2ff, #7cffc9);
+      box-shadow: 0 0 18px rgba(125, 242, 255, 0.55);
+    }
+
+    .cv-frame iframe {
       width: 100%;
-      height: auto;
-      object-fit: cover;
+      min-height: clamp(520px, 92vw, 960px);
+      aspect-ratio: 210 / 297;
+      display: block;
+      border: 0;
+      border-radius: 18px;
+      background: #ffffff;
+      pointer-events: none;
+    }
+
+    @keyframes cvFrameFloat {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    .video-stage-placeholder {
+      min-height: 420px;
+      aspect-ratio: 9 / 16;
+      display: grid;
+      align-content: end;
+      gap: 12px;
+      padding: 22px;
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at top, rgba(255, 223, 170, 0.18), transparent 40%),
+        linear-gradient(180deg, rgba(58, 25, 11, 0.35), rgba(19, 8, 4, 0.92)),
+        linear-gradient(135deg, rgba(111, 57, 30, 0.9), rgba(38, 17, 9, 0.96));
+      box-shadow: inset 0 0 0 1px rgba(255, 240, 220, 0.08);
+    }
+
+    .video-stage-placeholder span {
+      display: inline-flex;
+      width: fit-content;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 240, 220, 0.1);
+      color: #ffe4c5;
+      font-size: 0.76rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .video-stage-placeholder strong {
+      color: #fff4e8;
+      font-family: "Orbitron", sans-serif;
+      font-size: 1.18rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .video-stage-placeholder p {
+      color: #f3ddca;
+      line-height: 1.85;
+      margin: 0;
+      max-width: 26ch;
     }
 
     .cv-note {
@@ -1372,6 +1513,15 @@
       box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
     }
 
+    .lightbox-pdf {
+      width: min(94vw, 980px);
+      height: min(90vh, 1380px);
+      display: block;
+      border: 0;
+      background: #ffffff;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+    }
+
     @keyframes servicePop {
       from {
         opacity: 0;
@@ -1890,7 +2040,7 @@
         <div class="hero-card">
           <div class="hero-visual-stage">
             <div class="hero-photo">
-              <img src="mypho.jpeg" alt="Kreem Aly portrait">
+              <img src="assets/images/profile-main.jpeg" alt="Kreem Aly portrait">
             </div>
           </div>
 
@@ -1967,7 +2117,10 @@
         </div>
 
         <div class="cv-frame" data-open-cv role="button" tabindex="0" aria-label="Open CV full screen">
-          <img src="سي%20في.png" alt="CV Full Preview">
+          <div class="cv-frame-shell">
+            <span class="cv-frame-badge">CV Preview</span>
+            <iframe src="assets/docs/kreem-aly-cv.pdf#toolbar=0&navpanes=0&scrollbar=0&page=1&view=Fit" title="CV Full Preview" loading="lazy"></iframe>
+          </div>
         </div>
 
         <div class="cv-note">
@@ -2006,7 +2159,7 @@
               <div class="video-shell">
                 <div class="video-stage">
                   <video autoplay muted loop controls playsinline preload="metadata">
-                    <source src="ovaved.mp4" type="video/mp4">
+                    <source src="assets/videos/ova-store-demo.mp4" type="video/mp4">
                   </video>
                 </div>
               </div>
@@ -2035,7 +2188,7 @@
 
           <div class="featured-shot">
             <a class="shot-box shot-link" href="https://ovaperfume.com" target="_blank" rel="noreferrer" aria-label="Open Ova Perfume website">
-              <img class="shot-image" src="ovaphoto.jpeg" alt="Ova Store website preview">
+              <img class="shot-image" src="assets/images/projects/ova-store-preview.jpeg" alt="Ova Store website preview">
               <div class="shot-info">
                 <strong class="shot-title">Ova Store</strong>
                 <div class="shot-tags">
@@ -2170,7 +2323,7 @@
 
   <div class="image-lightbox" id="cv-lightbox" aria-hidden="true">
     <button class="lightbox-close" type="button" aria-label="Close CV preview">&times;</button>
-    <img class="lightbox-image" src="سي%20في.png" alt="CV Full Screen Preview">
+    <iframe class="lightbox-pdf" src="assets/docs/kreem-aly-cv.pdf#toolbar=0&navpanes=0&scrollbar=0&page=1&view=Fit" title="CV Full Screen Preview"></iframe>
   </div>
 
   <script>

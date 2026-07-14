@@ -23,7 +23,7 @@
   <meta property="og:title" content="Kreem Aly | Kreemaly | كريم علي | Web Developer & Petrochemical Engineer">
   <meta property="og:description" content="Explore Kreem Aly | Kreemaly projects, official links, portfolio websites, Easy Order stores, presentation design, and Aspen HYSYS content at kreemaly.com.">
   <meta property="og:url" content="https://www.kreemaly.com/">
-  <meta property="og:image" content="https://www.kreemaly.com/mypho.jpeg">
+  <meta property="og:image" content="https://www.kreemaly.com/assets/images/profile-main.jpeg">
   <meta property="og:image:alt" content="Kreem Aly portrait">
   <meta property="og:image:width" content="1023">
   <meta property="og:image:height" content="1537">
@@ -32,10 +32,10 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Kreem Aly | Kreemaly | كريم علي | Web Developer & Petrochemical Engineer">
   <meta name="twitter:description" content="Responsive websites, Easy Order stores, presentation design, Aspen HYSYS tutorials, and official contact links by Kreem Aly | Kreemaly.">
-  <meta name="twitter:image" content="https://www.kreemaly.com/mypho.jpeg">
-  <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <meta name="twitter:image" content="https://www.kreemaly.com/assets/images/profile-main.jpeg">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/icons/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/favicon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
   <script type="application/ld+json">
     {
@@ -131,8 +131,8 @@
         {
           "@type": "ImageObject",
           "@id": "https://www.kreemaly.com/#primary-image",
-          "url": "https://www.kreemaly.com/mypho.jpeg",
-          "contentUrl": "https://www.kreemaly.com/mypho.jpeg",
+          "url": "https://www.kreemaly.com/assets/images/profile-main.jpeg",
+          "contentUrl": "https://www.kreemaly.com/assets/images/profile-main.jpeg",
           "caption": "Kreem Aly | Kreemaly | كريم علي portrait"
         },
         {
@@ -379,7 +379,7 @@
         radial-gradient(circle at 50% 18%, rgba(110, 247, 203, 0.12), transparent 24%),
         radial-gradient(circle at 82% 16%, rgba(87, 221, 255, 0.1), transparent 26%),
         linear-gradient(180deg, rgba(2, 7, 13, 0.78), rgba(2, 7, 13, 0.9)),
-        url("WhatsApp Image 2026-05-02 at 05.03.53.jpeg") center center / cover no-repeat;
+        url("assets/images/hero-background.jpeg") center center / cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -395,7 +395,7 @@
       inset: -8%;
       background:
         linear-gradient(180deg, rgba(3, 8, 14, 0.18), rgba(3, 8, 14, 0.82)),
-        url("WhatsApp Image 2026-05-02 at 05.03.53.jpeg") center center / cover no-repeat;
+        url("assets/images/hero-background.jpeg") center center / cover no-repeat;
       filter: blur(26px) saturate(1.08);
       transform: scale(1.08);
       z-index: -2;
@@ -1011,7 +1011,7 @@
       inset: 0;
       background:
         linear-gradient(90deg, rgba(4, 8, 15, 0), rgba(4, 8, 15, 0.46) 20%, rgba(4, 8, 15, 0.88) 52%, rgba(4, 8, 15, 1) 72%),
-        url("Screenshot_2026-05-02_151941-removebg-preview.png") center center / 115% auto no-repeat;
+        url("assets/images/hero-cutout.png") center center / 115% auto no-repeat;
       opacity: 0;
       visibility: hidden;
       transform: perspective(1800px) translate3d(34%, 0, 180px) rotateY(-14deg) scale(1.14);
@@ -1030,7 +1030,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: url("Screenshot_2026-05-02_151941-removebg-preview.png") center center / cover no-repeat;
+      background: url("assets/images/hero-cutout.png") center center / cover no-repeat;
       filter: blur(18px);
       opacity: 0;
       mix-blend-mode: screen;
@@ -1181,22 +1181,163 @@
     }
 
     .cv-frame {
-      border-radius: 0;
-      overflow: hidden;
+      display: block;
       max-width: 720px;
       margin-inline: auto;
+      padding: 18px;
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at top, rgba(120, 232, 255, 0.22), transparent 34%),
+        linear-gradient(145deg, rgba(7, 19, 33, 0.96), rgba(3, 10, 18, 0.98));
+      border: 1px solid rgba(133, 230, 255, 0.16);
+      box-shadow:
+        0 32px 72px rgba(0, 0, 0, 0.28),
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+      position: relative;
       cursor: zoom-in;
-      transition: transform 0.28s ease;
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+      animation: cvFrameFloat 5.5s ease-in-out infinite;
     }
 
     .cv-frame:hover {
-      transform: translateY(-4px);
+      transform: translateY(-8px) scale(1.01);
+      border-color: rgba(133, 230, 255, 0.34);
+      box-shadow:
+        0 38px 86px rgba(0, 0, 0, 0.34),
+        0 0 34px rgba(111, 221, 255, 0.18);
     }
 
-    .cv-frame img {
+    .cv-frame::before,
+    .cv-frame::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .cv-frame::before {
+      inset: 14px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .cv-frame::after {
+      width: 140px;
+      height: 140px;
+      right: -24px;
+      top: -24px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(111, 221, 255, 0.28), transparent 68%);
+      opacity: 0.72;
+    }
+
+    .cv-frame:hover::after {
+      transform: scale(1.08);
+      opacity: 0.92;
+    }
+
+    .cv-frame-shell {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      border-radius: 22px;
+      padding: 14px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+        rgba(4, 12, 21, 0.94);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    }
+
+    .cv-frame-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(4, 13, 22, 0.78);
+      border: 1px solid rgba(133, 230, 255, 0.2);
+      color: #eefcff;
+      font-family: "Orbitron", sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      backdrop-filter: blur(12px);
+    }
+
+    .cv-frame-badge::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7df2ff, #7cffc9);
+      box-shadow: 0 0 18px rgba(125, 242, 255, 0.55);
+    }
+
+    .cv-frame iframe {
       width: 100%;
-      height: auto;
-      object-fit: cover;
+      min-height: clamp(520px, 92vw, 960px);
+      aspect-ratio: 210 / 297;
+      display: block;
+      border: 0;
+      border-radius: 18px;
+      background: #ffffff;
+      pointer-events: none;
+    }
+
+    @keyframes cvFrameFloat {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    .video-stage-placeholder {
+      min-height: 420px;
+      aspect-ratio: 9 / 16;
+      display: grid;
+      align-content: end;
+      gap: 12px;
+      padding: 22px;
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at top, rgba(255, 223, 170, 0.18), transparent 40%),
+        linear-gradient(180deg, rgba(58, 25, 11, 0.35), rgba(19, 8, 4, 0.92)),
+        linear-gradient(135deg, rgba(111, 57, 30, 0.9), rgba(38, 17, 9, 0.96));
+      box-shadow: inset 0 0 0 1px rgba(255, 240, 220, 0.08);
+    }
+
+    .video-stage-placeholder span {
+      display: inline-flex;
+      width: fit-content;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 240, 220, 0.1);
+      color: #ffe4c5;
+      font-size: 0.76rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .video-stage-placeholder strong {
+      color: #fff4e8;
+      font-family: "Orbitron", sans-serif;
+      font-size: 1.18rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .video-stage-placeholder p {
+      color: #f3ddca;
+      line-height: 1.85;
+      margin: 0;
+      max-width: 26ch;
     }
 
     .cv-download-wrap {
@@ -2376,6 +2517,15 @@
       box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
     }
 
+    .lightbox-pdf {
+      width: min(94vw, 980px);
+      height: min(90vh, 1380px);
+      display: none;
+      border: 0;
+      background: #ffffff;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+    }
+
     @keyframes servicePop {
       from {
         opacity: 0;
@@ -3110,7 +3260,7 @@
         <div class="hero-card">
           <div class="hero-visual-stage">
             <div class="hero-photo">
-              <img src="mypho.jpeg" alt="Kreem Aly كريم علي portrait">
+              <img src="assets/images/profile-main.jpeg" alt="Kreem Aly كريم علي portrait">
             </div>
 
             <div class="hero-socials" aria-label="Social links">
@@ -3205,10 +3355,13 @@
         </div>
 
         <div class="cv-frame" data-open-cv role="button" tabindex="0" aria-label="Open CV full screen">
-          <img src="سي%20في.png" alt="CV Full Preview">
+          <div class="cv-frame-shell">
+            <span class="cv-frame-badge">CV Preview</span>
+            <iframe src="assets/docs/kreem-aly-cv.pdf#toolbar=0&navpanes=0&scrollbar=0&page=1&view=Fit" title="CV Full Preview" loading="lazy"></iframe>
+          </div>
         </div>
         <div class="cv-download-wrap">
-          <a class="cv-download-button" href="protofolio-assets/cv.pdf" download="Kreem-Aly-CV.pdf" aria-label="Download Kreem Aly CV PDF">
+          <a class="cv-download-button" href="assets/docs/kreem-aly-cv.pdf" download="Kreem-Aly-CV.pdf" aria-label="Download Kreem Aly CV PDF">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M12 3.5a.9.9 0 0 1 .9.9v8.12l2.48-2.48a.9.9 0 1 1 1.28 1.28l-4.02 4.02a.9.9 0 0 1-1.28 0l-4.02-4.02a.9.9 0 0 1 1.28-1.28l2.48 2.48V4.4a.9.9 0 0 1 .9-.9ZM5 17.4c0-.5.4-.9.9-.9h12.2a.9.9 0 1 1 0 1.8H5.9a.9.9 0 0 1-.9-.9Z" fill="currentColor"/>
             </svg>
@@ -3252,7 +3405,7 @@
               <div class="video-shell">
                 <div class="video-stage">
                   <video autoplay muted loop controls playsinline preload="metadata">
-                    <source src="ovaved.mp4" type="video/mp4">
+                    <source src="assets/videos/ova-store-demo.mp4" type="video/mp4">
                   </video>
                 </div>
               </div>
@@ -3281,7 +3434,7 @@
 
           <div class="featured-shot">
             <a class="shot-box shot-link" href="https://ovaperfume.com" target="_blank" rel="noreferrer" aria-label="Open Ova Perfume website">
-              <img class="shot-image" src="ovaphoto.jpeg" alt="Ova Store website preview">
+              <img class="shot-image" src="assets/images/projects/ova-store-preview.jpeg" alt="Ova Store website preview">
               <div class="shot-info">
                 <strong class="shot-title">Ova Store</strong>
                 <div class="shot-tags">
@@ -3425,14 +3578,14 @@
 
           <div class="engineering-projects">
             <article class="engineering-project-card">
-              <img class="lightbox-trigger-image" src="Screenshot%202026-07-12%20235646.png" alt="Aspen HYSYS gas separation and compression flow sheet" role="button" tabindex="0" aria-label="Open gas separation flow sheet full screen">
+              <img class="lightbox-trigger-image" src="assets/images/projects/aspen-gas-separation.png" alt="Aspen HYSYS gas separation and compression flow sheet" role="button" tabindex="0" aria-label="Open gas separation flow sheet full screen">
               <strong>Gas Separation Flow Sheet</strong>
               <p>A practical Aspen HYSYS flow sheet showing cooling, valve control, separation, and gas compression steps.</p>
               <span>Aspen HYSYS Project</span>
             </article>
 
             <article class="engineering-project-card">
-              <img class="lightbox-trigger-image" src="Screenshot%202026-07-12%20235548.png" alt="Aspen HYSYS ammonia process flow sheet" role="button" tabindex="0" aria-label="Open ammonia process flow sheet full screen">
+              <img class="lightbox-trigger-image" src="assets/images/projects/aspen-ammonia-process.png" alt="Aspen HYSYS ammonia process flow sheet" role="button" tabindex="0" aria-label="Open ammonia process flow sheet full screen">
               <strong>Ammonia Process Flow Sheet</strong>
               <p>An Aspen HYSYS process model for reforming, cooling, separation, compression, and ammonia product routing.</p>
               <span>Engineering Simulation</span>
@@ -3503,7 +3656,7 @@
           <a class="official-link-card" href="about.html">
             <strong>About</strong>
           </a>
-          <a class="official-link-card" href="protofolio-assets/cv.pdf" download="Kreem-Aly-CV.pdf">
+          <a class="official-link-card" href="assets/docs/kreem-aly-cv.pdf" download="Kreem-Aly-CV.pdf">
             <strong>CV</strong>
           </a>
         </div>
@@ -3521,7 +3674,8 @@
 
   <div class="image-lightbox" id="cv-lightbox" aria-hidden="true">
     <button class="lightbox-close" type="button" aria-label="Close CV preview">&times;</button>
-    <img class="lightbox-image" src="سي%20في.png" alt="CV Full Screen Preview">
+    <img class="lightbox-image" src="assets/images/projects/aspen-gas-separation.png" alt="Full screen preview">
+    <iframe class="lightbox-pdf" src="assets/docs/kreem-aly-cv.pdf#toolbar=0&navpanes=0&scrollbar=0&page=1&view=Fit" title="CV Full Screen Preview"></iframe>
   </div>
 
   <script>
@@ -3529,6 +3683,7 @@
     const cvLightbox = document.getElementById('cv-lightbox');
     const closeLightboxButton = cvLightbox ? cvLightbox.querySelector('.lightbox-close') : null;
     const lightboxImage = cvLightbox ? cvLightbox.querySelector('.lightbox-image') : null;
+    const lightboxPdf = cvLightbox ? cvLightbox.querySelector('.lightbox-pdf') : null;
     const flowSheetImages = document.querySelectorAll('.lightbox-trigger-image');
     const interactiveSelector = 'a, button, [role="button"]';
     let audioContext;
@@ -3709,36 +3864,48 @@
 
     registerInteractionAudio();
 
-    if (cvLightbox && closeLightboxButton && lightboxImage) {
-      const openLightbox = (imageSrc = lightboxImage.getAttribute('src'), imageAlt = lightboxImage.getAttribute('alt')) => {
-        lightboxImage.setAttribute('src', imageSrc);
-        lightboxImage.setAttribute('alt', imageAlt || 'Full screen preview');
+    if (cvLightbox && closeLightboxButton && lightboxImage && lightboxPdf) {
+      const revealLightbox = () => {
         cvLightbox.classList.add('is-open');
         cvLightbox.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
+      };
+
+      const openImageLightbox = (imageSrc = lightboxImage.getAttribute('src'), imageAlt = lightboxImage.getAttribute('alt')) => {
+        lightboxPdf.style.display = 'none';
+        lightboxImage.style.display = 'block';
+        lightboxImage.setAttribute('src', imageSrc);
+        lightboxImage.setAttribute('alt', imageAlt || 'Full screen preview');
+        revealLightbox();
+      };
+
+      const openPdfLightbox = () => {
+        lightboxImage.style.display = 'none';
+        lightboxPdf.style.display = 'block';
+        revealLightbox();
       };
 
       const closeLightbox = () => {
         cvLightbox.classList.remove('is-open');
         cvLightbox.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
+        lightboxPdf.style.display = 'none';
+        lightboxImage.style.display = 'block';
       };
 
       if (cvTrigger) {
-        cvTrigger.addEventListener('click', () => {
-          openLightbox('سي%20في.png', 'CV Full Screen Preview');
-        });
+        cvTrigger.addEventListener('click', openPdfLightbox);
         cvTrigger.addEventListener('keydown', (event) => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
-            openLightbox('سي%20في.png', 'CV Full Screen Preview');
+            openPdfLightbox();
           }
         });
       }
 
       flowSheetImages.forEach((image) => {
         const openCurrentImage = () => {
-          openLightbox(image.getAttribute('src'), image.getAttribute('alt'));
+          openImageLightbox(image.getAttribute('src'), image.getAttribute('alt'));
         };
 
         image.addEventListener('click', openCurrentImage);

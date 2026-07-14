@@ -5,39 +5,39 @@
 >
   <url>
     <loc>https://www.kreemaly.com/</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://www.kreemaly.com/mypho.jpeg</image:loc>
+      <image:loc>https://www.kreemaly.com/assets/images/profile-main.jpeg</image:loc>
       <image:title>Kreem Aly portrait</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.kreemaly.com/ovaphoto.jpeg</image:loc>
+      <image:loc>https://www.kreemaly.com/assets/images/projects/ova-store-preview.jpeg</image:loc>
       <image:title>Ova Perfume project preview</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.kreemaly.com/Screenshot%202026-07-12%20235646.png</image:loc>
+      <image:loc>https://www.kreemaly.com/assets/images/projects/aspen-gas-separation.png</image:loc>
       <image:title>Aspen HYSYS gas separation flow sheet</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.kreemaly.com/Screenshot%202026-07-12%20235548.png</image:loc>
+      <image:loc>https://www.kreemaly.com/assets/images/projects/aspen-ammonia-process.png</image:loc>
       <image:title>Aspen HYSYS ammonia process flow sheet</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://www.kreemaly.com/protofolio.html</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.kreemaly.com/about.html</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
-      <image:loc>https://www.kreemaly.com/mypho.jpeg</image:loc>
+      <image:loc>https://www.kreemaly.com/assets/images/profile-main.jpeg</image:loc>
       <image:title>Kreem Aly portrait</image:title>
     </image:image>
   </url>
