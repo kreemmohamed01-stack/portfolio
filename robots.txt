@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kreemaly.com/sitemap.xml
+Sitemap: https://www.kreemaly.com/sitemap.xml
