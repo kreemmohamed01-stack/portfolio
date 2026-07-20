@@ -1853,12 +1853,24 @@
     }
 
     .video-shell {
+      position: relative;
       width: 100%;
       padding: 10px;
       border-radius: 28px;
+      overflow: hidden;
       background: linear-gradient(135deg, rgba(87, 221, 255, 0.24), rgba(110, 247, 203, 0.2), rgba(87, 221, 255, 0.12));
       box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
       animation: floatFrame 3.8s ease-in-out infinite;
+    }
+
+    .video-shell::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.16) 46%, transparent 64%);
+      transform: translateX(-120%);
+      animation: videoSheen 5.6s ease-in-out infinite;
+      pointer-events: none;
     }
 
     .video-stage {
@@ -2306,6 +2318,16 @@
       pointer-events: none;
     }
 
+    .luxe-feature__video-shell::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border-radius: 16px;
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.04), transparent 72%);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      pointer-events: none;
+    }
+
     .luxe-feature__video-card:hover .luxe-feature__video-shell::after,
     .luxe-feature__video-card:focus-visible .luxe-feature__video-shell::after {
       transform: translateX(115%);
@@ -2323,19 +2345,7 @@
     }
 
     .luxe-feature__video-overlay {
-      position: absolute;
-      left: 28px;
-      right: 28px;
-      bottom: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px 18px;
-      border-radius: 18px;
-      background: linear-gradient(180deg, rgba(4, 11, 19, 0.52), rgba(4, 11, 19, 0.82));
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(10px);
+      display: none;
     }
 
     .luxe-feature__video-copy {
@@ -2645,20 +2655,27 @@
 
     @media (max-width: 640px) {
       .luxe-feature__grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
+        grid-template-columns: 1fr;
+        gap: 14px;
       }
 
       .luxe-feature__video-card,
       .luxe-feature__gallery-card {
         padding: 14px;
         border-radius: 22px;
+        width: 100%;
       }
 
       .luxe-feature__video-shell,
       .luxe-feature__gallery-shell {
         padding: 10px;
         border-radius: 18px;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+      }
+
+      .luxe-feature__video {
+        height: 100%;
       }
 
       .luxe-feature__video-overlay {
@@ -3236,6 +3253,24 @@
       }
     }
 
+    @keyframes videoSheen {
+      0%, 100% {
+        transform: translateX(-120%);
+        opacity: 0;
+      }
+      18% {
+        opacity: 0.55;
+      }
+      50% {
+        transform: translateX(120%);
+        opacity: 0.18;
+      }
+      100% {
+        transform: translateX(120%);
+        opacity: 0;
+      }
+    }
+
     @keyframes heroDrift {
       0%, 100% {
         transform: var(--base-transform) translateY(0);
@@ -3691,8 +3726,8 @@
       }
 
       .videos-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
+        grid-template-columns: 1fr;
+        gap: 18px;
       }
 
       .project-band,
@@ -3707,7 +3742,7 @@
       }
 
       .video-box video {
-        max-height: 340px;
+        max-height: 520px;
       }
 
       .video-shell {
@@ -3730,12 +3765,12 @@
       }
 
       .video-caption {
-        font-size: 0.84rem;
-        letter-spacing: 0.12em;
+        font-size: 0.92rem;
+        letter-spacing: 0.14em;
       }
 
       .video-note {
-        font-size: 0.84rem;
+        font-size: 0.9rem;
       }
 
       .video-actions {
@@ -4100,13 +4135,6 @@
                   <video class="luxe-feature__video" autoplay muted loop playsinline preload="metadata">
                     <source src="%D9%84%D9%88%D9%83%D8%B3%20%D9%81%D9%8A%D8%AF%D9%8A%D9%88.mp4" type="video/mp4">
                   </video>
-                  <div class="luxe-feature__video-overlay">
-                    <div class="luxe-feature__video-copy">
-                      <strong>Open LUXE Store</strong>
-                      <span>Luxury fashion e-commerce experience</span>
-                    </div>
-                    <span class="luxe-feature__video-pill">Visit Site</span>
-                  </div>
                 </div>
                 <div class="luxe-feature__meta">
                   <strong>Cinematic Store Build</strong>
