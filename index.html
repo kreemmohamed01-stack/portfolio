@@ -4178,8 +4178,8 @@
               >
                 <span class="luxe-feature__eyebrow">Live Website Preview</span>
                 <div class="luxe-feature__video-shell">
-                  <video class="luxe-feature__video" autoplay muted loop playsinline preload="metadata">
-                    <source src="%D9%84%D9%88%D9%83%D8%B3%20%D9%81%D9%8A%D8%AF%D9%8A%D9%88.mp4" type="video/mp4">
+                  <video class="luxe-feature__video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="1000027215.jpg" data-portfolio-video>
+                    <source src="luxe-video.mp4" type="video/mp4">
                   </video>
                 </div>
                 <div class="luxe-feature__meta">
@@ -4294,7 +4294,7 @@
               <article class="video-box">
                 <div class="video-shell">
                   <div class="video-stage">
-                    <video autoplay muted loop controls playsinline preload="metadata">
+                    <video autoplay muted loop controls playsinline webkit-playsinline preload="auto" data-portfolio-video>
                       <source src="ovaved.mp4" type="video/mp4">
                     </video>
                   </div>
@@ -4315,8 +4315,8 @@
               <article class="video-box">
                 <div class="video-shell">
                   <div class="video-stage">
-                    <video autoplay muted loop controls playsinline preload="metadata">
-                      <source src="%D9%81%D9%8A%D8%AF%D9%8A%D9%88%20%D8%A7%D8%B1%D8%A7%D8%A8%D9%8A%D9%86%20%D8%A8%D9%8A%D8%B1%D9%81%D9%8A%D9%88%D9%85.mp4" type="video/mp4">
+                    <video autoplay muted loop controls playsinline webkit-playsinline preload="auto" data-portfolio-video>
+                      <source src="arabian-perfume-video.mp4" type="video/mp4">
                     </video>
                   </div>
                 </div>
@@ -4631,6 +4631,7 @@
     const luxeGalleryPrev = luxeGalleryModal ? luxeGalleryModal.querySelector('[data-luxe-gallery-prev]') : null;
     const luxeGalleryNext = luxeGalleryModal ? luxeGalleryModal.querySelector('[data-luxe-gallery-next]') : null;
     const luxeGalleryCloseButtons = luxeGalleryModal ? luxeGalleryModal.querySelectorAll('[data-luxe-gallery-close]') : [];
+    const portfolioVideos = document.querySelectorAll('[data-portfolio-video]');
     const interactiveSelector = 'a, button, [role="button"]';
     const luxeGalleryFrames = [
       { src: '1000027215.jpg', alt: 'LUXE Store screen 1' },
@@ -4850,6 +4851,51 @@
           updateLuxeGallery(luxeGalleryIndex - 1);
         }
       });
+    }
+
+    const syncPortfolioVideoPlayback = () => {
+      if (!portfolioVideos.length) {
+        return;
+      }
+
+      portfolioVideos.forEach((video) => {
+        video.muted = true;
+        video.defaultMuted = true;
+        video.playsInline = true;
+        video.autoplay = true;
+        video.loop = true;
+        video.setAttribute('muted', '');
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+
+        const startPlayback = () => {
+          const playAttempt = video.play();
+          if (playAttempt && typeof playAttempt.catch === 'function') {
+            playAttempt.catch(() => {});
+          }
+        };
+
+        if (video.readyState >= 2) {
+          startPlayback();
+        } else {
+          video.addEventListener('loadeddata', startPlayback, { once: true });
+          video.addEventListener('canplay', startPlayback, { once: true });
+        }
+      });
+    };
+
+    if (portfolioVideos.length) {
+      syncPortfolioVideoPlayback();
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          syncPortfolioVideoPlayback();
+        }
+      });
+
+      window.addEventListener('pageshow', syncPortfolioVideoPlayback);
+      document.addEventListener('touchstart', syncPortfolioVideoPlayback, { passive: true });
+      document.addEventListener('pointerdown', syncPortfolioVideoPlayback, { passive: true });
     }
 
     const registerInteractionAudio = () => {
