@@ -2659,23 +2659,65 @@
         gap: 14px;
       }
 
+      .luxe-feature__head {
+        gap: 8px;
+      }
+
+      .luxe-feature__copy {
+        display: none;
+      }
+
       .luxe-feature__video-card,
       .luxe-feature__gallery-card {
-        padding: 14px;
+        padding: 12px;
         border-radius: 22px;
         width: 100%;
       }
 
-      .luxe-feature__video-shell,
-      .luxe-feature__gallery-shell {
-        padding: 10px;
+      .luxe-feature__video-shell {
+        padding: 8px;
         border-radius: 18px;
         width: 100%;
-        aspect-ratio: 1 / 1;
+        aspect-ratio: 9 / 13;
+        min-height: 440px;
+      }
+
+      .luxe-feature__gallery-shell {
+        padding: 8px;
+        border-radius: 18px;
+        width: 100%;
+        aspect-ratio: 1 / 1.08;
       }
 
       .luxe-feature__video {
+        width: 100%;
         height: 100%;
+        object-fit: contain;
+      }
+
+      .luxe-feature__gallery-mosaic {
+        gap: 8px;
+      }
+
+      .luxe-feature__meta p,
+      .luxe-feature__gallery-meta p {
+        display: none;
+      }
+
+      .luxe-feature__meta strong,
+      .luxe-feature__gallery-meta strong {
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+      }
+
+      .luxe-feature__eyebrow {
+        font-size: 0.62rem;
+        letter-spacing: 0.14em;
+      }
+
+      .luxe-feature__gallery-badge {
+        font-size: 0.64rem;
+        padding: 8px 10px;
       }
 
       .luxe-feature__video-overlay {
@@ -3736,21 +3778,25 @@
       }
 
       .video-box {
-        gap: 14px;
-        padding: 10px;
+        gap: 10px;
+        padding: 8px;
         border-radius: 24px;
       }
 
       .video-box video {
-        max-height: 520px;
+        width: 100%;
+        height: min(78vh, 700px);
+        max-height: none;
+        aspect-ratio: auto;
+        object-fit: contain;
       }
 
       .video-shell {
-        padding: 8px;
+        padding: 6px;
       }
 
       .video-stage {
-        padding: 8px;
+        padding: 6px;
         border-radius: 18px;
       }
 
@@ -3765,12 +3811,12 @@
       }
 
       .video-caption {
-        font-size: 0.92rem;
-        letter-spacing: 0.14em;
+        font-size: 0.86rem;
+        letter-spacing: 0.12em;
       }
 
       .video-note {
-        font-size: 0.9rem;
+        display: none;
       }
 
       .video-actions {
