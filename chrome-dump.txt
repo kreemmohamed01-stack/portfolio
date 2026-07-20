@@ -1,0 +1,27 @@
+﻿chrome.exe : [8764:8292:0718/195351.075:ERROR:chrome\installer\util\google_update_settings_win.cc:270] Failed opening 
+key Software\Google\Update\ClientStateMedium\{8A69D345-D564-463c-AFF1-A69D9E530F96} to set usagestats; result: 5
+At line:2 char:1
++ & 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe' --use ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([8764:8292:0718...tats; result: 5:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[8764:1040:0718/195421.394:ERROR:components\webapps\browser\web_contents\web_app_url_loader.cc:180] Error loading 
+about:blank page took too long to load.
+[8764:1040:0718/195451.437:ERROR:components\webapps\browser\web_contents\web_app_url_loader.cc:180] Error loading 
+about:blank page took too long to load.
+[8764:1040:0718/195521.473:ERROR:components\webapps\browser\web_contents\web_app_url_loader.cc:180] Error loading 
+about:blank page took too long to load.
+[8764:1040:0718/195551.546:ERROR:components\webapps\browser\web_contents\web_app_url_loader.cc:180] Error loading 
+about:blank page took too long to load.
+[8764:1040:0718/195621.585:ERROR:components\webapps\browser\web_contents\web_app_url_loader.cc:180] Error loading 
+about:blank page took too long to load.
+[8764:1040:0718/195651.185:ERROR:services\on_device_model\public\cpp\service_client.cc:37] Unexpected on_device_model 
+service disconnect; reason: 0, description: 
+[8764:1040:0718/195651.633:ERROR:components\webapps\browser\web_contents\web_app_url_loader.cc:180] Error loading 
+about:blank page took too long to load.
+[8764:1040:0718/195721.698:ERROR:components\webapps\browser\web_contents\web_app_url_loader.cc:180] Error loading 
+about:blank page took too long to load.
+[8764:1040:0718/200626.892:ERROR:components\device_event_log\device_event_log_impl.cc:200] [20:06:26.893] USB: 
+usb_service_win.cc:108 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: Element not 
+found. (0x490)
