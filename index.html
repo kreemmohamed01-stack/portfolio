@@ -817,6 +817,7 @@
       text-transform: uppercase;
       text-shadow: 0 0 16px rgba(87, 221, 255, 0.24);
       white-space: nowrap;
+      transition: opacity 0.24s ease, visibility 0.24s ease;
     }
 
     .hero-visual-stage::before {
@@ -1160,9 +1161,12 @@
     }
 
     .hero-screen.is-light-intro-complete .hero-replay-lights {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
+      display: none;
+    }
+
+    .hero-screen.is-light-intro-complete .hero-lamp-hint {
+      opacity: 0;
+      visibility: hidden;
     }
 
     .page-transition {
@@ -5115,7 +5119,6 @@
 
       heroScreen.classList.add('is-light-intro-active');
       heroScreen.classList.remove('is-light-intro-complete');
-      heroReplayButton?.classList.remove('is-visible');
       setLampImage(false);
       positionHeroLightBloom();
 
@@ -5145,7 +5148,6 @@
       document.documentElement.classList.remove('lights-intro-pending');
       heroScreen.classList.remove('is-light-intro-active');
       heroScreen.classList.add('is-light-intro-complete');
-      heroReplayButton?.classList.add('is-visible');
 
       if (window.gsap) {
         gsap.set(heroDarkOverlay, { opacity: 0 });
