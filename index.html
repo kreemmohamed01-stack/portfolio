@@ -643,6 +643,8 @@
     }
 
     .hero-screen {
+      position: relative;
+      isolation: isolate;
       background:
         linear-gradient(180deg, rgba(1, 2, 3, 0.98), rgba(1, 2, 3, 1)),
         #010203;
@@ -652,6 +654,8 @@
 
     .hero-overlay {
       direction: rtl;
+      position: relative;
+      z-index: 5;
       width: var(--container);
       min-height: 100vh;
       margin-inline: auto;
@@ -676,6 +680,75 @@
       backdrop-filter: none;
     }
 
+    .hero-intro-stage {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .hero-dark-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.995), rgba(0, 0, 0, 0.985));
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .hero-light-bloom {
+      position: absolute;
+      top: 18%;
+      left: 50%;
+      width: min(28vw, 320px);
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(176, 234, 255, 0.96) 0%, rgba(103, 208, 255, 0.54) 24%, rgba(76, 161, 255, 0.24) 46%, transparent 72%);
+      filter: blur(22px);
+      transform: translate(-50%, -50%) scale(0.18);
+      opacity: 0;
+      will-change: transform, opacity, left, top;
+    }
+
+    .hero-replay-lights {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 11;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(143, 218, 255, 0.26);
+      background: rgba(10, 12, 17, 0.72);
+      color: #dff6ff;
+      font-family: "Orbitron", sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transform: translateY(-12px);
+      pointer-events: none;
+      transition: transform 0.28s ease, border-color 0.28s ease, background 0.28s ease;
+    }
+
+    .hero-replay-lights:hover,
+    .hero-replay-lights:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(163, 226, 255, 0.46);
+      background: rgba(15, 17, 23, 0.84);
+      outline: none;
+    }
+
+    .hero-replay-lights.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
     .hero-visual-stage {
       position: relative;
       width: min(980px, 100%);
@@ -684,6 +757,66 @@
       place-items: center;
       isolation: isolate;
       overflow: visible;
+    }
+
+    .hero-lamp-wrap {
+      position: absolute;
+      top: -8px;
+      right: clamp(3%, 11vw, 14%);
+      display: grid;
+      justify-items: center;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .hero-lamp-cord {
+      width: 2px;
+      height: clamp(84px, 11vw, 118px);
+      background: linear-gradient(180deg, rgba(95, 95, 95, 0.12), rgba(165, 227, 255, 0.58));
+      box-shadow: 0 0 12px rgba(87, 221, 255, 0.12);
+    }
+
+    .hero-lamp-button {
+      position: relative;
+      width: clamp(92px, 10vw, 132px);
+      border: 0;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+      transform-origin: top center;
+      will-change: transform, filter;
+    }
+
+    .hero-lamp-button img {
+      width: 100%;
+      display: block;
+      object-fit: contain;
+      filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.36));
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .hero-lamp-button.is-lit img {
+      filter:
+        drop-shadow(0 0 18px rgba(164, 224, 255, 0.78))
+        drop-shadow(0 0 54px rgba(76, 161, 255, 0.42))
+        drop-shadow(0 18px 26px rgba(0, 0, 0, 0.34));
+    }
+
+    .hero-lamp-button:focus-visible {
+      outline: 2px solid rgba(155, 225, 255, 0.62);
+      outline-offset: 8px;
+      border-radius: 20px;
+    }
+
+    .hero-lamp-hint {
+      color: #daf5ff;
+      font-family: "Orbitron", sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-shadow: 0 0 16px rgba(87, 221, 255, 0.24);
+      white-space: nowrap;
     }
 
     .hero-visual-stage::before {
@@ -843,6 +976,7 @@
       border: 0;
       box-shadow: none;
       width: min(860px, 100%);
+      margin-inline: auto;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -852,6 +986,7 @@
 
     .hero-tag {
       margin-bottom: 0;
+      margin-inline: auto;
     }
 
     .hero-name {
@@ -900,6 +1035,7 @@
 
     .strengths-box {
       width: min(760px, 100%);
+      margin-inline: auto;
       padding: 24px 24px 20px;
       border-radius: 26px;
       background:
@@ -946,6 +1082,87 @@
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
       box-shadow: 0 0 14px rgba(87, 221, 255, 0.38);
       transform: translateY(-50%);
+    }
+
+    html.lights-intro-pending,
+    html.lights-intro-pending body,
+    body.intro-scroll-lock {
+      overflow: hidden;
+      height: 100vh;
+      touch-action: none;
+      overscroll-behavior: none;
+    }
+
+    html.lights-intro-pending .hero-dark-overlay,
+    .hero-screen.is-light-intro-active .hero-dark-overlay {
+      opacity: 1;
+    }
+
+    html.lights-intro-pending .hero-screen,
+    .hero-screen.is-light-intro-active {
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.995)),
+        #000;
+    }
+
+    html.lights-intro-pending .hero-overlay,
+    .hero-screen.is-light-intro-active .hero-overlay {
+      position: relative;
+      justify-content: center;
+      gap: 0;
+    }
+
+    html.lights-intro-pending .hero-card,
+    .hero-screen.is-light-intro-active .hero-card {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      display: block;
+      width: min(980px, calc(100% - 24px));
+      transform: translate(-50%, -46%);
+    }
+
+    html.lights-intro-pending .hero-photo img,
+    .hero-screen.is-light-intro-active .hero-photo img {
+      filter: brightness(0.01) saturate(0.03) grayscale(0.24) blur(1.2px) drop-shadow(0 18px 28px rgba(0, 0, 0, 0.92));
+      opacity: 0;
+    }
+
+    html.lights-intro-pending .hero-photo,
+    .hero-screen.is-light-intro-active .hero-photo {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    html.lights-intro-pending .top-nav,
+    html.lights-intro-pending .hero-service-box,
+    html.lights-intro-pending .hero-meta,
+    html.lights-intro-pending .hero-copy,
+    html.lights-intro-pending .hero-socials,
+    .hero-screen.is-light-intro-active .top-nav,
+    .hero-screen.is-light-intro-active .hero-service-box,
+    .hero-screen.is-light-intro-active .hero-meta,
+    .hero-screen.is-light-intro-active .hero-copy,
+    .hero-screen.is-light-intro-active .hero-socials {
+      display: none;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    html.lights-intro-pending .portfolio-main > :not(.hero-screen),
+    html.lights-intro-pending .footer,
+    body.intro-scroll-lock .portfolio-main > :not(.hero-screen),
+    body.intro-scroll-lock .footer {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(40px);
+      pointer-events: none;
+    }
+
+    .hero-screen.is-light-intro-complete .hero-replay-lights {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
 
     .page-transition {
@@ -2192,17 +2409,24 @@
       z-index: 1;
     }
 
+    [data-scroll-reveal],
     [data-work-reveal] {
       opacity: 0;
+      visibility: hidden;
       transform: translateY(34px) scale(0.985);
       transition:
         opacity 0.82s ease,
-        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 0s linear 0.9s;
+      transition-delay: var(--reveal-delay, 0s);
     }
 
+    [data-scroll-reveal].is-visible,
     [data-work-reveal].is-visible {
       opacity: 1;
+      visibility: visible;
       transform: translateY(0) scale(1);
+      transition-delay: var(--reveal-delay, 0s);
     }
 
     .luxe-feature__head {
@@ -3471,6 +3695,15 @@
         height: clamp(560px, 82vh, 820px);
       }
 
+      .hero-lamp-wrap {
+        right: 8%;
+        top: -6px;
+      }
+
+      .hero-light-bloom {
+        width: min(38vw, 280px);
+      }
+
       .panel-screen {
         height: auto;
         min-height: 100vh;
@@ -3560,6 +3793,32 @@
         max-height: none;
         object-fit: cover;
         object-position: center top;
+      }
+
+      .hero-lamp-wrap {
+        right: 2%;
+        top: 10px;
+        gap: 6px;
+      }
+
+      .hero-lamp-cord {
+        height: 82px;
+      }
+
+      .hero-lamp-button {
+        width: 84px;
+      }
+
+      .hero-lamp-hint {
+        font-size: 0.58rem;
+        letter-spacing: 0.14em;
+      }
+
+      .hero-replay-lights {
+        top: 14px;
+        right: 14px;
+        padding: 9px 11px;
+        font-size: 0.58rem;
       }
 
       .hero-socials {
@@ -3998,12 +4257,20 @@
     }
 
   </style>
+  <script>
+    document.documentElement.classList.add('lights-intro-pending');
+  </script>
 </head>
 <body>
   <div class="page-transition" aria-hidden="true"></div>
   <main class="portfolio-main" id="main">
     <section class="hero-screen">
+      <div class="hero-intro-stage" aria-hidden="true">
+        <div class="hero-dark-overlay" data-hero-dark-overlay></div>
+        <div class="hero-light-bloom" data-hero-light-bloom></div>
+      </div>
       <div class="hero-overlay">
+        <button class="hero-replay-lights" type="button" data-replay-lights>Replay Lights</button>
         <header class="top-nav">
           <div class="nav-shell">
             <span class="brand-signature">Kreem Aly</span>
@@ -4021,6 +4288,14 @@
 
         <div class="hero-card">
           <div class="hero-visual-stage">
+            <div class="hero-lamp-wrap">
+              <span class="hero-lamp-cord"></span>
+              <button class="hero-lamp-button" type="button" aria-label="Turn on the lights" data-hero-lamp>
+                <img src="lamb_no_light-removebg-preview.png" alt="" data-hero-lamp-image>
+              </button>
+              <span class="hero-lamp-hint">Turn on the lights</span>
+            </div>
+
             <div class="hero-photo">
               <img src="mypho.jpeg" alt="Kreem Aly كريم علي portrait">
             </div>
@@ -4112,14 +4387,14 @@
   <section class="section" id="cv">
     <div class="container">
       <div class="section-shell">
-        <div class="section-head">
+        <div class="section-head" data-scroll-reveal>
           <h2>CV</h2>
         </div>
 
-        <div class="cv-frame" data-open-cv role="button" tabindex="0" aria-label="Open CV full screen">
-          <img src="سي%20في.png" alt="CV Full Preview">
+        <div class="cv-frame" data-open-cv data-scroll-reveal data-reveal-delay="0.08" role="button" tabindex="0" aria-label="Open CV full screen">
+          <img src="cv%205959.jpg" alt="CV Full Preview">
         </div>
-        <div class="cv-download-wrap">
+        <div class="cv-download-wrap" data-scroll-reveal data-reveal-delay="0.14">
           <a class="cv-download-button" href="protofolio-assets/cv.pdf" download="Kreem-Aly-CV.pdf" aria-label="Download Kreem Aly CV PDF">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M12 3.5a.9.9 0 0 1 .9.9v8.12l2.48-2.48a.9.9 0 1 1 1.28 1.28l-4.02 4.02a.9.9 0 0 1-1.28 0l-4.02-4.02a.9.9 0 0 1 1.28-1.28l2.48 2.48V4.4a.9.9 0 0 1 .9-.9ZM5 17.4c0-.5.4-.9.9-.9h12.2a.9.9 0 1 1 0 1.8H5.9a.9.9 0 0 1-.9-.9Z" fill="currentColor"/>
@@ -4128,7 +4403,7 @@
           </a>
         </div>
 
-        <div class="cv-note">
+        <div class="cv-note" data-scroll-reveal data-reveal-delay="0.2">
           <span class="cv-note-title">I Build For</span>
           <p class="cv-note-text">
             I work with modern brands, product-based businesses, and growing founders who need a sharper online presence through custom websites, premium visuals, or Easy Order stores.
@@ -4153,7 +4428,7 @@
   <section class="section" id="works">
     <div class="container">
       <div class="section-shell">
-        <div class="section-head">
+        <div class="section-head" data-scroll-reveal>
           <h2>My Work</h2>
           <p>Selected brand work focused on premium visuals, stronger first impressions, and mobile-ready user experience.</p>
         </div>
@@ -4436,13 +4711,13 @@
   <section class="section" id="engineering">
     <div class="container">
       <div class="section-shell">
-        <div class="section-head">
+        <div class="section-head" data-scroll-reveal>
           <h2>Aspen HYSYS</h2>
           <p>A calm and organized space for engineering projects, training content, and Aspen HYSYS learning resources.</p>
         </div>
 
         <div class="engineering-layout">
-          <div class="engineering-hero">
+          <div class="engineering-hero" data-scroll-reveal data-reveal-delay="0.08">
             <div class="engineering-logo-card">
               <div class="aspen-logo" aria-label="Aspen HYSYS logo">
                 <div class="aspen-logo-mark" aria-hidden="true">
@@ -4489,14 +4764,14 @@
           </div>
 
           <div class="engineering-projects">
-            <article class="engineering-project-card">
+            <article class="engineering-project-card" data-scroll-reveal data-reveal-delay="0.14">
               <img class="lightbox-trigger-image" src="Screenshot%202026-07-12%20235646.png" alt="Aspen HYSYS gas separation and compression flow sheet" role="button" tabindex="0" aria-label="Open gas separation flow sheet full screen">
               <strong>Gas Separation Flow Sheet</strong>
               <p>A practical Aspen HYSYS flow sheet showing cooling, valve control, separation, and gas compression steps.</p>
               <span>Aspen HYSYS Project</span>
             </article>
 
-            <article class="engineering-project-card">
+            <article class="engineering-project-card" data-scroll-reveal data-reveal-delay="0.2">
               <img class="lightbox-trigger-image" src="Screenshot%202026-07-12%20235548.png" alt="Aspen HYSYS ammonia process flow sheet" role="button" tabindex="0" aria-label="Open ammonia process flow sheet full screen">
               <strong>Ammonia Process Flow Sheet</strong>
               <p>An Aspen HYSYS process model for reforming, cooling, separation, compression, and ammonia product routing.</p>
@@ -4510,7 +4785,7 @@
 
   <section class="business-cta-section" aria-labelledby="business-contact-title">
     <div class="container">
-      <div class="business-cta-card">
+      <div class="business-cta-card" data-scroll-reveal>
         <span class="business-cta-kicker">For Business</span>
         <div class="business-cta-content">
           <h2 id="business-contact-title">Contact Us For Your Next Business Project</h2>
@@ -4539,7 +4814,7 @@
 
   <section class="official-links-section" aria-labelledby="official-links-title">
     <div class="container">
-      <div class="official-links-card">
+      <div class="official-links-card" data-scroll-reveal>
         <div class="official-links-head">
           <h2 id="official-links-title">Official Profiles</h2>
           <p>
@@ -4579,7 +4854,7 @@
   </main>
 
   <footer class="footer">
-    <div class="container">
+    <div class="container" data-scroll-reveal data-reveal-delay="0.08">
       <p>&copy; 2026 Kreem Aly | Kreemaly | كريم علي</p>
     </div>
   </footer>
@@ -4613,16 +4888,33 @@
 
   <div class="image-lightbox" id="cv-lightbox" aria-hidden="true">
     <button class="lightbox-close" type="button" aria-label="Close CV preview">&times;</button>
-    <img class="lightbox-image" src="سي%20في.png" alt="CV Full Screen Preview">
+    <img class="lightbox-image" src="cv%205959.jpg" alt="CV Full Screen Preview">
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script>
     const cvTrigger = document.querySelector('[data-open-cv]');
     const cvLightbox = document.getElementById('cv-lightbox');
     const closeLightboxButton = cvLightbox ? cvLightbox.querySelector('.lightbox-close') : null;
     const lightboxImage = cvLightbox ? cvLightbox.querySelector('.lightbox-image') : null;
     const flowSheetImages = document.querySelectorAll('.lightbox-trigger-image');
-    const workRevealTargets = document.querySelectorAll('[data-work-reveal]');
+    const heroScreen = document.querySelector('.hero-screen');
+    const heroOverlay = document.querySelector('.hero-overlay');
+    const heroDarkOverlay = document.querySelector('[data-hero-dark-overlay]');
+    const heroLightBloom = document.querySelector('[data-hero-light-bloom]');
+    const heroLampButton = document.querySelector('[data-hero-lamp]');
+    const heroLampImage = document.querySelector('[data-hero-lamp-image]');
+    const heroReplayButton = document.querySelector('[data-replay-lights]');
+    const heroPhotoFrame = document.querySelector('.hero-photo');
+    const heroPhotoImage = document.querySelector('.hero-photo img');
+    const heroTopNav = document.querySelector('.top-nav');
+    const heroMeta = document.querySelector('.hero-meta');
+    const heroSocials = document.querySelector('.hero-socials');
+    const heroTag = document.querySelector('.hero-tag');
+    const heroDescription = document.querySelector('.strengths-box');
+    const heroActions = document.querySelector('.hero-actions');
+    const heroServiceBox = document.querySelector('.hero-service-box');
+    const scrollRevealTargets = document.querySelectorAll('[data-scroll-reveal], [data-work-reveal]');
     const luxeGalleryModal = document.getElementById('luxe-gallery-modal');
     const luxeGalleryStage = luxeGalleryModal ? luxeGalleryModal.querySelector('[data-luxe-gallery-stage]') : null;
     const luxeGalleryCount = luxeGalleryModal ? luxeGalleryModal.querySelector('[data-luxe-gallery-count]') : null;
@@ -4653,6 +4945,8 @@
     let lastTouchToneAt = 0;
     let lastPointerX = 0;
     let lastPointerY = 0;
+    let lightIntroTimeline;
+    let scrollRevealReady = false;
 
     const getAudioContext = () => {
       if (!audioContext) {
@@ -4750,26 +5044,233 @@
       oscillator.stop(now + 0.08);
     };
 
-    if (workRevealTargets.length) {
+    const heroIntroTargets = [heroTopNav, heroMeta, heroSocials, heroTag, heroDescription, heroActions, heroServiceBox].filter(Boolean);
+    const initScrollRevealAnimations = () => {
+      if (scrollRevealReady || !scrollRevealTargets.length) {
+        return;
+      }
+
+      scrollRevealReady = true;
+      scrollRevealTargets.forEach((element) => {
+        const revealDelay = Number(element.getAttribute('data-reveal-delay'));
+
+        if (!Number.isNaN(revealDelay) && revealDelay > 0) {
+          element.style.setProperty('--reveal-delay', `${revealDelay}s`);
+        }
+      });
+
       if ('IntersectionObserver' in window) {
-        const workObserver = new IntersectionObserver((entries) => {
+        const revealObserver = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
             if (!entry.isIntersecting) {
               return;
             }
 
             entry.target.classList.add('is-visible');
-            workObserver.unobserve(entry.target);
+            revealObserver.unobserve(entry.target);
           });
         }, {
-          threshold: 0.12,
-          rootMargin: '0px 0px -10% 0px'
+          threshold: 0.18,
+          rootMargin: '0px 0px -14% 0px'
         });
 
-        workRevealTargets.forEach((item) => workObserver.observe(item));
-      } else {
-        workRevealTargets.forEach((item) => item.classList.add('is-visible'));
+        scrollRevealTargets.forEach((item) => revealObserver.observe(item));
+        return;
       }
+
+      scrollRevealTargets.forEach((item) => item.classList.add('is-visible'));
+    };
+
+    const setIntroScrollLock = (locked) => {
+      document.body.classList.toggle('intro-scroll-lock', locked);
+    };
+
+    const setLampImage = (isLit) => {
+      if (!heroLampImage || !heroLampButton) {
+        return;
+      }
+
+      heroLampImage.setAttribute('src', isLit ? 'lamp_light_-removebg-preview.png' : 'lamb_no_light-removebg-preview.png');
+      heroLampButton.classList.toggle('is-lit', isLit);
+    };
+
+    const positionHeroLightBloom = () => {
+      if (!heroScreen || !heroLampButton || !heroLightBloom) {
+        return;
+      }
+
+      const screenRect = heroScreen.getBoundingClientRect();
+      const lampRect = heroLampButton.getBoundingClientRect();
+      const centerX = lampRect.left - screenRect.left + (lampRect.width / 2);
+      const centerY = lampRect.top - screenRect.top + (lampRect.height * 0.58);
+
+      heroLightBloom.style.left = `${centerX}px`;
+      heroLightBloom.style.top = `${centerY}px`;
+    };
+
+    const setHeroIntroInitialState = () => {
+      if (!heroScreen || !heroDarkOverlay || !heroLightBloom || !heroPhotoImage || !heroPhotoFrame) {
+        return;
+      }
+
+      heroScreen.classList.add('is-light-intro-active');
+      heroScreen.classList.remove('is-light-intro-complete');
+      heroReplayButton?.classList.remove('is-visible');
+      setLampImage(false);
+      positionHeroLightBloom();
+
+      if (window.gsap) {
+        gsap.set(heroDarkOverlay, { opacity: 0.985 });
+        gsap.set(heroLightBloom, { opacity: 0, scale: 0.18 });
+        gsap.set(heroPhotoFrame, { opacity: 0 });
+        gsap.set(heroPhotoImage, { opacity: 0, filter: 'brightness(0.01) saturate(0.03) grayscale(0.24) blur(1.2px) drop-shadow(0 18px 28px rgba(0, 0, 0, 0.92))' });
+        gsap.set(heroTopNav, { opacity: 0, y: 30, filter: 'blur(10px)' });
+        gsap.set(heroTag, { opacity: 0, y: 30, filter: 'blur(10px)' });
+        gsap.set(heroDescription, { opacity: 0, y: 34, filter: 'blur(12px)' });
+        gsap.set(heroActions, { opacity: 0, y: 28, filter: 'blur(8px)' });
+        gsap.set(heroServiceBox, { opacity: 0, y: 32, scale: 0.97, filter: 'blur(12px)' });
+        gsap.set([heroMeta, heroSocials], { opacity: 0, y: 26, filter: 'blur(10px)' });
+      }
+    };
+
+    const completeHeroLightsIntro = () => {
+      if (!heroScreen || !heroDarkOverlay || !heroLightBloom || !heroPhotoImage || !heroPhotoFrame) {
+        return;
+      }
+
+      lightIntroTimeline?.kill();
+      lightIntroTimeline = null;
+      setLampImage(true);
+      setIntroScrollLock(false);
+      document.documentElement.classList.remove('lights-intro-pending');
+      heroScreen.classList.remove('is-light-intro-active');
+      heroScreen.classList.add('is-light-intro-complete');
+      heroReplayButton?.classList.add('is-visible');
+
+      if (window.gsap) {
+        gsap.set(heroDarkOverlay, { opacity: 0 });
+        gsap.set(heroLightBloom, { opacity: 0, scale: 0.2 });
+        gsap.set(heroPhotoFrame, { clearProps: 'opacity' });
+        gsap.set(heroPhotoImage, { clearProps: 'opacity,filter' });
+        gsap.set([heroTopNav, heroMeta, heroSocials, heroTag, heroDescription, heroActions, heroServiceBox], { clearProps: 'opacity,transform,filter' });
+      } else {
+        heroIntroTargets.forEach((element) => {
+          element.style.opacity = '1';
+          element.style.transform = 'none';
+        });
+        heroPhotoFrame.style.opacity = '';
+        heroPhotoImage.style.opacity = '';
+        heroPhotoImage.style.filter = '';
+      }
+
+      initScrollRevealAnimations();
+      window.requestAnimationFrame(updateHeroScrollMotion);
+    };
+
+    const startHeroLightsIntro = () => {
+      if (!heroScreen || !heroDarkOverlay || !heroLightBloom || !heroLampButton || !heroPhotoImage || !heroPhotoFrame) {
+        return;
+      }
+
+      if (!window.gsap) {
+        setLampImage(true);
+        completeHeroLightsIntro();
+        return;
+      }
+
+      setIntroScrollLock(true);
+      document.documentElement.classList.add('lights-intro-pending');
+      setHeroIntroInitialState();
+      playUiSound('press', 1.18);
+
+      lightIntroTimeline?.kill();
+      lightIntroTimeline = gsap.timeline({
+        defaults: { ease: 'power2.out' },
+        onComplete: () => completeHeroLightsIntro()
+      });
+
+      lightIntroTimeline
+        .to(heroLampButton, {
+          rotate: -2,
+          y: 6,
+          duration: 0.18,
+          ease: 'power1.inOut',
+          yoyo: true,
+          repeat: 1,
+          onStart: () => setLampImage(true)
+        })
+        .to(heroLightBloom, {
+          opacity: 1,
+          scale: 5.2,
+          duration: 1.22,
+          ease: 'power3.out'
+        }, '-=0.08')
+        .to(heroDarkOverlay, {
+          opacity: 0,
+          duration: 1.18,
+          ease: 'power2.out'
+        }, '<')
+        .to(heroPhotoFrame, {
+          opacity: 1,
+          duration: 1.12,
+          ease: 'power2.out'
+        }, '<')
+        .to(heroPhotoImage, {
+          opacity: 1,
+          filter: 'brightness(1) saturate(1) grayscale(0) blur(0px) drop-shadow(0 26px 44px rgba(0, 0, 0, 0.46))',
+          duration: 1.2,
+          ease: 'power2.out'
+        }, '<')
+        .to(heroLightBloom, {
+          opacity: 0.18,
+          scale: 3.7,
+          duration: 0.82,
+          ease: 'power2.inOut'
+        }, '+=0.14');
+    };
+
+    const updateHeroScrollMotion = () => {
+      if (!heroScreen || !heroScreen.classList.contains('is-light-intro-complete')) {
+        return;
+      }
+
+      const rect = heroScreen.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || 1;
+      const progress = Math.min(Math.max((0 - rect.top) / Math.max(rect.height - viewportHeight * 0.3, 1), 0), 1);
+
+      if (window.gsap) {
+        gsap.set(heroTopNav, { y: progress * -12 });
+        gsap.set(heroTag, { y: progress * -22 });
+        gsap.set(heroDescription, { y: progress * -30 });
+        gsap.set(heroActions, { y: progress * -38 });
+        gsap.set(heroServiceBox, { y: progress * -20, scale: 1 - (progress * 0.02) });
+        gsap.set(heroMeta, { y: progress * -16 });
+        gsap.set(heroSocials, { y: progress * -12 });
+        gsap.set(heroLightBloom, { opacity: 0.18 - (progress * 0.08), scale: 3.7 + (progress * 0.42) });
+      }
+    };
+
+    if (heroScreen && heroLampButton) {
+      positionHeroLightBloom();
+      window.addEventListener('resize', positionHeroLightBloom, { passive: true });
+      window.addEventListener('scroll', updateHeroScrollMotion, { passive: true });
+      setIntroScrollLock(true);
+      setHeroIntroInitialState();
+
+      heroLampButton.addEventListener('click', () => {
+        if (heroScreen.classList.contains('is-light-intro-active') && lightIntroTimeline) {
+          return;
+        }
+
+        startHeroLightsIntro();
+      });
+
+      heroReplayButton?.addEventListener('click', () => {
+        heroScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.setTimeout(() => {
+          startHeroLightsIntro();
+        }, 260);
+      });
     }
 
     if (luxeGalleryModal && luxeGalleryStage && luxeGalleryCount && luxeGalleryThumbs && luxeGalleryFrames.length) {
@@ -5018,12 +5519,12 @@
 
       if (cvTrigger) {
         cvTrigger.addEventListener('click', () => {
-          openLightbox('سي%20في.png', 'CV Full Screen Preview');
+          openLightbox('cv%205959.jpg', 'CV Full Screen Preview');
         });
         cvTrigger.addEventListener('keydown', (event) => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
-            openLightbox('سي%20في.png', 'CV Full Screen Preview');
+            openLightbox('cv%205959.jpg', 'CV Full Screen Preview');
           }
         });
       }
