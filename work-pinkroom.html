@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Pink Room — Case Study | Kreem Aly</title>
+  <meta name="description" content="Case study: The Pink Room, a home accessories e-commerce website designed and built by Kreem Aly.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://www.kreemaly.com/work-pinkroom.html">
+  <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+  <link rel="stylesheet" href="project-page.css">
+  <style>
+    :root { --accent-theme: var(--accent-2); }
+  </style>
+</head>
+<body>
+  <header class="project-topbar">
+    <a class="back-link" href="index.html#work">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17 7 7 17M7 17H15M7 17V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to Portfolio
+    </a>
+    <span class="logo-mini">Kreem<span> Aly</span></span>
+  </header>
+
+  <section class="project-hero">
+    <video src="pinkroom-preview.mp4" autoplay muted loop playsinline></video>
+    <div class="hero-scrim"></div>
+    <div class="project-hero-inner">
+      <span class="project-category">Home Decor · E-Commerce</span>
+      <h1 class="project-title">The Pink Room</h1>
+      <p class="project-tagline">A curated home accessories storefront built around soft, editorial visuals and an "art of fine living" mood — turning everyday browsing into a slower, more considered shopping experience.</p>
+      <div class="project-hero-actions">
+        <a class="project-btn-live" href="https://thepinkroomeg.com" target="_blank" rel="noopener noreferrer" data-glow>
+          Visit Live Site
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <span class="project-scroll-hint">
+        Scroll To Explore
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </div>
+  </section>
+
+  <main class="project-content">
+    <div class="container">
+      <div class="project-meta">
+        <div><span>Role</span><strong>Design &amp; Development</strong></div>
+        <div><span>Category</span><strong>Home Accessories E-commerce</strong></div>
+        <div><span>Platform</span><strong>Web · Mobile</strong></div>
+      </div>
+
+      <h2 class="project-section-title">Overview</h2>
+      <p class="project-desc">
+        The Pink Room needed a storefront that felt as considered as the pieces it sells. The site is built around
+        full-bleed lifestyle photography, calm typography, and an unhurried scroll — so a coffee table or a vase
+        reads like part of a home, not just a product on a shelf.
+      </p>
+
+      <h2 class="project-section-title">Highlights</h2>
+      <div class="project-grid">
+        <div class="project-feature">
+          <span class="num">01</span>
+          <strong>Editorial Homepage</strong>
+          <p>A full-screen hero and lifestyle imagery that set a refined, magazine-like tone before any product appears.</p>
+        </div>
+        <div class="project-feature">
+          <span class="num">02</span>
+          <strong>Curated Collections</strong>
+          <p>Products are grouped into clean, browsable collections that make discovering new pieces feel effortless.</p>
+        </div>
+        <div class="project-feature">
+          <span class="num">03</span>
+          <strong>Mobile-First Shopping</strong>
+          <p>Every layout was built for the phone screen first, keeping checkout fast and the browsing experience light.</p>
+        </div>
+        <div class="project-feature">
+          <span class="num">04</span>
+          <strong>Connected Store Backend</strong>
+          <p>Paired with a custom admin dashboard so orders, inventory, and content stay easy to manage day to day.</p>
+        </div>
+      </div>
+
+      <h2 class="project-section-title">Built With</h2>
+      <div class="project-stack">
+        <span><span class="tech-ico" style="background:#e34c26">H5</span>HTML5</span>
+        <span><span class="tech-ico" style="background:#2965f1">C3</span>CSS3</span>
+        <span><span class="tech-ico" style="background:#f0db4f;color:#1a1a1a">JS</span>JavaScript</span>
+        <span><span class="tech-ico" style="background:#25d366">EO</span>WhatsApp Ordering</span>
+        <span><span class="tech-ico" style="background:#8b5cf6">RD</span>Responsive Design</span>
+      </div>
+
+      <div class="project-footer-cta">
+        <p>Want to see it live?</p>
+        <a class="project-btn-live" href="https://thepinkroomeg.com" target="_blank" rel="noopener noreferrer" data-glow>
+          Visit The Pink Room
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('[data-glow]').forEach(function (el) {
+      el.addEventListener('pointermove', function (e) {
+        var rect = el.getBoundingClientRect();
+        el.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+        el.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+      });
+    });
+  </script>
+</body>
+</html>

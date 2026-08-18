@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coffee Brand — Case Study | Kreem Aly</title>
+  <meta name="description" content="Case study: Coffee Brand, a premium coffee e-commerce website designed and built by Kreem Aly.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://www.kreemaly.com/work-coffee.html">
+  <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+  <link rel="stylesheet" href="project-page.css">
+  <style>
+    :root { --accent-theme: var(--accent-2); }
+  </style>
+</head>
+<body>
+  <header class="project-topbar">
+    <a class="back-link" href="index.html#work">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17 7 7 17M7 17H15M7 17V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to Portfolio
+    </a>
+    <span class="logo-mini">Kreem<span> Aly</span></span>
+  </header>
+
+  <section class="project-hero">
+    <video src="coffee-preview.mp4" autoplay muted loop playsinline></video>
+    <div class="hero-scrim"></div>
+    <div class="project-hero-inner">
+      <span class="project-category">Coffee · E-Commerce</span>
+      <h1 class="project-title">Coffee Brand</h1>
+      <p class="project-tagline">A dark, moody e-commerce experience for a premium coffee label — designed to make every roast feel as rich on screen as it does in the cup, across desktop and mobile.</p>
+      <span class="project-scroll-hint">
+        Scroll To Explore
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </div>
+  </section>
+
+  <main class="project-content">
+    <div class="container">
+      <div class="project-meta">
+        <div><span>Role</span><strong>Design &amp; Development</strong></div>
+        <div><span>Category</span><strong>Coffee E-commerce</strong></div>
+        <div><span>Platform</span><strong>Web · Mobile</strong></div>
+      </div>
+
+      <h2 class="project-section-title">Overview</h2>
+      <p class="project-desc">
+        This coffee brand needed a storefront that could carry a premium, cafe-like feel online. The site pairs a
+        dark, low-contrast palette with close-up product photography and steady motion, so the site feels as
+        crafted as the coffee itself — whether it's opened on a laptop or a phone.
+      </p>
+
+      <h2 class="project-section-title">Highlights</h2>
+      <div class="project-grid">
+        <div class="project-feature">
+          <span class="num">01</span>
+          <strong>Dark, Premium Art Direction</strong>
+          <p>A moody dark theme with warm product photography that gives the brand an upscale, cafe-quality feel.</p>
+        </div>
+        <div class="project-feature">
+          <span class="num">02</span>
+          <strong>Product-First Homepage</strong>
+          <p>The hero leads straight into the roasts on offer, with clear calls to action to shop each blend.</p>
+        </div>
+        <div class="project-feature">
+          <span class="num">03</span>
+          <strong>Fully Responsive Layout</strong>
+          <p>Every section was tuned to hold its composition from a wide desktop screen down to a single phone column.</p>
+        </div>
+        <div class="project-feature">
+          <span class="num">04</span>
+          <strong>Fast, Focused Storefront</strong>
+          <p>A lean product structure with quick navigation, built to get visitors from browsing to checkout with ease.</p>
+        </div>
+      </div>
+
+      <h2 class="project-section-title">Built With</h2>
+      <div class="project-stack">
+        <span><span class="tech-ico" style="background:#e34c26">H5</span>HTML5</span>
+        <span><span class="tech-ico" style="background:#2965f1">C3</span>CSS3</span>
+        <span><span class="tech-ico" style="background:#f0db4f;color:#1a1a1a">JS</span>JavaScript</span>
+        <span><span class="tech-ico" style="background:#8b5cf6">RD</span>Responsive Design</span>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('[data-glow]').forEach(function (el) {
+      el.addEventListener('pointermove', function (e) {
+        var rect = el.getBoundingClientRect();
+        el.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+        el.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+      });
+    });
+  </script>
+</body>
+</html>

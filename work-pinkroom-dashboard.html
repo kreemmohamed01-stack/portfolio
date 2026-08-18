@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pink Room Dashboard — Case Study | Kreem Aly</title>
+  <meta name="description" content="Case study: Pink Room Dashboard, a store management admin panel designed and built by Kreem Aly.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://www.kreemaly.com/work-pinkroom-dashboard.html">
+  <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+  <link rel="stylesheet" href="project-page.css">
+  <style>
+    :root { --accent-theme: var(--accent); }
+  </style>
+</head>
+<body>
+  <header class="project-topbar">
+    <a class="back-link" href="index.html#work">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17 7 7 17M7 17H15M7 17V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to Portfolio
+    </a>
+    <span class="logo-mini">Kreem<span> Aly</span></span>
+  </header>
+
+  <section class="project-hero">
+    <video src="pinkroom-dashboard-preview.mp4" autoplay muted loop playsinline></video>
+    <div class="hero-scrim"></div>
+    <div class="project-hero-inner">
+      <span class="project-category">Admin Dashboard · Store Management</span>
+      <h1 class="project-title">Pink Room Dashboard</h1>
+      <p class="project-tagline">A custom admin panel built to run The Pink Room's day-to-day — orders, products, customers, and store settings, all in one calm, easy-to-scan workspace.</p>
+      <div class="project-hero-actions">
+        <a class="project-btn-live" href="https://thepinkroomeg.com" target="_blank" rel="noopener noreferrer" data-glow>
+          Visit Live Site
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <span class="project-scroll-hint">
+        Scroll To Explore
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </div>
+  </section>
+
+  <main class="project-content">
+    <div class="container">
+      <div class="project-meta">
+        <div><span>Role</span><strong>Design &amp; Development</strong></div>
+        <div><span>Category</span><strong>Admin Dashboard</strong></div>
+        <div><span>Platform</span><strong>Web</strong></div>
+      </div>
+
+      <h2 class="project-section-title">Overview</h2>
+      <p class="project-desc">
+        Behind The Pink Room's storefront is a dashboard built to keep the whole business running smoothly.
+        Orders, inventory, customers, and revenue are all surfaced on a single overview screen, with the deeper
+        tools — catalog structure, coupons, shipping, notifications — organized so nothing gets lost as the store grows.
+      </p>
+
+      <h2 class="project-section-title">Highlights</h2>
+      <div class="project-grid">
+        <div class="project-feature">
+          <span class="num">01</span>
+          <strong>At-a-Glance Overview</strong>
+          <p>Revenue, orders, customers, products, and pending orders summarized in one clean dashboard view.</p>
+        </div>
+        <div class="project-feature">
+          <span class="num">02</span>
+          <strong>Full Store Control</strong>
+          <p>Orders, products, customers, inventory, coupons, and shipping are all managed from one consistent interface.</p>
+        </div>
+        <div class="project-feature">
+          <span class="num">03</span>
+          <strong>Catalog Structure</strong>
+          <p>A dedicated system for organizing collections and categories so the storefront stays easy to browse.</p>
+        </div>
+        <div class="project-feature">
+          <span class="num">04</span>
+          <strong>Built for Daily Use</strong>
+          <p>Fast actions like Add Product and View Orders are one click away, designed around the store owner's routine.</p>
+        </div>
+      </div>
+
+      <h2 class="project-section-title">Built With</h2>
+      <div class="project-stack">
+        <span><span class="tech-ico" style="background:#e34c26">H5</span>HTML5</span>
+        <span><span class="tech-ico" style="background:#2965f1">C3</span>CSS3</span>
+        <span><span class="tech-ico" style="background:#f0db4f;color:#1a1a1a">JS</span>JavaScript</span>
+        <span><span class="tech-ico" style="background:#3ecf8e;color:#1a1a1a">DB</span>Database</span>
+        <span><span class="tech-ico" style="background:#8b5cf6">RD</span>Responsive Design</span>
+      </div>
+
+      <div class="project-footer-cta">
+        <p>Want to see the store it powers?</p>
+        <a class="project-btn-live" href="https://thepinkroomeg.com" target="_blank" rel="noopener noreferrer" data-glow>
+          Visit The Pink Room
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('[data-glow]').forEach(function (el) {
+      el.addEventListener('pointermove', function (e) {
+        var rect = el.getBoundingClientRect();
+        el.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+        el.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+      });
+    });
+  </script>
+</body>
+</html>

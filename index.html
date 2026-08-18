@@ -964,7 +964,8 @@
     }
 
     .work-item.ova-item,
-    .work-item.luxe-item {
+    .work-item.luxe-item,
+    .work-item.pinkroom-item {
       grid-template-columns: minmax(240px, 300px) min(380px, 100%);
       justify-content: start;
     }
@@ -1264,6 +1265,15 @@
       aspect-ratio: 848 / 478;
     }
 
+    .pinkroom-item .work-media {
+      aspect-ratio: 430 / 850;
+    }
+
+    .pinkroom-dashboard-item .work-media,
+    .coffee-item .work-media {
+      aspect-ratio: 848 / 478;
+    }
+
     .work-media img {
       position: absolute;
       inset: 0;
@@ -1424,7 +1434,9 @@
         width: 100%;
       }
 
-      .work-item.watch-item {
+      .work-item.watch-item,
+      .work-item.pinkroom-dashboard-item,
+      .work-item.coffee-item {
         grid-column: 1 / -1;
       }
 
@@ -1445,7 +1457,7 @@
         font-size: 1.1rem;
       }
 
-      .work-item:not(.watch-item) .work-desc {
+      .work-item:not(.watch-item):not(.pinkroom-dashboard-item):not(.coffee-item) .work-desc {
         display: none;
       }
 
@@ -3655,6 +3667,83 @@
               <div class="work-media" data-work-media>
                 <img src="watch-cover.jpeg" alt="My Watch website preview">
                 <video src="watch-preview.mp4" muted loop playsinline preload="none"></video>
+              </div>
+            </div>
+          </article>
+
+          <!-- THE PINK ROOM -->
+          <article class="work-item pinkroom-item" data-reveal>
+            <div class="work-info">
+              <span class="work-number">04</span>
+              <span class="work-category">Home Decor</span>
+              <h3 class="work-name">The Pink Room</h3>
+              <p class="work-desc">Home Accessories E-commerce Website</p>
+              <div class="work-actions">
+                <a class="work-btn-live" href="https://thepinkroomeg.com" target="_blank" rel="noopener noreferrer" data-glow>
+                  View Live
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <a class="work-btn-case" href="work-pinkroom.html">
+                  Case Study
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="work-visual">
+              <div class="work-media" data-work-media>
+                <img src="pinkroom-cover.jpeg" alt="The Pink Room website preview">
+                <video src="pinkroom-preview.mp4" muted loop playsinline preload="none"></video>
+              </div>
+            </div>
+          </article>
+
+          <!-- PINK ROOM DASHBOARD -->
+          <article class="work-item theme-blue pinkroom-dashboard-item" data-reveal>
+            <div class="work-info">
+              <span class="work-number">05</span>
+              <span class="work-category">Admin Dashboard</span>
+              <h3 class="work-name">Pink Room Dashboard</h3>
+              <p class="work-desc">Store Management Dashboard</p>
+              <div class="work-actions">
+                <a class="work-btn-live" href="https://thepinkroomeg.com" target="_blank" rel="noopener noreferrer" data-glow>
+                  View Live
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <a class="work-btn-case" href="work-pinkroom-dashboard.html">
+                  Case Study
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="work-visual">
+              <div class="work-media" data-work-media>
+                <img src="pinkroom-dashboard-cover.jpeg" alt="Pink Room dashboard preview">
+                <video src="pinkroom-dashboard-preview.mp4" muted loop playsinline preload="none"></video>
+              </div>
+            </div>
+          </article>
+
+          <!-- COFFEE BRAND -->
+          <article class="work-item coffee-item" data-reveal>
+            <div class="work-info">
+              <span class="work-number">06</span>
+              <span class="work-category">E-Commerce</span>
+              <h3 class="work-name">Coffee Brand</h3>
+              <p class="work-desc">Premium Coffee E-commerce Website</p>
+              <div class="work-actions">
+                <a class="work-btn-case" href="work-coffee.html">
+                  Case Study
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="work-visual">
+              <div class="work-media" data-work-media>
+                <img src="coffee-cover.jpeg" alt="Coffee brand website preview">
+                <video src="coffee-preview.mp4" muted loop playsinline preload="none"></video>
               </div>
             </div>
           </article>
