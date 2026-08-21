@@ -797,7 +797,12 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.4;
+      /* The 0.4 opacity this used to have is now baked into the video file
+         itself (each frame pre-blended against the #04070d page background).
+         Identical result, but an opaque layer costs the compositor nothing,
+         while a semi-transparent full-section video had to be re-blended
+         against the page on every single frame — that blend was the single
+         biggest cause of scroll jank on this page. */
     }
 
     .work-bg-scrim {
@@ -1807,7 +1812,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.55;
+      /* 0.55 opacity baked into the file — see .work-bg-video. */
     }
 
     .about-bg-scrim {
@@ -1841,8 +1846,38 @@
 
     .glow-letter {
       display: inline-block;
+      /* Two things move a letter: the scroll-in reveal (--rise) and the
+         cursor proximity glow (--glow-lift). Composing them through
+         variables lets both run at once instead of overwriting each other. */
+      transform: translateY(calc(var(--rise, 0px) + var(--glow-lift, 0px)));
       transition: text-shadow 0.18s ease, transform 0.15s ease, color 0.18s ease;
       text-shadow: 0 0 var(--glow, 0px) var(--glow-color, rgba(180, 210, 255, 0.9));
+    }
+
+    /* Headings assemble letter by letter as they scroll into view. The
+       delay is capped so a long line still finishes promptly. */
+    [data-letters] .glow-letter {
+      --rise: 16px;
+      opacity: 0;
+      transition:
+        opacity 0.55s cubic-bezier(0.22, 0.9, 0.3, 1),
+        transform 0.55s cubic-bezier(0.22, 0.9, 0.3, 1),
+        text-shadow 0.18s ease,
+        color 0.18s ease;
+      transition-delay: calc(min(var(--i, 0), 26) * 30ms);
+    }
+
+    [data-letters].letters-in .glow-letter {
+      --rise: 0px;
+      opacity: 1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      [data-letters] .glow-letter {
+        --rise: 0px;
+        opacity: 1;
+        transition-delay: 0s;
+      }
     }
 
     .glow-letter:hover {
@@ -2583,7 +2618,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.38;
+      /* 0.38 opacity baked into the file — see .work-bg-video. */
     }
 
     .skills-bg-scrim {
@@ -3871,7 +3906,7 @@
     </section>
 
     <section class="work-section" id="work">
-      <video class="work-bg-video" src="section-bg.mp4" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+      <img class="work-bg-video" src="work-bg.jpg" alt="" aria-hidden="true" decoding="async">
       <div class="work-bg-scrim" aria-hidden="true"></div>
       <span class="work-glow blue" aria-hidden="true"></span>
       <span class="work-glow red" aria-hidden="true"></span>
@@ -4078,7 +4113,7 @@
     </section>
 
     <section class="about-section" id="about">
-      <video class="about-bg-video" src="section3-bg.mp4" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+      <img class="about-bg-video" src="about-bg.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
       <div class="about-bg-scrim" aria-hidden="true"></div>
 
       <div class="container">
@@ -4296,7 +4331,7 @@
     </section>
 
     <section class="skills-section" id="skills">
-      <video class="skills-bg-video" src="section-bg.mp4" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+      <img class="skills-bg-video" src="skills-bg.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
       <div class="skills-bg-scrim" aria-hidden="true"></div>
 
       <div class="container">
@@ -4762,6 +4797,7 @@
           // only break between words, not between two letters of the same
           // word.
           var wordSpan = null;
+          var letterIndex = 0;
           textNode.nodeValue.split('').forEach(function (ch) {
             if (ch === ' ') {
               wordSpan = null;
@@ -4775,7 +4811,9 @@
             }
             var span = document.createElement('span');
             span.className = 'glow-letter';
-            span.style.setProperty('--i', wordSpan.childNodes.length);
+            // Index runs across the whole line (not restarting each word) so
+            // the scroll-in stagger sweeps left-to-right evenly.
+            span.style.setProperty('--i', letterIndex++);
             span.textContent = ch;
             wordSpan.appendChild(span);
             letterEls.push(span);
@@ -4785,6 +4823,60 @@
       }
 
       document.querySelectorAll('#work .work-head, #work .work-info, #feedback .feedback-head, #feedback .feedback-card-info, #about, #skills, #why, #contact').forEach(letterizeAllText);
+
+      // Section headings assemble letter by letter when you scroll to them.
+      // Purely CSS-driven (a class flip; the per-letter delay lives in the
+      // stylesheet), so it costs nothing per frame.
+      var letterHeadings = document.querySelectorAll(
+        '.work-title, .feedback-title, .about-heading .line, ' +
+        '.skills-title .line1, .skills-title .line2, ' +
+        '.why-title .line1, .why-title .line2, ' +
+        '.contact-title .line1, .contact-title .line2, .contact-title .line3'
+      );
+      if (letterHeadings.length && 'IntersectionObserver' in window) {
+        var pendingHeadings = [];
+        var headingObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            revealHeading(entry.target);
+          });
+        }, { threshold: 0.15 });
+
+        function revealHeading(el) {
+          el.classList.add('letters-in');
+          headingObserver.unobserve(el);
+          var at = pendingHeadings.indexOf(el);
+          if (at !== -1) pendingHeadings.splice(at, 1);
+          if (!pendingHeadings.length) {
+            window.removeEventListener('scroll', headingSafetyNet);
+          }
+        }
+
+        // Safety net: a fast flick can carry a heading past the viewport
+        // between observer samples, and a heading that never got its class
+        // would stay invisible for good. This sweeps up anything already
+        // scrolled to, then removes itself once every heading is shown.
+        var safetyQueued = false;
+        function headingSafetyNet() {
+          if (safetyQueued) return;
+          safetyQueued = true;
+          requestAnimationFrame(function () {
+            safetyQueued = false;
+            pendingHeadings.slice().forEach(function (el) {
+              if (el.getBoundingClientRect().top < window.innerHeight) revealHeading(el);
+            });
+          });
+        }
+
+        letterHeadings.forEach(function (el) {
+          el.setAttribute('data-letters', '');
+          pendingHeadings.push(el);
+          headingObserver.observe(el);
+        });
+        window.addEventListener('scroll', headingSafetyNet, { passive: true });
+      } else {
+        letterHeadings.forEach(function (el) { el.classList.add('letters-in'); });
+      }
 
       // Skills diagram: lasers draw in and cards build one by one the
       // first time the section scrolls into view.
@@ -4882,7 +4974,7 @@
             var proximity = Math.max(0, 1 - dist / radius);
             el.style.setProperty('--glow', (proximity * 26).toFixed(1) + 'px');
             el.style.setProperty('--glow-a', (proximity * 0.9).toFixed(2));
-            el.style.transform = 'translateY(' + (-proximity * 4).toFixed(1) + 'px)';
+            el.style.setProperty('--glow-lift', (-proximity * 4).toFixed(1) + 'px');
           }
         }
 
