@@ -1553,7 +1553,6 @@
       display: inline-block;
       transition: text-shadow 0.18s ease, transform 0.15s ease, color 0.18s ease;
       text-shadow: 0 0 var(--glow, 0px) var(--glow-color, rgba(180, 210, 255, 0.9));
-      will-change: text-shadow, transform;
     }
 
     .glow-letter:hover {
@@ -4432,30 +4431,64 @@
       });
 
       if (letterEls.length) {
+        // With thousands of letters on the page, running getBoundingClientRect
+        // on every single one on every pointermove frame forces a layout
+        // recalculation per element (layout thrashing) and is the main cause
+        // of jank. Instead: (1) only track letters currently near the
+        // viewport via IntersectionObserver, so far-off-screen letters (which
+        // would compute to zero proximity anyway) are skipped entirely, and
+        // (2) batch all position reads before any style writes so the browser
+        // only has to flush layout once per frame instead of once per letter.
+        var activeLetters = [];
+        var visibleLetterSet = new Set();
+
+        var letterVisibilityObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              visibleLetterSet.add(entry.target);
+            } else {
+              visibleLetterSet.delete(entry.target);
+            }
+          });
+          activeLetters = Array.from(visibleLetterSet);
+        }, { rootMargin: '200px 0px 200px 0px' });
+
+        letterEls.forEach(function (el) { letterVisibilityObserver.observe(el); });
+
         var rafId = null;
         var lastX = -9999;
         var lastY = -9999;
 
         function updateLetterGlow() {
           rafId = null;
-          letterEls.forEach(function (el) {
-            var rect = el.getBoundingClientRect();
+          var radius = 170;
+          var count = activeLetters.length;
+          var rects = new Array(count);
+
+          // Read pass: gather every rect first, before any writes happen.
+          for (var i = 0; i < count; i++) {
+            rects[i] = activeLetters[i].getBoundingClientRect();
+          }
+
+          // Write pass: now update styles, with layout already settled.
+          for (var j = 0; j < count; j++) {
+            var el = activeLetters[j];
+            var rect = rects[j];
             var cx = rect.left + rect.width / 2;
             var cy = rect.top + rect.height / 2;
             var dist = Math.hypot(lastX - cx, lastY - cy);
-            var radius = 170;
             var proximity = Math.max(0, 1 - dist / radius);
             el.style.setProperty('--glow', (proximity * 26).toFixed(1) + 'px');
             el.style.setProperty('--glow-a', (proximity * 0.9).toFixed(2));
             el.style.transform = 'translateY(' + (-proximity * 4).toFixed(1) + 'px)';
-          });
+          }
         }
 
         window.addEventListener('pointermove', function (e) {
           lastX = e.clientX;
           lastY = e.clientY;
           if (!rafId) rafId = requestAnimationFrame(updateLetterGlow);
-        });
+        }, { passive: true });
       }
 
       // Scroll-reveal for the Work section.
@@ -4511,6 +4544,28 @@
           });
         }
       });
+
+      // Decorative full-section background videos (hero, work, about, skills,
+      // contact) are muted/looping and were left playing non-stop even while
+      // scrolled far off-screen — that's several videos decoding at once in
+      // the background the whole time you're on the page, competing for CPU
+      // with everything else and making scrolling feel heavy. Pausing them
+      // while off-screen (and resuming the instant they're back in view)
+      // doesn't change how they look, just stops the wasted decoding.
+      var bgVideos = document.querySelectorAll('video[autoplay]');
+      if (bgVideos.length && 'IntersectionObserver' in window) {
+        var bgVideoObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            var vid = entry.target;
+            if (entry.isIntersecting) {
+              vid.play().catch(function () {});
+            } else {
+              vid.pause();
+            }
+          });
+        }, { rootMargin: '200px 0px 200px 0px' });
+        bgVideos.forEach(function (vid) { bgVideoObserver.observe(vid); });
+      }
 
       // Mute / unmute toggle for each project preview video.
       document.querySelectorAll('[data-mute-toggle]').forEach(function (btn) {
