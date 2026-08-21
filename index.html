@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kreem Aly | Kreemaly | كريم علي | Web Designer & Frontend Developer</title>
+  <title>Kreem Aly | Kreemaly | كريم علي | Web Designer & Full Stack Developer</title>
   <meta
     name="description"
     content="Kreem Aly | Kreemaly | كريم علي portfolio at kreemaly.com featuring responsive websites, Easy Order stores, Aspen HYSYS tutorials, presentation design, logo work, official links, and direct contact."
@@ -3781,7 +3781,7 @@
             <span class="line2">Aly</span>
           </h1>
 
-          <p class="hero-role glow-text">Web Designer &amp; Frontend Developer</p>
+          <p class="hero-role glow-text">Web Designer &amp; Full Stack Developer</p>
 
           <blockquote class="hero-quote">
             I create premium, modern and responsive websites that help brands stand out.
@@ -4091,7 +4091,7 @@
 
             <h2 class="about-heading">
               <span class="line white glow-text" data-reveal-io>I'm Kreem</span>
-              <span class="line red glow-text" data-reveal-io>Frontend Developer</span>
+              <span class="line red glow-text" data-reveal-io>Full Stack Developer</span>
               <span class="line blue glow-text" data-reveal-io>&amp; UI/UX Designer</span>
             </h2>
 
@@ -4145,7 +4145,7 @@
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.6"/><path d="M5 20c1.2-4 4-6 7-6s5.8 2 7 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
               About Me
             </div>
-            <p>I'm Kreem Mohamed, a dedicated Frontend Developer and UI/UX Designer based in Egypt. I specialize in building modern, luxury, and high-performance websites that help brands stand out and deliver exceptional user experiences.</p>
+            <p>I'm Kreem Mohamed, a dedicated Full Stack Developer and UI/UX Designer based in Egypt. I specialize in building modern, luxury, and high-performance websites that help brands stand out and deliver exceptional user experiences.</p>
             <p>I love turning ideas into reality through code, design, and animations.</p>
           </div>
 
@@ -4624,28 +4624,31 @@
       window.addEventListener('resize', updateHeaderVisibility);
       updateHeaderVisibility();
 
-      // Light momentum scrolling: a normal mouse wheel jumps the page in
-      // fixed, heavy notches. Here every wheel tick adds a small push to a
-      // velocity value that then decays over a few animation frames, so the
-      // page keeps gliding for a moment after you stop turning the wheel —
-      // the same "coasts to a stop" feel a trackpad has — instead of
-      // stopping dead on every notch. Anchor links (Work/About/... in the
-      // nav) are untouched and keep using the browser's own smooth-scroll.
+      // Light momentum scrolling, the cheap way: the previous version took
+      // over every single wheel tick (preventDefault + its own scrollTo
+      // loop), which forces the browser to run that JS on the main thread
+      // before it's even allowed to scroll — on a page already busy with
+      // other work, that reads as the page "hanging" while scrolling. This
+      // version never calls preventDefault, so the browser scrolls
+      // natively and instantly on its own fast (compositor) path, exactly
+      // like normal. The only extra thing this does is, once you stop
+      // turning the wheel, let the last bit of motion glide out for a few
+      // more frames instead of stopping dead — that's the only part that
+      // touches JS, and only briefly, right at the end of a scroll.
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        var scrollVelocity = 0;
-        var scrollRafId = null;
-        var maxScrollVelocity = 70;
-        var scrollFriction = 0.92;
+        var wheelVelocity = 0;
+        var coastRafId = null;
+        var wheelStopTimer = null;
 
-        function stepMomentumScroll() {
-          if (Math.abs(scrollVelocity) < 0.5) {
-            scrollVelocity = 0;
-            scrollRafId = null;
+        function stepCoast() {
+          if (Math.abs(wheelVelocity) < 0.5) {
+            wheelVelocity = 0;
+            coastRafId = null;
             return;
           }
-          window.scrollTo({ top: window.scrollY + scrollVelocity, behavior: 'auto' });
-          scrollVelocity *= scrollFriction;
-          scrollRafId = requestAnimationFrame(stepMomentumScroll);
+          window.scrollTo({ top: window.scrollY + wheelVelocity, behavior: 'auto' });
+          wheelVelocity *= 0.88;
+          coastRafId = requestAnimationFrame(stepCoast);
         }
 
         window.addEventListener('wheel', function (e) {
@@ -4653,12 +4656,20 @@
           if (e.deltaMode === 1) delta *= 18; // line mode -> approx px
           else if (e.deltaMode === 2) delta *= window.innerHeight; // page mode -> px
 
-          scrollVelocity += delta * 0.5;
-          scrollVelocity = Math.max(-maxScrollVelocity, Math.min(maxScrollVelocity, scrollVelocity));
+          wheelVelocity = Math.max(-45, Math.min(45, delta * 0.35));
 
-          e.preventDefault();
-          if (!scrollRafId) scrollRafId = requestAnimationFrame(stepMomentumScroll);
-        }, { passive: false });
+          // Actively scrolling: let the browser handle it natively and
+          // hold off any coast loop until the wheel goes quiet.
+          if (coastRafId) {
+            cancelAnimationFrame(coastRafId);
+            coastRafId = null;
+          }
+
+          clearTimeout(wheelStopTimer);
+          wheelStopTimer = setTimeout(function () {
+            if (!coastRafId) coastRafId = requestAnimationFrame(stepCoast);
+          }, 60);
+        }, { passive: true });
       }
 
       document.querySelectorAll('[data-glow]').forEach(function (el) {
