@@ -1510,6 +1510,287 @@
       }
     }
 
+    /* ================= FEEDBACK SECTION ================= */
+
+    .feedback-section {
+      position: relative;
+      padding: 60px 0 130px;
+      background: var(--bg);
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .feedback-glow {
+      position: absolute;
+      z-index: -1;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    .feedback-glow.blue {
+      top: -8%;
+      right: -8%;
+      width: 38vw;
+      height: 38vw;
+      max-width: 540px;
+      max-height: 540px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.2), transparent 70%);
+      animation: workGlowDriftA 17s ease-in-out infinite;
+    }
+
+    .feedback-glow.red {
+      bottom: -4%;
+      left: -8%;
+      width: 34vw;
+      height: 34vw;
+      max-width: 480px;
+      max-height: 480px;
+      background: radial-gradient(circle, rgba(239, 68, 68, 0.18), transparent 70%);
+      animation: workGlowDriftB 19s ease-in-out infinite;
+    }
+
+    .feedback-head {
+      text-align: center;
+      max-width: 620px;
+      margin-inline: auto;
+    }
+
+    .feedback-kicker,
+    .feedback-title,
+    .feedback-subtitle,
+    .feedback-divider {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.4s cubic-bezier(0.22, 0.9, 0.3, 1), transform 0.4s cubic-bezier(0.22, 0.9, 0.3, 1);
+    }
+
+    .feedback-kicker.in-view,
+    .feedback-title.in-view,
+    .feedback-subtitle.in-view,
+    .feedback-divider.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .feedback-title.in-view { transition-delay: 0.05s; }
+    .feedback-subtitle.in-view { transition-delay: 0.045s; }
+    .feedback-divider.in-view { transition-delay: 0.13s; }
+
+    .feedback-kicker {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .feedback-title {
+      margin-top: 10px;
+      font-family: "Playfair Display", serif;
+      font-weight: 500;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      color: #f7fafd;
+    }
+
+    .feedback-subtitle {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .feedback-divider {
+      margin: 30px auto 0;
+      width: 180px;
+      height: 1px;
+      position: relative;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.7), transparent);
+    }
+
+    .feedback-divider::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 14px rgba(59, 130, 246, 0.85);
+      animation: dotPulse 2.4s ease-in-out infinite;
+    }
+
+    .feedback-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 56px;
+      margin-top: 80px;
+    }
+
+    .feedback-card {
+      position: relative;
+      width: min(300px, 78vw);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.5s cubic-bezier(0.22, 0.9, 0.3, 1), transform 0.5s cubic-bezier(0.22, 0.9, 0.3, 1);
+    }
+
+    .feedback-card.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .feedback-card-frame {
+      position: relative;
+      border-radius: 26px;
+      padding: 3px;
+      background: linear-gradient(150deg, rgba(239, 68, 68, 0.6), rgba(168, 85, 247, 0.5), rgba(59, 130, 246, 0.6));
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+      transition: transform 0.45s cubic-bezier(0.22, 0.9, 0.3, 1), box-shadow 0.45s ease;
+    }
+
+    .feedback-card-frame::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(150deg, rgba(239, 68, 68, 0.4), rgba(168, 85, 247, 0.3), rgba(59, 130, 246, 0.4));
+      filter: blur(22px);
+      opacity: 0;
+      transition: opacity 0.45s ease;
+      z-index: -1;
+    }
+
+    .feedback-card:hover .feedback-card-frame {
+      transform: translateY(-10px);
+      box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55);
+    }
+
+    .feedback-card:hover .feedback-card-frame::after {
+      opacity: 1;
+    }
+
+    .feedback-card-frame img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 722 / 1600;
+      object-fit: cover;
+      border-radius: 23px;
+      background: #050708;
+    }
+
+    .feedback-quote-badge {
+      position: absolute;
+      top: -16px;
+      left: -16px;
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: linear-gradient(150deg, #ef4444, #a855f7, #3b82f6);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
+      z-index: 2;
+    }
+
+    .feedback-quote-badge svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .feedback-card-info {
+      margin-top: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .feedback-brand {
+      font-family: "Playfair Display", serif;
+      font-size: 1.05rem;
+      color: #f5f9fc;
+      letter-spacing: 0.02em;
+    }
+
+    .feedback-card-link {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding-bottom: 3px;
+      transition: color 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .feedback-card-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--muted);
+      transform: scaleX(0.3);
+      transform-origin: left;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .feedback-card-link:hover {
+      color: #ffffff;
+    }
+
+    .feedback-card-link:hover::after {
+      transform: scaleX(1);
+      background: linear-gradient(90deg, var(--accent-2), var(--accent));
+    }
+
+    .feedback-card-link svg {
+      width: 11px;
+      height: 11px;
+      transition: transform 0.3s ease;
+    }
+
+    .feedback-card-link:hover svg {
+      transform: translate(2px, -2px);
+    }
+
+    @media (max-width: 900px) {
+      .feedback-section {
+        padding: 40px 0 100px;
+      }
+
+      .feedback-grid {
+        margin-top: 56px;
+        gap: 40px;
+      }
+
+      .feedback-card {
+        width: min(280px, 82vw);
+      }
+
+      .feedback-card-frame {
+        padding: 2.5px;
+      }
+
+      .feedback-quote-badge {
+        width: 32px;
+        height: 32px;
+        top: -12px;
+        left: -12px;
+      }
+    }
+
     /* ================= ABOUT SECTION ================= */
 
     .about-section {
@@ -1549,6 +1830,15 @@
       display: inline;
     }
 
+    /* Each word's letters are grouped so the line can only wrap between
+       words (at the real space characters), never in the middle of one —
+       splitting text into one span per letter otherwise gives the browser
+       a break opportunity between every letter. */
+    .glow-word {
+      display: inline-block;
+      white-space: nowrap;
+    }
+
     .glow-letter {
       display: inline-block;
       transition: text-shadow 0.18s ease, transform 0.15s ease, color 0.18s ease;
@@ -1572,6 +1862,11 @@
     #work .work-head .glow-letter {
       --glow-color: rgba(239, 68, 68, 0.8);
       --glow-hover-color: #ffcccc;
+    }
+
+    #feedback .glow-letter {
+      --glow-color: rgba(59, 130, 246, 0.85);
+      --glow-hover-color: #bcd8ff;
     }
 
     .glow-letter.is-clicked {
@@ -3750,6 +4045,38 @@
       </div>
     </section>
 
+    <section class="feedback-section" id="feedback">
+      <span class="feedback-glow blue" aria-hidden="true"></span>
+      <span class="feedback-glow red" aria-hidden="true"></span>
+
+      <div class="container">
+        <div class="feedback-head">
+          <span class="feedback-kicker" data-reveal>Client Feedback</span>
+          <h2 class="feedback-title" data-reveal>Brands That Trusted The Work</h2>
+          <p class="feedback-subtitle" data-reveal>Real reactions from the brands I've designed and built websites for.</p>
+          <span class="feedback-divider" data-reveal></span>
+        </div>
+
+        <div class="feedback-grid">
+          <figure class="feedback-card" data-reveal>
+            <div class="feedback-card-frame">
+              <span class="feedback-quote-badge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M7 9c0-2.2 1.8-4 4-4M7 9v6h5V9H7Zm10 0c0-2.2 1.8-4 4-4M17 9v6h5V9h-5Z" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <img src="feedback-1.jpeg" alt="Instagram feedback from The Pink Room thanking Kreem for their website" loading="lazy" decoding="async">
+            </div>
+            <figcaption class="feedback-card-info">
+              <span class="feedback-brand">The Pink Room</span>
+              <a class="feedback-card-link" href="work-pinkroom.html">
+                View Project
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
     <section class="about-section" id="about">
       <video class="about-bg-video" src="section3-bg.mp4" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
       <div class="about-bg-scrim" aria-hidden="true"></div>
@@ -4357,12 +4684,29 @@
       function splitIntoLetters(line, extraClass) {
         var text = line.textContent;
         line.textContent = '';
+        // Letters of the same word are grouped in a no-wrap span so a line
+        // can only break between words, never between two letters of the
+        // same word — `--i` still counts along the whole line (unchanged)
+        // so the hero's per-letter animation stagger stays identical.
+        var wordSpan = null;
         text.split('').forEach(function (ch, i) {
           var span = document.createElement('span');
           span.className = extraClass ? 'glow-letter ' + extraClass : 'glow-letter';
           span.style.setProperty('--i', i);
           span.textContent = ch === ' ' ? ' ' : ch;
-          line.appendChild(span);
+
+          if (ch === ' ') {
+            wordSpan = null;
+            line.appendChild(span);
+          } else {
+            if (!wordSpan) {
+              wordSpan = document.createElement('span');
+              wordSpan.className = 'glow-word';
+              line.appendChild(wordSpan);
+            }
+            wordSpan.appendChild(span);
+          }
+
           letterEls.push(span);
         });
       }
@@ -4403,23 +4747,33 @@
           // letter instead of between the original elements.
           var wrap = document.createElement('span');
           wrap.className = 'glow-line';
-          textNode.nodeValue.split('').forEach(function (ch, i) {
+          // Letters are grouped per word (in a no-wrap span) so a line can
+          // only break between words, not between two letters of the same
+          // word.
+          var wordSpan = null;
+          textNode.nodeValue.split('').forEach(function (ch) {
             if (ch === ' ') {
+              wordSpan = null;
               wrap.appendChild(document.createTextNode(' '));
               return;
             }
+            if (!wordSpan) {
+              wordSpan = document.createElement('span');
+              wordSpan.className = 'glow-word';
+              wrap.appendChild(wordSpan);
+            }
             var span = document.createElement('span');
             span.className = 'glow-letter';
-            span.style.setProperty('--i', i);
+            span.style.setProperty('--i', wordSpan.childNodes.length);
             span.textContent = ch;
-            wrap.appendChild(span);
+            wordSpan.appendChild(span);
             letterEls.push(span);
           });
           textNode.parentNode.replaceChild(wrap, textNode);
         });
       }
 
-      document.querySelectorAll('#work .work-head, #work .work-info, #about, #skills, #why, #contact').forEach(letterizeAllText);
+      document.querySelectorAll('#work .work-head, #work .work-info, #feedback .feedback-head, #feedback .feedback-card-info, #about, #skills, #why, #contact').forEach(letterizeAllText);
 
       // Skills diagram: lasers draw in and cards build one by one the
       // first time the section scrolls into view.
