@@ -1,35 +1,82 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
 >
   <url>
     <loc>https://www.kreemaly.com/</loc>
-    <lastmod>2026-07-14</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://www.kreemaly.com/mypho.jpeg</image:loc>
+      <image:loc>https://www.kreemaly.com/about-photo.png</image:loc>
       <image:title>Kreem Aly portrait</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.kreemaly.com/ovaphoto.jpeg</image:loc>
-      <image:title>Ova Perfume project preview</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.kreemaly.com/Screenshot%202026-07-12%20235646.png</image:loc>
-      <image:title>Aspen HYSYS gas separation flow sheet</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.kreemaly.com/Screenshot%202026-07-12%20235548.png</image:loc>
-      <image:title>Aspen HYSYS ammonia process flow sheet</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://www.kreemaly.com/protofolio.html</loc>
-    <lastmod>2026-07-14</lastmod>
+    <loc>https://www.kreemaly.com/work-luxe.html</loc>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.kreemaly.com/luxe-cover.jpeg</image:loc>
+      <image:title>Luxe case study cover</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.kreemaly.com/work-ova.html</loc>
+    <lastmod>2026-08-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.kreemaly.com/ova-cover.jpeg</image:loc>
+      <image:title>Ova Perfume case study cover</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.kreemaly.com/work-watch.html</loc>
+    <lastmod>2026-08-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.kreemaly.com/watch-cover.jpeg</image:loc>
+      <image:title>My Watch case study cover</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.kreemaly.com/work-pinkroom.html</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.kreemaly.com/pinkroom-cover.jpeg</image:loc>
+      <image:title>The Pink Room case study cover</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.kreemaly.com/work-pinkroom-dashboard.html</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.kreemaly.com/pinkroom-dashboard-cover.jpeg</image:loc>
+      <image:title>Pink Room Dashboard case study cover</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.kreemaly.com/work-coffee.html</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.kreemaly.com/coffee-cover.jpeg</image:loc>
+      <image:title>Coffee Brand case study cover</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.kreemaly.com/privacy.html</loc>
+    <lastmod>2026-08-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>
-
