@@ -265,7 +265,8 @@
       display: none;
     }
 
-    .hero-bg-video {
+    .hero-bg-video,
+    .hero-bg-still {
       position: absolute;
       top: 0;
       left: 0;
@@ -276,6 +277,13 @@
       object-fit: cover;
       object-position: center right;
       display: none;
+    }
+
+    .hero-bg-still img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center right;
     }
 
     .hero-bg-video.desktop {
@@ -732,7 +740,7 @@
         display: none;
       }
 
-      .hero-bg-video.mobile {
+      .hero-bg-still.mobile {
         display: block;
       }
 
@@ -3800,8 +3808,13 @@
   <main id="main">
     <section class="hero" id="home">
       <div class="hero-bg" aria-hidden="true"></div>
-      <video class="hero-bg-video desktop" src="hero-bg-desktop.mp4" poster="hero-bg-desktop.jpeg" autoplay muted loop playsinline aria-hidden="true"></video>
-      <video class="hero-bg-video mobile" src="hero-bg-mobile.mp4" poster="hero-bg-mobile.jpeg" autoplay muted loop playsinline aria-hidden="true"></video>
+      <video class="hero-bg-video desktop" style="background-image: url('hero-bg-desktop.jpeg'); background-size: cover; background-position: center right;" autoplay muted loop playsinline aria-hidden="true">
+        <source src="hero-bg-desktop.mp4" type="video/mp4" media="(min-width: 901px)">
+      </video>
+      <picture class="hero-bg-still mobile" aria-hidden="true">
+        <source srcset="hero-bg-mobile.jpeg" media="(max-width: 900px)">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" decoding="async" fetchpriority="high">
+      </picture>
       <div class="hero-scrim" aria-hidden="true"></div>
 
       <div class="hero-inner">
@@ -4519,7 +4532,7 @@
 
     <section class="contact-section" id="contact">
       <div class="contact-hero">
-        <video src="section6-bg.mp4" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+        <video class="lazy-bg-video" data-src="section6-bg.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
         <div class="contact-hero-scrim" aria-hidden="true"></div>
         <div class="container">
           <div class="contact-hero-inner">
@@ -5046,6 +5059,32 @@
       // with everything else and making scrolling feel heavy. Pausing them
       // while off-screen (and resuming the instant they're back in view)
       // doesn't change how they look, just stops the wasted decoding.
+      // The contact-section background video sits at the very bottom of the
+      // page, but autoplay forces the browser to download it up front — over a
+      // megabyte spent on every visit, including the visitors who never scroll
+      // that far. Holding the source in data-src and attaching it only as the
+      // section approaches keeps it off the critical path; once attached it
+      // joins the autoplay set below and behaves exactly as before.
+      var lazyBgVideos = document.querySelectorAll('video.lazy-bg-video[data-src]');
+      if (lazyBgVideos.length && 'IntersectionObserver' in window) {
+        var lazySrcObserver = new IntersectionObserver(function (entries, obs) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            var vid = entry.target;
+            obs.unobserve(vid);
+            vid.src = vid.dataset.src;
+            vid.autoplay = true;
+            vid.play().catch(function () {});
+          });
+        }, { rootMargin: '400px 0px 400px 0px' });
+        lazyBgVideos.forEach(function (vid) { lazySrcObserver.observe(vid); });
+      } else {
+        lazyBgVideos.forEach(function (vid) {
+          vid.src = vid.dataset.src;
+          vid.autoplay = true;
+        });
+      }
+
       var bgVideos = document.querySelectorAll('video[autoplay]');
       if (bgVideos.length && 'IntersectionObserver' in window) {
         var bgVideoObserver = new IntersectionObserver(function (entries) {
