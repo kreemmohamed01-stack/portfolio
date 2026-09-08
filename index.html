@@ -1503,15 +1503,15 @@
       .work-item.watch-item,
       .work-item.pinkroom-dashboard-item,
       .work-item.coffee-item,
-      .work-item.united-item {
+      .work-item.antiquehome-item {
         grid-column: 1 / -1;
       }
 
-      /* United Construction takes the full-width row, with Maison Meka and
-         Antique Home sharing the row underneath it. Its preview is a portrait
-         phone recording, so cap the width and centre it — full-bleed would make
-         a single card taller than the screen. */
-      .work-item.united-item .work-visual {
+      /* Antique Home takes a full-width row of its own, with United
+         Construction and Maison Meka sharing the row underneath it. Its preview
+         is a portrait phone recording, so cap the width and centre it —
+         full-bleed would make a single card taller than the screen. */
+      .work-item.antiquehome-item .work-visual {
         max-width: 260px;
         margin-inline: auto;
       }
@@ -1533,7 +1533,7 @@
         font-size: 1.1rem;
       }
 
-      .work-item:not(.watch-item):not(.pinkroom-dashboard-item):not(.coffee-item):not(.united-item) .work-desc {
+      .work-item:not(.watch-item):not(.pinkroom-dashboard-item):not(.coffee-item):not(.antiquehome-item) .work-desc {
         display: none;
       }
 
@@ -4159,10 +4159,38 @@
             </div>
           </article>
 
-          <!-- UNITED CONSTRUCTION -->
-          <article class="work-item theme-blue united-item" data-reveal>
+          <!-- ANTIQUE HOME -->
+          <article class="work-item theme-blue antiquehome-item" data-reveal>
             <div class="work-info">
               <span class="work-number">07</span>
+              <span class="work-category">Antiques</span>
+              <h3 class="work-name">Antique Home</h3>
+              <span class="work-status">In Progress</span>
+              <p class="work-desc">Antiques &amp; Timeless Pieces E-commerce Website</p>
+              <div class="work-actions">
+                <a class="work-btn-live" href="https://antique-home-1.vercel.app/" target="_blank" rel="noopener noreferrer" data-glow>
+                  View Live
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <a class="work-btn-case" href="work-antiquehome.html">
+                  Case Study
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="work-visual">
+              <div class="work-media" data-work-media>
+                <img src="antiquehome-cover.jpeg" alt="Antique Home website preview" loading="lazy" decoding="async">
+                <video src="antiquehome-preview.mp4" muted loop playsinline preload="none"></video>
+              </div>
+            </div>
+          </article>
+
+          <!-- UNITED CONSTRUCTION -->
+          <article class="work-item united-item" data-reveal>
+            <div class="work-info">
+              <span class="work-number">08</span>
               <span class="work-category">Construction</span>
               <h3 class="work-name">United Construction</h3>
               <p class="work-desc">Construction &amp; GRC Works Corporate Website</p>
@@ -4187,9 +4215,9 @@
           </article>
 
           <!-- MAISON MEKA -->
-          <article class="work-item maisonmeka-item" data-reveal>
+          <article class="work-item theme-blue maisonmeka-item" data-reveal>
             <div class="work-info">
-              <span class="work-number">08</span>
+              <span class="work-number">09</span>
               <span class="work-category">Home Decor</span>
               <h3 class="work-name">Maison Meka</h3>
               <span class="work-status">In Progress</span>
@@ -4214,33 +4242,6 @@
             </div>
           </article>
 
-          <!-- ANTIQUE HOME -->
-          <article class="work-item theme-blue antiquehome-item" data-reveal>
-            <div class="work-info">
-              <span class="work-number">09</span>
-              <span class="work-category">Antiques</span>
-              <h3 class="work-name">Antique Home</h3>
-              <span class="work-status">In Progress</span>
-              <p class="work-desc">Antiques &amp; Timeless Pieces E-commerce Website</p>
-              <div class="work-actions">
-                <a class="work-btn-live" href="https://antique-home-1.vercel.app/" target="_blank" rel="noopener noreferrer" data-glow>
-                  View Live
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-                <a class="work-btn-case" href="work-antiquehome.html">
-                  Case Study
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-              </div>
-            </div>
-
-            <div class="work-visual">
-              <div class="work-media" data-work-media>
-                <img src="antiquehome-cover.jpeg" alt="Antique Home website preview" loading="lazy" decoding="async">
-                <video src="antiquehome-preview.mp4" muted loop playsinline preload="none"></video>
-              </div>
-            </div>
-          </article>
         </div>
       </div>
     </section>
