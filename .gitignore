@@ -3,3 +3,7 @@
 .codex/
 node_modules/
 *.log
+
+# Raw screen recordings kept locally as masters. Only the compressed
+# *-preview.mp4 files they're encoded into are served by the site.
+vedio *.mp4

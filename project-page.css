@@ -177,6 +177,44 @@ svg {
   line-height: 1.6;
 }
 
+/* Marks a case study whose site is still being built, so the live link is
+   read as a work in progress rather than a finished launch. */
+.project-status {
+  animation-delay: 0.26s;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  width: fit-content;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 178, 74, 0.45);
+  background: rgba(245, 178, 74, 0.1);
+  color: #f7c579;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.project-status::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f5b24a;
+  animation: project-status-pulse 2.4s ease-out infinite;
+}
+
+@keyframes project-status-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(245, 178, 74, 0.5); }
+  70% { box-shadow: 0 0 0 8px rgba(245, 178, 74, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(245, 178, 74, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-status::before { animation: none; }
+}
+
 .project-hero-actions {
   animation-delay: 0.32s;
   display: flex;

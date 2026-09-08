@@ -978,7 +978,10 @@
 
     .work-item.ova-item,
     .work-item.luxe-item,
-    .work-item.pinkroom-item {
+    .work-item.pinkroom-item,
+    .work-item.united-item,
+    .work-item.maisonmeka-item,
+    .work-item.antiquehome-item {
       grid-template-columns: minmax(240px, 300px) min(380px, 100%);
       justify-content: start;
     }
@@ -1026,6 +1029,44 @@
       font-size: 0.95rem;
       line-height: 1.75;
       max-width: 32ch;
+    }
+
+    /* Badge for projects that are still being built, so visitors know the live
+       link is a work in progress rather than a finished site. */
+    .work-status {
+      justify-self: start;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(245, 178, 74, 0.45);
+      background: rgba(245, 178, 74, 0.1);
+      color: #f7c579;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .work-status::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #f5b24a;
+      box-shadow: 0 0 0 0 rgba(245, 178, 74, 0.55);
+      animation: work-status-pulse 2.4s ease-out infinite;
+    }
+
+    @keyframes work-status-pulse {
+      0% { box-shadow: 0 0 0 0 rgba(245, 178, 74, 0.5); }
+      70% { box-shadow: 0 0 0 7px rgba(245, 178, 74, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(245, 178, 74, 0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .work-status::before { animation: none; }
     }
 
     .work-actions {
@@ -1287,6 +1328,18 @@
       aspect-ratio: 848 / 478;
     }
 
+    .united-item .work-media {
+      aspect-ratio: 382 / 752;
+    }
+
+    .maisonmeka-item .work-media {
+      aspect-ratio: 382 / 752;
+    }
+
+    .antiquehome-item .work-media {
+      aspect-ratio: 428 / 850;
+    }
+
     .work-media img {
       position: absolute;
       inset: 0;
@@ -1449,8 +1502,18 @@
 
       .work-item.watch-item,
       .work-item.pinkroom-dashboard-item,
-      .work-item.coffee-item {
+      .work-item.coffee-item,
+      .work-item.united-item {
         grid-column: 1 / -1;
+      }
+
+      /* United Construction takes the full-width row, with Maison Meka and
+         Antique Home sharing the row underneath it. Its preview is a portrait
+         phone recording, so cap the width and centre it — full-bleed would make
+         a single card taller than the screen. */
+      .work-item.united-item .work-visual {
+        max-width: 260px;
+        margin-inline: auto;
       }
 
       .work-info {
@@ -1470,8 +1533,14 @@
         font-size: 1.1rem;
       }
 
-      .work-item:not(.watch-item):not(.pinkroom-dashboard-item):not(.coffee-item) .work-desc {
+      .work-item:not(.watch-item):not(.pinkroom-dashboard-item):not(.coffee-item):not(.united-item) .work-desc {
         display: none;
+      }
+
+      .work-status {
+        padding: 4px 9px;
+        font-size: 0.54rem;
+        letter-spacing: 0.12em;
       }
 
       .work-actions {
@@ -4089,6 +4158,89 @@
               </div>
             </div>
           </article>
+
+          <!-- UNITED CONSTRUCTION -->
+          <article class="work-item theme-blue united-item" data-reveal>
+            <div class="work-info">
+              <span class="work-number">07</span>
+              <span class="work-category">Construction</span>
+              <h3 class="work-name">United Construction</h3>
+              <p class="work-desc">Construction &amp; GRC Works Corporate Website</p>
+              <div class="work-actions">
+                <a class="work-btn-live" href="https://unitedconstructioneg.com" target="_blank" rel="noopener noreferrer" data-glow>
+                  View Live
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <a class="work-btn-case" href="work-united.html">
+                  Case Study
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="work-visual">
+              <div class="work-media" data-work-media>
+                <img src="united-cover.jpeg" alt="United Construction website preview" loading="lazy" decoding="async">
+                <video src="united-preview.mp4" muted loop playsinline preload="none"></video>
+              </div>
+            </div>
+          </article>
+
+          <!-- MAISON MEKA -->
+          <article class="work-item maisonmeka-item" data-reveal>
+            <div class="work-info">
+              <span class="work-number">08</span>
+              <span class="work-category">Home Decor</span>
+              <h3 class="work-name">Maison Meka</h3>
+              <span class="work-status">In Progress</span>
+              <p class="work-desc">Curated Home Art E-commerce Website</p>
+              <div class="work-actions">
+                <a class="work-btn-live" href="https://maison-mekaaa.vercel.app/" target="_blank" rel="noopener noreferrer" data-glow>
+                  View Live
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <a class="work-btn-case" href="work-maisonmeka.html">
+                  Case Study
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="work-visual">
+              <div class="work-media" data-work-media>
+                <img src="maisonmeka-cover.jpeg" alt="Maison Meka website preview" loading="lazy" decoding="async">
+                <video src="maisonmeka-preview.mp4" muted loop playsinline preload="none"></video>
+              </div>
+            </div>
+          </article>
+
+          <!-- ANTIQUE HOME -->
+          <article class="work-item theme-blue antiquehome-item" data-reveal>
+            <div class="work-info">
+              <span class="work-number">09</span>
+              <span class="work-category">Antiques</span>
+              <h3 class="work-name">Antique Home</h3>
+              <span class="work-status">In Progress</span>
+              <p class="work-desc">Antiques &amp; Timeless Pieces E-commerce Website</p>
+              <div class="work-actions">
+                <a class="work-btn-live" href="https://antique-home-1.vercel.app/" target="_blank" rel="noopener noreferrer" data-glow>
+                  View Live
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <a class="work-btn-case" href="work-antiquehome.html">
+                  Case Study
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="work-visual">
+              <div class="work-media" data-work-media>
+                <img src="antiquehome-cover.jpeg" alt="Antique Home website preview" loading="lazy" decoding="async">
+                <video src="antiquehome-preview.mp4" muted loop playsinline preload="none"></video>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -4116,6 +4268,22 @@
             <figcaption class="feedback-card-info">
               <span class="feedback-brand">The Pink Room</span>
               <a class="feedback-card-link" href="work-pinkroom.html">
+                View Project
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </figcaption>
+          </figure>
+
+          <figure class="feedback-card" data-reveal>
+            <div class="feedback-card-frame">
+              <span class="feedback-quote-badge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M7 9c0-2.2 1.8-4 4-4M7 9v6h5V9H7Zm10 0c0-2.2 1.8-4 4-4M17 9v6h5V9h-5Z" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <img src="feedback-2.jpeg" alt="Instagram feedback from Ova Perfume recommending Kreem as a web developer" loading="lazy" decoding="async">
+            </div>
+            <figcaption class="feedback-card-info">
+              <span class="feedback-brand">Ova Perfume</span>
+              <a class="feedback-card-link" href="work-ova.html">
                 View Project
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>

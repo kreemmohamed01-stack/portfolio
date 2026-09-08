@@ -74,6 +74,36 @@
     </image:image>
   </url>
   <url>
+    <loc>https://www.kreemaly.com/work-united.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.kreemaly.com/united-cover.jpeg</image:loc>
+      <image:title>United Construction case study cover</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.kreemaly.com/work-maisonmeka.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.kreemaly.com/maisonmeka-cover.jpeg</image:loc>
+      <image:title>Maison Meka case study cover</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.kreemaly.com/work-antiquehome.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.kreemaly.com/antiquehome-cover.jpeg</image:loc>
+      <image:title>Antique Home case study cover</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://www.kreemaly.com/privacy.html</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>yearly</changefreq>
