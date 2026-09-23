@@ -504,8 +504,17 @@ input, select, textarea { font-family: inherit; }
 .pr-card-price.letstalk strong { font-size: 1.5rem; color: var(--accent); }
 .pr-card-price .per { font-size: 0.72rem; color: var(--muted); font-weight: 500; }
 
-.pr-card ul { list-style: none; display: grid; gap: 10px; margin-bottom: 24px; flex: 1; }
-.pr-card ul li { display: flex; align-items: flex-start; gap: 9px; font-size: 0.84rem; color: #dbe6f1; line-height: 1.4; }
+.pr-card ul { list-style: none; display: grid; gap: 10px; margin-bottom: 24px; flex: 1; min-width: 0; }
+.pr-card ul li {
+  display: flex; align-items: flex-start; gap: 9px;
+  font-size: 0.84rem; color: #dbe6f1; line-height: 1.4;
+  /* The feature text is a bare text node next to .check, so it's the
+     <li> itself that needs min-width:0 + wrapping — without it, a
+     long line (e.g. the AI tab's Premium list) refuses to wrap and
+     bleeds into the next card's column instead of staying put. */
+  min-width: 0;
+  overflow-wrap: break-word;
+}
 .pr-card ul li .check {
   width: 16px; height: 16px; border-radius: 50%;
   background: rgba(59,130,246,0.16); color: var(--accent);
