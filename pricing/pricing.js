@@ -137,7 +137,7 @@
     const btnClass = plan.isCustomCta ? "pr-card-btn" : `pr-card-btn ${inCart ? "added" : "solid"}`;
 
     return `
-      <div class="pr-card ${plan.highlight ? "highlight" : ""}" style="--card-i:${index || 0}">
+      <div class="pr-card ${plan.highlight ? "highlight" : ""} ${plan.isCustomCta ? "pr-card-custom" : ""}" style="--card-i:${index || 0}">
         ${tagHTML}
         <div class="pr-card-cover cover-${plan.cover}" style="background-image:url('pricing/${plan.id}.jpg')">${coverInner}</div>
         <h3>${plan.name}</h3>
