@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  const TABS = ["websites", "dashboards", "ai", "addons", "custom"];
+  const TABS = ["websites", "dashboards", "ai", "custom"];
   const ICONS = {
     diamond: '<svg viewBox="0 0 24 24" fill="none"><path d="M6 3h12l3 6-9 12L3 9l3-6Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 9h18M9 3l3 6 3-6M9 9l3 12 3-12" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>',
     bolt: '<svg viewBox="0 0 24 24" fill="none"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>',
@@ -30,12 +30,40 @@
   const state = {
     activeTab: "websites",
     billing: "onetime",
-    cart: [],           // { id, name, blurb, price, icon, qty }
+    cart: [],           // { id, name, blurb, price, icon, qty, configSummary? }
     promoCode: "",
     discountPct: 0,
     testimonialIndex: 0,
-    checkoutStep: 1
+    checkoutStep: 1,
+    // Per-configurable-plan choice: extra products beyond the base
+    // quota, and whether the AI Agent add-on is selected. Keyed by
+    // plan id so switching tabs and coming back keeps the choice.
+    configState: {}
   };
+
+  function getConfig(planId) {
+    if (!state.configState[planId]) {
+      state.configState[planId] = { extraProducts: 0, aiAgent: false };
+    }
+    return state.configState[planId];
+  }
+
+  /* Computes the live total for a configurable plan: base price +
+     (extra products rounded up to the next step) * step price +
+     the AI Agent add-on if selected. Categories never add cost. */
+  function computeConfigurablePrice(plan) {
+    const cfg = getConfig(plan.id);
+    const steps = Math.ceil(cfg.extraProducts / plan.productStep);
+    const extraCost = Math.max(0, steps) * plan.productStepPrice;
+    const aiCost = cfg.aiAgent ? plan.aiAgent.price : 0;
+    return {
+      base: plan.basePrice,
+      extraCost,
+      aiCost,
+      total: plan.basePrice + extraCost + aiCost,
+      totalProducts: plan.baseProducts + cfg.extraProducts
+    };
+  }
 
   const $ = (sel, ctx) => (ctx || document).querySelector(sel);
   const $$ = (sel, ctx) => Array.from((ctx || document).querySelectorAll(sel));
@@ -98,37 +126,27 @@
   function renderCards(tabKey) {
     const data = PRICING_DATA[tabKey];
     const grid = $("#cardsGrid");
-    grid.classList.remove("pr-addons-grid");
     document.body.setAttribute("data-active-tab", tabKey);
-
-    if (tabKey === "addons") {
-      grid.classList.add("pr-addons-grid");
-      grid.innerHTML = `
-        <div class="pr-addons-toolbar" style="grid-column:1/-1">
-          <div class="pr-search">
-            <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            <input type="text" id="addonSearch" placeholder="${data.searchPlaceholder}">
-          </div>
-        </div>
-      ` + data.addonsGrid.map((a, i) => addonCardHTML(a, i)).join("");
-
-      $("#addonSearch").addEventListener("input", (e) => filterAddons(e.target.value));
-      wireAddonButtons();
-      return;
-    }
 
     grid.innerHTML = data.plans.map((p, i) => planCardHTML(p, i)).join("");
     wirePlanButtons();
+    wireConfiguratorInputs();
+
+    const notesWrap = $("#commonNotes");
+    if (data.commonNotes && data.commonNotes.length) {
+      notesWrap.hidden = false;
+      notesWrap.innerHTML = `
+        <span class="pr-common-notes-title">${icon("check")} Every package on this page already includes</span>
+        <ul>${data.commonNotes.map(n => `<li>${n}</li>`).join("")}</ul>
+      `;
+    } else {
+      notesWrap.hidden = true;
+      notesWrap.innerHTML = "";
+    }
   }
 
   function planCardHTML(plan, index) {
     const inCart = isInCart(plan.id);
-    const priceVal = priceForPlan(plan);
-    const priceBlock = priceVal == null
-      ? `<div class="pr-card-price letstalk"><strong>${plan.priceLabel || "Let's Talk"}</strong></div>`
-      : `<div class="pr-card-price"><strong>${formatEGP(priceVal)}</strong><span>${plan.currency}</span>${state.billing === "monthly" ? '<span class="per">/mo</span>' : ""}</div>`;
-
-    const coverInner = "";
     const tagHTML = plan.tag
       ? (plan.tag.includes("YOUR VISION") ? `<div class="pr-card-tag corner">${plan.tag.replace(/ /g, "<br>")}</div>` : `<div class="pr-card-tag">${plan.tag}</div>`)
       : "";
@@ -136,13 +154,58 @@
     const btnLabel = plan.isCustomCta ? plan.cta : (inCart ? "Added ✓" : plan.cta);
     const btnClass = plan.isCustomCta ? "pr-card-btn" : `pr-card-btn ${inCart ? "added" : "solid"}`;
 
+    let priceBlock, configuratorBlock = "";
+
+    if (plan.configurable) {
+      const calc = computeConfigurablePrice(plan);
+      const cfg = getConfig(plan.id);
+      priceBlock = `
+        <div class="pr-card-price" id="price-${plan.id}">
+          <strong>${formatEGP(calc.total)}</strong><span>EGP</span>
+        </div>
+        <p class="pr-card-price-note" id="pricenote-${plan.id}">${configPriceNote(plan, calc)}</p>
+      `;
+      configuratorBlock = `
+        <div class="pr-configurator" data-plan-id="${plan.id}">
+          <div class="pr-configurator-row">
+            <label for="products-${plan.id}">Extra products needed <span class="hint">(beyond the ${plan.baseProducts} included)</span></label>
+            <div class="pr-stepper">
+              <button type="button" class="pr-stepper-btn" data-step-action="products-minus" data-plan-id="${plan.id}" aria-label="Decrease extra products">−</button>
+              <input type="number" id="products-${plan.id}" min="0" step="${plan.productStep}" value="${cfg.extraProducts}" inputmode="numeric" data-config-input="products" data-plan-id="${plan.id}">
+              <button type="button" class="pr-stepper-btn" data-step-action="products-plus" data-plan-id="${plan.id}" aria-label="Increase extra products">+</button>
+            </div>
+          </div>
+          <div class="pr-configurator-row">
+            <label for="categories-${plan.id}">Categories needed <span class="hint">(up to ${plan.maxCategories} included, free)</span></label>
+            <input type="number" id="categories-${plan.id}" min="0" max="${plan.maxCategories}" value="${plan.baseCategories}" inputmode="numeric" data-config-input="categories" data-plan-id="${plan.id}">
+          </div>
+          <label class="pr-configurator-ai">
+            <input type="checkbox" data-config-input="aiagent" data-plan-id="${plan.id}" ${cfg.aiAgent ? "checked" : ""}>
+            <span class="pr-configurator-ai-box">
+              <span class="pr-configurator-ai-head">
+                <span>+ Add AI Agent</span>
+                <strong>+${formatEGP(plan.aiAgent.price)} EGP</strong>
+              </span>
+              <span class="pr-configurator-ai-desc">${plan.aiAgent.desc}</span>
+            </span>
+          </label>
+        </div>
+      `;
+    } else {
+      const priceVal = priceForPlan(plan);
+      priceBlock = priceVal == null
+        ? `<div class="pr-card-price letstalk"><strong>${plan.priceLabel || "Let's Talk"}</strong></div>`
+        : `<div class="pr-card-price"><strong>${formatEGP(priceVal)}</strong><span>${plan.currency}</span>${state.billing === "monthly" ? '<span class="per">/mo</span>' : ""}</div>`;
+    }
+
     return `
       <div class="pr-card ${plan.highlight ? "highlight" : ""} ${plan.isCustomCta ? "pr-card-custom" : ""}" style="--card-i:${index || 0}">
         ${tagHTML}
-        <div class="pr-card-cover cover-${plan.cover}" style="background-image:url('pricing/${plan.id}.jpg')">${coverInner}</div>
+        <div class="pr-card-cover cover-${plan.cover}" style="background-image:url('pricing/${plan.id}.jpg')"></div>
         <h3>${plan.name}</h3>
         <p class="pr-card-blurb">${plan.blurb}</p>
         ${priceBlock}
+        ${configuratorBlock}
         <ul>${plan.features.map(f => `<li><span class="check">${icon("check")}</span>${f}</li>`).join("")}</ul>
         <button type="button" class="${btnClass}" data-plan-id="${plan.id}" data-custom-cta="${!!plan.isCustomCta}">
           ${btnLabel}
@@ -152,40 +215,20 @@
     `;
   }
 
-  function addonCardHTML(a, index) {
-    const inCart = isInCart(a.id);
-    const priceBlock = a.price == null
-      ? `<div class="pr-addon-price letstalk">${a.priceLabel}</div>`
-      : `<div class="pr-addon-price">${a.priceLabelPrefix || ""}${formatEGP(a.price)} <span class="egp">EGP</span><span class="suffix">${a.priceSuffix || ""}</span></div>`;
-    return `
-      <div class="pr-addon-card ${a.icon === "robot" ? "hero-addon" : ""}" data-addon-name="${a.name.toLowerCase()}" style="--card-i:${index || 0}">
-        <div class="pr-addon-ico">${icon(a.icon)}</div>
-        <h4>${a.name}</h4>
-        <p>${a.desc}</p>
-        ${priceBlock}
-        <button type="button" class="pr-card-btn ${a.isCustomCta ? "" : (inCart ? "added" : "solid")}" data-plan-id="${a.id}" data-custom-cta="${!!a.isCustomCta}">
-          ${a.isCustomCta ? "Request a Quote" : (inCart ? "Added ✓" : "Add to Cart")}
-          <svg viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </div>
-    `;
-  }
-
-  function filterAddons(q) {
-    q = q.trim().toLowerCase();
-    $$(".pr-addon-card").forEach(card => {
-      const match = !q || card.dataset.addonName.includes(q);
-      card.style.display = match ? "" : "none";
-    });
+  /* Small note under the price explaining what's driving the number,
+     e.g. "150 products + 10 categories" or "+50 extra products". */
+  function configPriceNote(plan, calc) {
+    const parts = [`${calc.totalProducts} products`, `up to ${plan.maxCategories} categories`];
+    if (calc.extraCost > 0) parts.push(`+${formatEGP(calc.extraCost)} EGP for extra products`);
+    if (calc.aiCost > 0) parts.push(`+${formatEGP(calc.aiCost)} EGP AI Agent`);
+    return parts.join(" · ");
   }
 
   function findItemById(id) {
-    for (const key of ["websites", "dashboards", "ai", "addons"]) {
+    for (const key of ["websites", "dashboards", "ai"]) {
       const d = PRICING_DATA[key];
       const inPlans = (d.plans || []).find(p => p.id === id);
-      if (inPlans) return { ...inPlans, group: key, isAddon: false };
-      const inAddons = (d.addonsGrid || []).find(a => a.id === id);
-      if (inAddons) return { ...inAddons, group: key, isAddon: true };
+      if (inPlans) return { ...inPlans, group: key };
     }
     return null;
   }
@@ -193,11 +236,16 @@
   function isInCart(id) { return state.cart.some(c => c.id === id); }
 
   function wirePlanButtons() {
-    $$('#cardsGrid [data-plan-id]').forEach(btn => {
+    // Scoped to the buy button specifically (not just "any direct
+    // child with data-plan-id") — the configurator wrapper also
+    // carries data-plan-id for its own inputs, and a looser selector
+    // here previously caught clicks bubbling up from inside it,
+    // silently re-rendering the card and resetting the AI Agent
+    // checkbox the moment someone tried to check it.
+    $$('#cardsGrid > .pr-card > .pr-card-btn[data-plan-id]').forEach(btn => {
       btn.addEventListener("click", () => handleCardAction(btn));
     });
   }
-  function wireAddonButtons() { wirePlanButtons(); }
 
   function handleCardAction(btn) {
     const id = btn.dataset.planId;
@@ -218,6 +266,88 @@
     renderCards(state.activeTab); // refresh Added state
   }
 
+  /* ================= CONFIGURATOR (Premium/Signature product & AI Agent picker) ================= */
+
+  function wireConfiguratorInputs() {
+    $$(".pr-configurator").forEach(box => {
+      const planId = box.dataset.planId;
+
+      $$('[data-config-input="products"]', box).forEach(input => {
+        input.addEventListener("change", () => {
+          const plan = findItemById(planId);
+          let val = Math.max(0, Math.round(Number(input.value) || 0));
+          // Snap to the nearest step so the price always matches a
+          // whole number of "+50 products" increments.
+          val = Math.ceil(val / plan.productStep) * plan.productStep;
+          input.value = val;
+          getConfig(planId).extraProducts = val;
+          refreshConfigurablePrice(planId);
+        });
+      });
+
+      $$('[data-step-action]', box).forEach(btn => {
+        btn.addEventListener("click", () => {
+          const plan = findItemById(planId);
+          const cfg = getConfig(planId);
+          const dir = btn.dataset.stepAction.endsWith("plus") ? 1 : -1;
+          cfg.extraProducts = Math.max(0, cfg.extraProducts + dir * plan.productStep);
+          const input = $(`#products-${planId}`);
+          if (input) input.value = cfg.extraProducts;
+          refreshConfigurablePrice(planId);
+        });
+      });
+
+      $$('[data-config-input="categories"]', box).forEach(input => {
+        input.addEventListener("change", () => {
+          const plan = findItemById(planId);
+          let val = Math.max(0, Math.round(Number(input.value) || 0));
+          val = Math.min(val, plan.maxCategories);
+          input.value = val;
+          // Categories never change price, but we still recompute the
+          // note text so it reflects what the client actually typed.
+          refreshConfigurablePrice(planId);
+        });
+      });
+
+      $$('[data-config-input="aiagent"]', box).forEach(checkbox => {
+        checkbox.addEventListener("change", () => {
+          getConfig(planId).aiAgent = checkbox.checked;
+          refreshConfigurablePrice(planId);
+        });
+      });
+    });
+  }
+
+  /* Recomputes and repaints just the price + note for one card,
+     without a full re-render (keeps focus in the input the client
+     is typing in, and avoids losing the other card's own state). */
+  function refreshConfigurablePrice(planId) {
+    const plan = findItemById(planId);
+    if (!plan) return;
+    const calc = computeConfigurablePrice(plan);
+    const priceEl = $(`#price-${planId} strong`);
+    const noteEl = $(`#pricenote-${planId}`);
+    if (priceEl) priceEl.textContent = formatEGP(calc.total);
+    if (noteEl) noteEl.textContent = configPriceNote(plan, calc);
+
+    // If this plan is already in the cart, keep the cart line's price
+    // and summary in sync with the live configurator instead of
+    // making the client remove and re-add it.
+    const line = state.cart.find(c => c.id === planId);
+    if (line) {
+      line.price = calc.total;
+      line.blurb = configCartSummary(plan, calc);
+      saveCart();
+      renderCart();
+    }
+  }
+
+  function configCartSummary(plan, calc) {
+    const bits = [`${calc.totalProducts} products`];
+    if (getConfig(plan.id).aiAgent) bits.push("+ AI Agent");
+    return bits.join(" ");
+  }
+
   function pulseButton(btn) {
     btn.style.transform = "scale(0.96)";
     setTimeout(() => { btn.style.transform = ""; }, 160);
@@ -226,13 +356,21 @@
   /* ================= CART ================= */
 
   function addToCart(item) {
-    const price = item.price == null ? 0 : (state.billing === "monthly" && item.monthlyPrice ? item.monthlyPrice : item.price);
+    let price, blurb;
+    if (item.configurable) {
+      const calc = computeConfigurablePrice(item);
+      price = calc.total;
+      blurb = configCartSummary(item, calc);
+    } else {
+      price = item.price == null ? 0 : (state.billing === "monthly" && item.monthlyPrice ? item.monthlyPrice : item.price);
+      blurb = item.blurb || item.desc || "";
+    }
     state.cart.push({
       id: item.id,
       name: item.name,
-      blurb: item.blurb || item.desc || "",
+      blurb: blurb,
       price: price,
-      icon: item.cover === "robot" || item.icon === "robot" ? "🤖" : (item.icon ? icon(item.icon) : "💠"),
+      icon: item.cover === "robot" ? "🤖" : "💠",
       qty: 1
     });
     saveCart();
@@ -344,8 +482,7 @@
       const noteMap = {
         websites: "Choose a category to see packages",
         dashboards: "Explore Dashboard Packages",
-        ai: "Explore AI Packages",
-        addons: "Explore Add-Ons"
+        ai: "Explore AI Packages"
       };
       $("#prTabNote").textContent = noteMap[tabKey] || "Choose a category to see packages";
 

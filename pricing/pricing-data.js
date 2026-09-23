@@ -2,6 +2,13 @@
    PRICING DATA — Kreem Aly / pricing.html
    All copy, numbers and structure are content data only; the
    rendering logic lives in pricing.js. Edit prices/copy here.
+
+   Configurable plans (Websites tab): Premium & Signature carry a
+   product/category quota built into their base price, plus an
+   optional AI Agent add-on. The extra cost for going over the
+   quota is computed live in pricing.js from the fields below —
+   change the numbers here and the whole page (cards + cart +
+   checkout) recalculates automatically.
    ============================================================ */
 
 const PRICING_DATA = {
@@ -19,72 +26,85 @@ const PRICING_DATA = {
     ],
     eyebrow: "Website Packages",
     sectionTitle: "Find The Perfect Fit",
-    sectionDesc: "Professional websites tailored to your goals, from simple sites to fully custom platforms.",
+    sectionDesc: "Professional websites tailored to your goals, from simple stores to fully custom platforms.",
     compareWord: "Packages",
     compareDesc: "See what's included in each package.",
     compareLinkText: "View Full Comparison →",
     howItWorksDesc: "From idea to launch, a smooth and transparent process.",
     testimonialSub: "Real feedback. Real results.",
 
+    /* Notes shown once above the cards — shared basics every website
+       package includes, so they don't need repeating card by card. */
+    commonNotes: [
+      "Domain &amp; hosting setup included, ready to go live",
+      "Comes with its own management dashboard — orders, products &amp; content",
+      "Fully responsive on desktop, tablet, and mobile",
+      "Every order's full details sent straight to your WhatsApp &amp; email — and to your customer too"
+    ],
+
     plans: [
-      {
-        id: "web-starter",
-        name: "Starter",
-        tag: "",
-        blurb: "Perfect for small businesses",
-        price: 10000,
-        monthlyPrice: null,
-        currency: "EGP",
-        cover: "photo",
-        features: [
-          "5 Pages Website",
-          "Responsive Design",
-          "Basic SEO Setup",
-          "Contact Form",
-          "Basic Animations"
-        ],
-        cta: "Add to Cart",
-        highlight: false
-      },
       {
         id: "web-premium",
         name: "Premium",
         tag: "MOST POPULAR",
-        blurb: "For growing businesses",
-        price: 18000,
-        monthlyPrice: null,
-        currency: "EGP",
+        blurb: "For growing online stores",
         cover: "photo",
+        highlight: true,
+        configurable: true,
+        basePrice: 12000,
+        baseProducts: 150,
+        baseCategories: 10,
+        maxCategories: 10,
+        productStep: 50,
+        productStepPrice: 1000,
+        aiAgent: {
+          price: 4000,
+          label: "AI Agent (answers customers, recommends products, works 24/7)",
+          desc: "A friendly AI agent trained on your whole website — reads every page, answers customer questions, and recommends the right products round the clock."
+        },
         features: [
-          "Up to 20 Pages",
-          "Advanced SEO Setup",
-          "Custom Animations",
+          "Up to 150 Products &amp; 10 Categories Included",
+          "+1,000 EGP per extra 50 products (categories stay free)",
+          "Unlimited Pages",
+          "Full Management Dashboard",
+          "Custom UI/UX Design",
           "CMS (Easy to Manage)",
-          "Integration (Forms, Maps, etc.)",
-          "1 Month Free Support"
+          "Advanced SEO Setup",
+          "2 Weeks Free Follow-Up — Then 500 EGP / Edit"
         ],
-        cta: "Add to Cart",
-        highlight: true
+        cta: "Add to Cart"
       },
       {
         id: "web-signature",
         name: "Signature",
-        tag: "",
-        blurb: "For established brands",
-        price: 30000,
-        monthlyPrice: null,
-        currency: "EGP",
+        tag: "BEST VALUE",
+        blurb: "For established, high-volume brands",
         cover: "photo",
+        highlight: false,
+        configurable: true,
+        basePrice: 15000,
+        baseProducts: 400,
+        baseCategories: 20,
+        maxCategories: 20,
+        productStep: 50,
+        productStepPrice: 1000,
+        aiAgent: {
+          price: 6000,
+          label: "AI Agent + Full Dashboard Control (image uploads, live order updates)",
+          desc: "Everything the Premium AI agent does, plus image uploads from customers, full control over your dashboard, live order tracking, and automatic status updates sent to every customer."
+        },
         features: [
+          "Up to 400 Products &amp; 20 Categories Included",
+          "+1,000 EGP per extra 50 products (categories stay free)",
           "Unlimited Pages",
+          "Full Management Dashboard",
           "Custom UI/UX Design",
           "Advanced Integrations",
           "Performance Optimization",
-          "3 Months Free Support",
-          "Priority Support"
+          "Priority Support",
+          "1 Month Free Follow-Up — Then 500 EGP / Edit"
         ],
-        cta: "Add to Cart",
-        highlight: false
+        cta: "Add to Cart"
       },
       {
         id: "web-custom",
@@ -109,16 +129,18 @@ const PRICING_DATA = {
     ],
 
     compare: {
-      headers: ["Feature", "Starter", "Premium", "Signature"],
+      headers: ["Feature", "Premium", "Signature"],
       rows: [
-        ["Responsive Design", true, true, true],
-        ["Pages", "Up to 5", "Up to 20", "Unlimited"],
-        ["SEO Setup", "Basic", "Advanced", "Advanced"],
-        ["Custom Design", false, true, true],
-        ["CMS", false, true, true],
-        ["Integrations", "Basic", "Advanced", "Advanced"],
-        ["Support", "1 Week", "1 Month", "3 Months"],
-        ["Priority Support", false, false, true]
+        ["Products Included", "150", "400"],
+        ["Categories Included", "10", "20"],
+        ["Extra Products", "+1,000 EGP / 50", "+1,000 EGP / 50"],
+        ["Management Dashboard", true, true],
+        ["Custom UI/UX Design", true, true],
+        ["SEO Setup", "Advanced", "Advanced"],
+        ["Performance Optimization", false, true],
+        ["Priority Support", false, true],
+        ["Free Follow-Up", "2 Weeks", "1 Month"],
+        ["AI Agent (optional)", "+4,000 EGP", "+6,000 EGP"]
       ]
     },
 
@@ -138,7 +160,7 @@ const PRICING_DATA = {
     kicker: "Data Driven Growth",
     titleLine1: "Powerful Dashboards",
     titleLine2: "For Smarter Decisions",
-    subtitle: "Custom dashboards designed to help you manage, analyze, and grow your business — all in one place.",
+    subtitle: "A standalone admin dashboard to manage, analyze, and grow your existing store or business — all in one place.",
     badges: [
       { icon: "chart", label: "Real-Time Data" },
       { icon: "gear", label: "Custom Features" },
@@ -154,64 +176,51 @@ const PRICING_DATA = {
     howItWorksDesc: "From idea to launch, a smooth and transparent process.",
     testimonialSub: "Real results. Real growth.",
 
+    commonNotes: [
+      "Domain &amp; hosting setup included, ready to go live",
+      "Fully responsive on desktop, tablet, and mobile",
+      "Every order's full details sent straight to your WhatsApp &amp; email — and to your customer too"
+    ],
+
     plans: [
-      {
-        id: "dash-starter",
-        name: "Starter",
-        tag: "",
-        blurb: "Perfect for small businesses",
-        price: 5000,
-        currency: "EGP",
-        cover: "photo",
-        features: [
-          "Basic Dashboard (Up to 5 Pages)",
-          "View Orders &amp; Customers",
-          "Basic Analytics",
-          "Responsive Design",
-          "1 Revision"
-        ],
-        cta: "Add to Cart",
-        highlight: false
-      },
       {
         id: "dash-premium",
         name: "Premium",
         tag: "MOST POPULAR",
-        blurb: "For growing businesses",
-        price: 12000,
+        blurb: "Full control for a growing store",
+        price: 5000,
         currency: "EGP",
         cover: "photo",
+        highlight: true,
         features: [
-          "Up to 15 Pages",
-          "Advanced Analytics &amp; Reports",
-          "Product &amp; Inventory Management",
-          "Order &amp; Customer Management",
-          "Role-Based Access",
+          "Orders, Products &amp; Customers Management",
+          "Inventory Tracking",
+          "Sales &amp; Revenue Analytics",
+          "Role-Based Staff Access",
           "Custom Design (Your Brand)",
-          "1 Month Free Support"
+          "2 Weeks Free Follow-Up — Then 500 EGP / Edit"
         ],
-        cta: "Add to Cart",
-        highlight: true
+        cta: "Add to Cart"
       },
       {
         id: "dash-signature",
         name: "Signature",
-        tag: "",
-        blurb: "For established brands",
-        price: 20000,
+        tag: "BEST VALUE",
+        blurb: "Advanced analytics &amp; automation",
+        price: 8000,
         currency: "EGP",
         cover: "photo",
+        highlight: false,
         features: [
-          "Unlimited Pages",
-          "Advanced Analytics (Real-Time)",
-          "Admin &amp; Staff Management",
-          "Custom Features (APIs, etc.)",
+          "Everything in Premium",
+          "Real-Time Analytics &amp; Reports",
+          "Advanced Security &amp; Backups",
           "Data Export (Excel, PDF)",
-          "Advanced Security",
-          "3 Months Free Support"
+          "Custom Features &amp; API Integrations",
+          "Priority Support",
+          "1 Month Free Follow-Up — Then 500 EGP / Edit"
         ],
-        cta: "Add to Cart",
-        highlight: false
+        cta: "Add to Cart"
       },
       {
         id: "dash-custom",
@@ -237,16 +246,16 @@ const PRICING_DATA = {
     ],
 
     compare: {
-      headers: ["Feature", "Starter", "Premium", "Signature"],
+      headers: ["Feature", "Premium", "Signature"],
       rows: [
-        ["Dashboard Pages", "Up to 5", "Up to 15", "Unlimited"],
-        ["Order Management", true, true, true],
-        ["Product Management", "Basic", true, true],
-        ["Customer Management", "Basic", true, true],
-        ["Analytics &amp; Reports", "Basic", "Advanced", "Advanced (Real-Time)"],
-        ["Admin Roles", false, true, true],
-        ["Data Export", false, "PDF, Excel", "PDF, Excel, API"],
-        ["Support", "1 Week", "1 Month", "3 Months"]
+        ["Order Management", true, true],
+        ["Product &amp; Inventory Management", true, true],
+        ["Analytics &amp; Reports", "Standard", "Real-Time"],
+        ["Staff Roles", true, true],
+        ["Data Export", false, "PDF, Excel"],
+        ["Custom Features / API", false, true],
+        ["Support", "Standard", "Priority"],
+        ["Free Follow-Up", "2 Weeks", "1 Month"]
       ]
     },
 
@@ -284,65 +293,42 @@ const PRICING_DATA = {
 
     plans: [
       {
-        id: "ai-starter",
-        name: "Starter",
-        tag: "",
-        blurb: "Perfect for small businesses",
-        price: 8000,
-        currency: "EGP",
-        cover: "robot",
-        features: [
-          "Basic AI Chatbot",
-          "Trained on your website content",
-          "FAQ &amp; Product Info",
-          "Lead Collection (Email/Phone)",
-          "Basic UI Customization",
-          "1 Revision"
-        ],
-        cta: "Add to Cart",
-        highlight: false
-      },
-      {
         id: "ai-premium",
         name: "Premium",
-        tag: "Most Popular",
-        blurb: "For growing businesses",
-        price: 15000,
+        tag: "MOST POPULAR",
+        blurb: "A friendly agent that never sleeps",
+        price: 4000,
         currency: "EGP",
         cover: "robot",
+        highlight: true,
         features: [
-          "Advanced AI Agent",
-          "Trained on your content &amp; files",
-          "Product Recommendations",
-          "Order Tracking Integration",
-          "Multi-language Support (AR/EN)",
-          "Custom Personality &amp; Tone",
-          "Analytics Dashboard",
-          "2 Revisions"
+          "Reads &amp; Understands Your Whole Website",
+          "Answers Customer Questions Instantly",
+          "Recommends The Right Products",
+          "Friendly, On-Brand Personality",
+          "Works 24/7",
+          "Arabic &amp; English Support"
         ],
-        cta: "Add to Cart",
-        highlight: true
+        cta: "Add to Cart"
       },
       {
         id: "ai-signature",
         name: "Signature",
-        tag: "",
-        blurb: "For established brands",
-        price: 25000,
+        tag: "BEST VALUE",
+        blurb: "Everything in Premium, plus full dashboard control",
+        price: 6000,
         currency: "EGP",
         cover: "robot",
+        highlight: false,
         features: [
           "Everything in Premium",
-          "Advanced Integrations (CRM)",
-          "Human Handover (Live Chat)",
-          "Voice Support (Optional)",
-          "Custom Workflows (Bookings, etc.)",
-          "Advanced Analytics",
-          "Priority Support",
-          "3 Months Free Updates"
+          "Customers Can Send Photos To The Agent",
+          "Full Control Over Your Dashboard",
+          "Tracks &amp; Updates Order Status Live",
+          "Sends Customers Their Order Status Automatically",
+          "Priority Support"
         ],
-        cta: "Add to Cart",
-        highlight: false
+        cta: "Add to Cart"
       },
       {
         id: "ai-custom",
@@ -359,8 +345,7 @@ const PRICING_DATA = {
           "Advanced Automation",
           "Multi-Agent System",
           "Dedicated Account Manager",
-          "Ongoing Development",
-          "Scalable for Future Growth"
+          "Ongoing Development"
         ],
         cta: "Request a Quote",
         highlight: false,
@@ -369,17 +354,16 @@ const PRICING_DATA = {
     ],
 
     compare: {
-      headers: ["Feature", "Starter", "Premium", "Signature", "Custom"],
+      headers: ["Feature", "Premium", "Signature"],
       rows: [
-        ["Website Training", true, true, true, true],
-        ["Product Recommendations", false, true, true, true],
-        ["Order Tracking", false, true, true, true],
-        ["Lead Collection", true, true, true, true],
-        ["CRM Integration", false, false, true, true],
-        ["Voice Support", false, false, true, true],
-        ["Custom Workflows", false, false, true, true],
-        ["Analytics Dashboard", "Basic", "Advanced", "Advanced", "Custom"],
-        ["Support", "1 Week", "1 Month", "3 Months", "Dedicated"]
+        ["Reads Your Website", true, true],
+        ["Product Recommendations", true, true],
+        ["Works 24/7", true, true],
+        ["Arabic &amp; English", true, true],
+        ["Image Uploads From Customers", false, true],
+        ["Dashboard Control", false, true],
+        ["Live Order Tracking &amp; Updates", false, true],
+        ["Support", "Standard", "Priority"]
       ]
     },
 
@@ -392,64 +376,6 @@ const PRICING_DATA = {
 
     testimonials: [
       { quote: "The AI assistant changed the way we interact with our customers. It's fast, smart, and feels like part of our brand. Highly recommended!", name: "Sara M.", role: "Founder, OVA Perfume" }
-    ]
-  },
-
-  addons: {
-    kicker: "Extra Power For A Better Experience",
-    titleLine1: "Add-On Services",
-    titleLine2: "Take Your Website Further",
-    subtitle: "Enhance your website, dashboard, or AI solution with powerful add-ons tailored to your needs.",
-    badges: [
-      { icon: "bolt", label: "Flexible Upgrades" },
-      { icon: "gear", label: "Professional Implementation" },
-      { icon: "truck", label: "Fast Delivery" },
-      { icon: "headset", label: "Ongoing Support" }
-    ],
-    eyebrow: "Boost Your Project",
-    sectionTitle: "Choose The Add-Ons You Need",
-    sectionDesc: "Add extra features to your package and create the perfect solution.",
-    compareWord: "Add-Ons",
-    compareDesc: "See what each add-on brings to your project.",
-    compareLinkText: "View All Features →",
-    howItWorksDesc: "Add your desired services in a few simple steps.",
-    testimonialSub: "Real feedback. Real results.",
-    searchPlaceholder: "Search add-ons...",
-
-    addonsGrid: [
-      { id: "addon-landing", name: "Landing Page", icon: "layout", desc: "High-converting landing page designed to boost your sales.", price: 7000, priceSuffix: "" },
-      { id: "addon-ai-agent", name: "AI Agent", icon: "robot", desc: "Smart AI assistant for your website or dashboard.", price: 8000, priceSuffix: "", priceLabelPrefix: "From " },
-      { id: "addon-pages", name: "Extra Pages", icon: "pages", desc: "Add additional pages to your website.", price: 1500, priceSuffix: " / page" },
-      { id: "addon-products", name: "Product Setup", icon: "bag", desc: "Add products to your store (with images &amp; details).", price: 50, priceSuffix: " / product" },
-      { id: "addon-design", name: "Custom Design", icon: "brush", desc: "Fully customized sections or features.", price: 5000, priceSuffix: "", priceLabelPrefix: "From " },
-      { id: "addon-seo", name: "SEO Optimization", icon: "bars", desc: "Get higher rankings and more visitors.", price: 4000, priceSuffix: "" },
-      { id: "addon-speed", name: "Speed Optimization", icon: "bolt", desc: "Make your website faster and more efficient.", price: 3000, priceSuffix: "" },
-      { id: "addon-maintenance", name: "Maintenance Plan", icon: "check-shield", desc: "Ongoing support and updates for peace of mind.", price: 1500, priceSuffix: " / month", priceLabelPrefix: "From " },
-      { id: "addon-integrations", name: "Integrations", icon: "puzzle", desc: "Integrate with payment, CRM, or any third-party tool.", price: 3000, priceSuffix: "", priceLabelPrefix: "From " },
-      { id: "addon-custom-feature", name: "Custom Feature", icon: "code", desc: "Have something specific in mind? We'll build it.", price: null, priceLabel: "Contact for Price", isCustomCta: true }
-    ],
-
-    compare: {
-      headers: ["Feature", "Landing Page", "AI Agent", "SEO", "Speed", "Maintenance"],
-      rows: [
-        ["Boosts Sales", true, false, false, false, false],
-        ["Improves SEO", true, false, true, false, false],
-        ["Faster Performance", false, false, false, true, false],
-        ["Automates Tasks", false, true, false, false, false],
-        ["Ongoing Support", false, false, false, false, true],
-        ["Customizable", true, true, true, true, true]
-      ]
-    },
-
-    howItWorks: [
-      { icon: "check", title: "Choose Add-Ons" },
-      { icon: "cart", title: "Add to Cart" },
-      { icon: "gear", title: "Review Your Order" },
-      { icon: "bolt", title: "Checkout Securely" }
-    ],
-
-    testimonials: [
-      { quote: "The add-ons made a huge difference — our website feels faster and way more complete now. Great work as always!", name: "Sara M.", role: "Founder, Luma Store" }
     ]
   }
 };
