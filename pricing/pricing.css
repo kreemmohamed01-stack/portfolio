@@ -437,8 +437,6 @@ input, select, textarea { font-family: inherit; }
 
   .pr-configurator { padding: 12px; gap: 12px; }
   .pr-configurator-row label { font-size: 0.72rem; }
-  .pr-stepper-btn { width: 32px; height: 32px; font-size: 1.1rem; }
-  .pr-stepper input[type="number"],
   .pr-configurator-row > input[type="number"] { font-size: 0.9rem; padding: 9px 10px; }
   .pr-configurator-ai-head { font-size: 0.78rem; }
   .pr-configurator-ai-desc { font-size: 0.68rem; }
@@ -594,18 +592,9 @@ input, select, textarea { font-family: inherit; }
 }
 .pr-configurator-row label .hint { font-weight: 400; color: var(--muted); }
 
-.pr-stepper { display: flex; align-items: center; gap: 8px; min-width: 0; }
-.pr-stepper-btn {
-  width: 30px; height: 30px; border-radius: 8px; flex: 0 0 auto;
-  border: 1px solid var(--border);
-  color: #fff; font-size: 1rem; font-weight: 700;
-  display: grid; place-items: center;
-  transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
-}
-.pr-stepper-btn:hover { border-color: var(--accent); background: rgba(59,130,246,0.14); transform: translateY(-1px); }
-.pr-stepper input[type="number"],
 .pr-configurator-row > input[type="number"] {
-  flex: 1;
+  width: 100%;
+  min-width: 0;
   background: rgba(255,255,255,0.05);
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -615,14 +604,11 @@ input, select, textarea { font-family: inherit; }
   text-align: center;
   -moz-appearance: textfield;
 }
-.pr-stepper input[type="number"]::-webkit-outer-spin-button,
-.pr-stepper input[type="number"]::-webkit-inner-spin-button,
 .pr-configurator-row > input[type="number"]::-webkit-outer-spin-button,
 .pr-configurator-row > input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none; margin: 0;
 }
-.pr-configurator-row > input[type="number"]:focus,
-.pr-stepper input:focus { outline: none; border-color: var(--accent); }
+.pr-configurator-row > input[type="number"]:focus { outline: none; border-color: var(--accent); }
 
 .pr-configurator-ai {
   display: flex; align-items: flex-start; gap: 10px;
@@ -646,7 +632,6 @@ input, select, textarea { font-family: inherit; }
   .pr-card-price-note { font-size: 0.6rem; margin-top: -8px; }
   .pr-configurator { padding: 10px; gap: 10px; }
   .pr-configurator-row label { font-size: 0.62rem; }
-  .pr-stepper-btn { width: 26px; height: 26px; font-size: 0.9rem; }
   .pr-configurator-ai-head { font-size: 0.68rem; }
   .pr-configurator-ai-desc { font-size: 0.6rem; }
 }
@@ -1157,7 +1142,7 @@ input, select, textarea { font-family: inherit; }
 .pr-tab, .pr-card-btn, .lets-talk-btn, .cart-btn, .pr-btn-solid, .pr-btn-outline,
 .pr-billing-toggle button, .pr-compare-link, .pr-pay-tabs button, .pr-help-row a,
 .pr-cart-promo button, .pr-tabsbar-arrows button, .pr-testimonial-arrows button,
-.pr-build-item, .pr-stepper-btn, .pr-btn-outline-dark {
+.pr-build-item, .pr-btn-outline-dark {
   will-change: transform;
 }
 

@@ -169,11 +169,7 @@
         <div class="pr-configurator" data-plan-id="${plan.id}">
           <div class="pr-configurator-row">
             <label for="products-${plan.id}">Extra products needed <span class="hint">(beyond the ${plan.baseProducts} included)</span></label>
-            <div class="pr-stepper">
-              <button type="button" class="pr-stepper-btn" data-step-action="products-minus" data-plan-id="${plan.id}" aria-label="Decrease extra products">−</button>
-              <input type="number" id="products-${plan.id}" min="0" step="${plan.productStep}" value="${cfg.extraProducts}" inputmode="numeric" data-config-input="products" data-plan-id="${plan.id}">
-              <button type="button" class="pr-stepper-btn" data-step-action="products-plus" data-plan-id="${plan.id}" aria-label="Increase extra products">+</button>
-            </div>
+            <input type="number" id="products-${plan.id}" min="0" step="${plan.productStep}" value="${cfg.extraProducts}" inputmode="numeric" data-config-input="products" data-plan-id="${plan.id}">
           </div>
           <div class="pr-configurator-row">
             <label for="categories-${plan.id}">Categories needed <span class="hint">(up to ${plan.maxCategories} included, free)</span></label>
@@ -281,18 +277,6 @@
           val = Math.ceil(val / plan.productStep) * plan.productStep;
           input.value = val;
           getConfig(planId).extraProducts = val;
-          refreshConfigurablePrice(planId);
-        });
-      });
-
-      $$('[data-step-action]', box).forEach(btn => {
-        btn.addEventListener("click", () => {
-          const plan = findItemById(planId);
-          const cfg = getConfig(planId);
-          const dir = btn.dataset.stepAction.endsWith("plus") ? 1 : -1;
-          cfg.extraProducts = Math.max(0, cfg.extraProducts + dir * plan.productStep);
-          const input = $(`#products-${planId}`);
-          if (input) input.value = cfg.extraProducts;
           refreshConfigurablePrice(planId);
         });
       });
