@@ -110,18 +110,18 @@
             <input type="text" id="addonSearch" placeholder="${data.searchPlaceholder}">
           </div>
         </div>
-      ` + data.addonsGrid.map(a => addonCardHTML(a)).join("");
+      ` + data.addonsGrid.map((a, i) => addonCardHTML(a, i)).join("");
 
       $("#addonSearch").addEventListener("input", (e) => filterAddons(e.target.value));
       wireAddonButtons();
       return;
     }
 
-    grid.innerHTML = data.plans.map(p => planCardHTML(p)).join("");
+    grid.innerHTML = data.plans.map((p, i) => planCardHTML(p, i)).join("");
     wirePlanButtons();
   }
 
-  function planCardHTML(plan) {
+  function planCardHTML(plan, index) {
     const inCart = isInCart(plan.id);
     const priceVal = priceForPlan(plan);
     const priceBlock = priceVal == null
@@ -137,7 +137,7 @@
     const btnClass = plan.isCustomCta ? "pr-card-btn" : `pr-card-btn ${inCart ? "added" : "solid"}`;
 
     return `
-      <div class="pr-card ${plan.highlight ? "highlight" : ""}">
+      <div class="pr-card ${plan.highlight ? "highlight" : ""}" style="--card-i:${index || 0}">
         ${tagHTML}
         <div class="pr-card-cover cover-${plan.cover}" style="background-image:url('pricing/${plan.id}.jpg')">${coverInner}</div>
         <h3>${plan.name}</h3>
@@ -152,13 +152,13 @@
     `;
   }
 
-  function addonCardHTML(a) {
+  function addonCardHTML(a, index) {
     const inCart = isInCart(a.id);
     const priceBlock = a.price == null
       ? `<div class="pr-addon-price letstalk">${a.priceLabel}</div>`
       : `<div class="pr-addon-price">${a.priceLabelPrefix || ""}${formatEGP(a.price)} <span class="egp">EGP</span><span class="suffix">${a.priceSuffix || ""}</span></div>`;
     return `
-      <div class="pr-addon-card ${a.icon === "robot" ? "hero-addon" : ""}" data-addon-name="${a.name.toLowerCase()}">
+      <div class="pr-addon-card ${a.icon === "robot" ? "hero-addon" : ""}" data-addon-name="${a.name.toLowerCase()}" style="--card-i:${index || 0}">
         <div class="pr-addon-ico">${icon(a.icon)}</div>
         <h4>${a.name}</h4>
         <p>${a.desc}</p>
