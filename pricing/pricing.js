@@ -88,9 +88,27 @@
 
   /* ================= TAB CONTENT RENDER ================= */
 
+  const SCENE_IMAGES = {
+    websites: "hero-websites.jpg",
+    dashboards: "hero-dashboards.jpg",
+    ai: "hero-ai.jpg",
+    custom: "hero-custom.jpg"
+  };
+  function loadSceneImage(el) {
+    if (el.dataset.loaded) return;
+    const file = SCENE_IMAGES[el.dataset.scene];
+    if (!file) return;
+    el.style.backgroundImage = `linear-gradient(90deg, var(--scene-tint), transparent var(--scene-fade)), url('${file}')`;
+    el.dataset.loaded = "1";
+  }
+
   function renderHeroForTab(tabKey) {
     const data = PRICING_DATA[tabKey];
-    $$(".pr-hero-scene").forEach(el => el.classList.toggle("active", el.dataset.scene === tabKey));
+    $$(".pr-hero-scene").forEach(el => {
+      const isActive = el.dataset.scene === tabKey;
+      el.classList.toggle("active", isActive);
+      if (isActive) loadSceneImage(el);
+    });
 
     if (tabKey === "custom") return; // custom section has its own static hero copy
 
@@ -711,6 +729,7 @@
     });
 
     $("#instapaySentBtn").addEventListener("click", () => placeOrder());
+    $("#walletSentBtn").addEventListener("click", () => placeOrder());
 
     // Place order
     $("#placeOrderBtn").addEventListener("click", () => placeOrder());
