@@ -3879,7 +3879,7 @@
   <!-- Intro video: full-screen, plays once per visit, then fades into the site.
        Phones get the portrait cut with sound, laptops the landscape (silent) cut. -->
   <div class="site-intro" id="siteIntro" aria-hidden="true">
-    <video id="siteIntroVideo" playsinline webkit-playsinline preload="auto"></video>
+    <video id="siteIntroVideo" playsinline webkit-playsinline disableremoteplayback preload="auto"></video>
   </div>
   <style>
     .site-intro {
@@ -3902,6 +3902,9 @@
       pointer-events: none;
     }
     html.intro-lock, html.intro-lock body { overflow: hidden; }
+    /* Nothing behind the intro is painted while it plays, so the phone spends
+       all its effort on the video. */
+    html.intro-lock body > *:not(.site-intro) { visibility: hidden; }
   </style>
   <script>
     (function () {
@@ -3914,59 +3917,92 @@
       var isMobile = window.matchMedia('(max-width: 900px)').matches;
       var root = document.documentElement;
       root.classList.add('intro-lock');
-      video.src = isMobile ? 'intro/intro-mobile.mp4' : 'intro/intro-desktop.mp4';
+      var src = isMobile ? 'intro/intro-mobile.mp4' : 'intro/intro-desktop.mp4';
 
       var finished = false;
+      var started = false;
+      var gestures = ['touchend', 'click', 'keydown'];
       function finish() {
         if (finished) return;
         finished = true;
         try { sessionStorage.setItem('introSeen', '1'); } catch (e) {}
+        gestures.forEach(function (t) { window.removeEventListener(t, unmuteOnTap, true); });
         root.classList.remove('intro-lock');
         intro.classList.add('is-done');
-        setTimeout(function () { intro.remove(); }, 800);
+        setTimeout(function () {
+          video.removeAttribute('src');
+          video.load();
+          intro.remove();
+        }, 800);
       }
 
       // Browsers only allow sound without a tap if the visitor has interacted
       // with the site before, so try with sound first; if that is refused, keep
-      // playing muted and switch the sound on at the very first touch.
-      function unmuteOnTouch() {
+      // playing muted and switch the sound on at the first real tap. iOS only
+      // counts touchend/click as a tap; unmuting on touchstart makes Safari
+      // pause the video, which is what froze the intro.
+      function unmuteOnTap() {
         video.muted = false;
-        ['pointerdown', 'touchstart', 'keydown'].forEach(function (t) {
-          window.removeEventListener(t, unmuteOnTouch, true);
-        });
+        var p = video.play();
+        if (p && p.catch) p.catch(function () { video.muted = true; video.play().catch(finish); });
+        gestures.forEach(function (t) { window.removeEventListener(t, unmuteOnTap, true); });
       }
 
-      video.muted = !isMobile;
-      video.addEventListener('ended', finish);
-      video.addEventListener('error', finish);
-      setTimeout(finish, 20000);
-
-      // Starting before enough of the file has arrived is what makes the intro
-      // stall mid-way on phones, so hold on the black screen until the browser
-      // says it can play straight through (or give up waiting after 5s).
-      var started = false;
-      function start() {
+      function start(url) {
         if (started || finished) return;
         started = true;
+        video.src = url;
+        video.muted = !isMobile;
         var p = video.play();
         if (p && p.catch) {
           p.catch(function () {
             video.muted = true;
             video.play().catch(finish);
-            if (isMobile) {
-              ['pointerdown', 'touchstart', 'keydown'].forEach(function (t) {
-                window.addEventListener(t, unmuteOnTouch, true);
-              });
-            }
+            if (isMobile) gestures.forEach(function (t) { window.addEventListener(t, unmuteOnTap, true); });
           });
         }
+        // Whatever happens, never leave the visitor stuck behind the intro.
+        setTimeout(finish, ((video.duration || 7) + 4) * 1000);
       }
-      if (video.readyState >= 4) start();
-      else {
-        video.addEventListener('canplaythrough', start, { once: true });
-        setTimeout(start, 5000);
+
+      video.addEventListener('ended', finish);
+      video.addEventListener('error', finish);
+      // If the browser pauses the video on its own, resume it; if it sits
+      // frozen on one frame for 2.5s, hand over to the site instead.
+      video.addEventListener('pause', function () {
+        if (!finished && !video.ended) video.play().catch(finish);
+      });
+      var lastTime = -1, frozenFor = 0;
+      var watchdog = setInterval(function () {
+        if (finished) { clearInterval(watchdog); return; }
+        if (!started) return;
+        if (video.currentTime === lastTime) {
+          frozenFor += 500;
+          if (frozenFor >= 2500) finish();
+        } else {
+          frozenFor = 0;
+          lastTime = video.currentTime;
+        }
+      }, 500);
+
+      // Download the whole clip before playing so it can never stall halfway
+      // on a slow connection. If that takes longer than 8s, skip the intro.
+      var giveUp = setTimeout(finish, 8000);
+      if (window.fetch && window.URL && URL.createObjectURL) {
+        fetch(src).then(function (r) {
+          if (!r.ok) throw new Error(r.status);
+          return r.blob();
+        }).then(function (blob) {
+          clearTimeout(giveUp);
+          start(URL.createObjectURL(blob));
+        }).catch(function () {
+          clearTimeout(giveUp);
+          finish();
+        });
+      } else {
+        clearTimeout(giveUp);
+        start(src);
       }
-      video.load();
     })();
   </script>
   <header class="site-header">
