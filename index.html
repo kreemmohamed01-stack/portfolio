@@ -5148,54 +5148,6 @@
       window.addEventListener('resize', updateHeaderVisibility);
       updateHeaderVisibility();
 
-      // Light momentum scrolling, the cheap way: the previous version took
-      // over every single wheel tick (preventDefault + its own scrollTo
-      // loop), which forces the browser to run that JS on the main thread
-      // before it's even allowed to scroll — on a page already busy with
-      // other work, that reads as the page "hanging" while scrolling. This
-      // version never calls preventDefault, so the browser scrolls
-      // natively and instantly on its own fast (compositor) path, exactly
-      // like normal. The only extra thing this does is, once you stop
-      // turning the wheel, let the last bit of motion glide out for a few
-      // more frames instead of stopping dead — that's the only part that
-      // touches JS, and only briefly, right at the end of a scroll.
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        var wheelVelocity = 0;
-        var coastRafId = null;
-        var wheelStopTimer = null;
-
-        function stepCoast() {
-          if (Math.abs(wheelVelocity) < 0.5) {
-            wheelVelocity = 0;
-            coastRafId = null;
-            return;
-          }
-          window.scrollTo({ top: window.scrollY + wheelVelocity, behavior: 'auto' });
-          wheelVelocity *= 0.88;
-          coastRafId = requestAnimationFrame(stepCoast);
-        }
-
-        window.addEventListener('wheel', function (e) {
-          var delta = e.deltaY;
-          if (e.deltaMode === 1) delta *= 18; // line mode -> approx px
-          else if (e.deltaMode === 2) delta *= window.innerHeight; // page mode -> px
-
-          wheelVelocity = Math.max(-45, Math.min(45, delta * 0.35));
-
-          // Actively scrolling: let the browser handle it natively and
-          // hold off any coast loop until the wheel goes quiet.
-          if (coastRafId) {
-            cancelAnimationFrame(coastRafId);
-            coastRafId = null;
-          }
-
-          clearTimeout(wheelStopTimer);
-          wheelStopTimer = setTimeout(function () {
-            if (!coastRafId) coastRafId = requestAnimationFrame(stepCoast);
-          }, 60);
-        }, { passive: true });
-      }
-
       document.querySelectorAll('[data-glow]').forEach(function (el) {
         el.addEventListener('pointermove', function (e) {
           var rect = el.getBoundingClientRect();
@@ -5474,6 +5426,33 @@
         }, { passive: true });
       }
 
+      // Endless decorative loops (drifting blurred glows, pulsing shadows,
+      // spinning rings, floating letters and icons…) kept the browser
+      // repainting on every frame, which is what made scrolling stutter on
+      // phones and laptops alike. Stop every infinite animation once it
+      // starts; each element simply rests in its normal look.
+      if (document.getAnimations) {
+        var calmPending = false;
+        var calmLoops = function () {
+          calmPending = false;
+          document.getAnimations().forEach(function (anim) {
+            var effect = anim.effect;
+            if (effect && effect.getTiming && effect.getTiming().iterations === Infinity) anim.cancel();
+          });
+        };
+        var scheduleCalm = function () {
+          if (calmPending) return;
+          calmPending = true;
+          setTimeout(calmLoops, 50);
+        };
+        calmLoops();
+        window.addEventListener('load', scheduleCalm);
+        // Loops can also start later, when a class is added on scroll.
+        new MutationObserver(scheduleCalm).observe(document.body, {
+          attributes: true, attributeFilter: ['class'], subtree: true
+        });
+      }
+
       // Scroll-reveal for the Work section.
       var revealEls = document.querySelectorAll('[data-reveal], [data-reveal-io]');
       if (revealEls.length && 'IntersectionObserver' in window) {
@@ -5492,6 +5471,20 @@
 
       // Project preview videos: play on hover (desktop), play on scroll-into-view (touch).
       var isTouch = window.matchMedia('(hover: none)').matches;
+
+      // Fetch each preview a little before it scrolls into view, so it is
+      // already buffered when it needs to play instead of starting from zero.
+      if ('IntersectionObserver' in window) {
+        var previewPreload = new IntersectionObserver(function (entries, obs) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            obs.unobserve(entry.target);
+            var v = entry.target.querySelector('video');
+            if (v) { v.preload = 'auto'; v.load(); }
+          });
+        }, { rootMargin: '700px 0px 700px 0px' });
+        document.querySelectorAll('[data-work-media]').forEach(function (el) { previewPreload.observe(el); });
+      }
 
       document.querySelectorAll('[data-work-media]').forEach(function (mediaEl) {
         var video = mediaEl.querySelector('video');
