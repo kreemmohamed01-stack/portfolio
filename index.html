@@ -82,8 +82,9 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"></noscript>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
 
     :root {
       --bg: #04070d;
@@ -3855,6 +3856,23 @@
         text-align: center;
       }
     }
+
+    /* ================= PERFORMANCE ================= */
+    /* Phones: the large blurred glows drifting forever behind every section,
+       and frosted-glass backdrops, are the most expensive things to repaint
+       while scrolling. Keep them as static soft light instead. */
+    @media (max-width: 900px) {
+      .work-glow,
+      .feedback-glow {
+        animation: none !important;
+        filter: blur(40px);
+      }
+
+      * {
+        -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -3921,20 +3939,34 @@
       video.muted = !isMobile;
       video.addEventListener('ended', finish);
       video.addEventListener('error', finish);
-      setTimeout(finish, 15000);
+      setTimeout(finish, 20000);
 
-      var p = video.play();
-      if (p && p.catch) {
-        p.catch(function () {
-          video.muted = true;
-          video.play().catch(finish);
-          if (isMobile) {
-            ['pointerdown', 'touchstart', 'keydown'].forEach(function (t) {
-              window.addEventListener(t, unmuteOnTouch, true);
-            });
-          }
-        });
+      // Starting before enough of the file has arrived is what makes the intro
+      // stall mid-way on phones, so hold on the black screen until the browser
+      // says it can play straight through (or give up waiting after 5s).
+      var started = false;
+      function start() {
+        if (started || finished) return;
+        started = true;
+        var p = video.play();
+        if (p && p.catch) {
+          p.catch(function () {
+            video.muted = true;
+            video.play().catch(finish);
+            if (isMobile) {
+              ['pointerdown', 'touchstart', 'keydown'].forEach(function (t) {
+                window.addEventListener(t, unmuteOnTouch, true);
+              });
+            }
+          });
+        }
       }
+      if (video.readyState >= 4) start();
+      else {
+        video.addEventListener('canplaythrough', start, { once: true });
+        setTimeout(start, 5000);
+      }
+      video.load();
     })();
   </script>
   <header class="site-header">
