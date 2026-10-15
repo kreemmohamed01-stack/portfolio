@@ -76,7 +76,6 @@
       WhatsApp:   https://wa.me/201211179625
       Email:      kreemmohamed01@gmail.com
       Ova Perfume project: https://ovaperfume.com
-      Luxe store project:  https://luxe-storeee.vercel.app/
       CV file:    protofolio-assets/cv.pdf
     ================================================================
   -->
@@ -1020,14 +1019,7 @@
       align-items: center;
     }
 
-    .work-item.ova-item,
-    .work-item.luxe-item,
-    .work-item.pinkroom-item,
-    .work-item.united-item,
-    .work-item.maisonmeka-item,
-    .work-item.antiquehome-item,
-    .work-item.wateen-item,
-    .work-item.wateen-dashboard-item {
+    .work-item.is-phone {
       grid-template-columns: minmax(240px, 300px) min(380px, 100%);
       justify-content: start;
     }
@@ -1353,42 +1345,16 @@
       background: #050708;
     }
 
-    .ova-item .work-media {
-      aspect-ratio: 382 / 848;
+    .is-phone .work-media {
+      aspect-ratio: 430 / 932;
     }
 
-    .luxe-item .work-media {
-      aspect-ratio: 432 / 850;
+    .is-desktop .work-media {
+      aspect-ratio: 16 / 10;
     }
 
-    .watch-item .work-media {
-      aspect-ratio: 848 / 478;
-    }
-
-    .pinkroom-item .work-media {
-      aspect-ratio: 430 / 850;
-    }
-
-    .pinkroom-dashboard-item .work-media,
-    .coffee-item .work-media {
-      aspect-ratio: 848 / 478;
-    }
-
-    .united-item .work-media {
-      aspect-ratio: 382 / 752;
-    }
-
-    .maisonmeka-item .work-media {
-      aspect-ratio: 382 / 752;
-    }
-
-    .antiquehome-item .work-media {
-      aspect-ratio: 428 / 850;
-    }
-
-    .wateen-item .work-media,
-    .wateen-dashboard-item .work-media {
-      aspect-ratio: 382 / 848;
+    .work-subhead {
+      margin-top: 140px;
     }
 
     .work-media img {
@@ -1551,20 +1517,20 @@
         width: 100%;
       }
 
-      .work-item.watch-item,
-      .work-item.pinkroom-dashboard-item,
-      .work-item.coffee-item,
-      .work-item.antiquehome-item {
+      .work-item.is-desktop {
         grid-column: 1 / -1;
       }
 
-      /* Antique Home takes a full-width row of its own, with United
-         Construction and Maison Meka sharing the row underneath it. Its preview
-         is a portrait phone recording, so cap the width and centre it —
-         full-bleed would make a single card taller than the screen. */
-      .work-item.antiquehome-item .work-visual {
-        max-width: 260px;
-        margin-inline: auto;
+      /* An odd phone card left alone on the last row is centred instead of
+         hugging the left column. */
+      .work-item.is-phone:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+        width: calc(50% - 8px);
+        justify-self: center;
+      }
+
+      .work-subhead {
+        margin-top: 90px;
       }
 
       .work-info {
@@ -1584,7 +1550,7 @@
         font-size: 1.1rem;
       }
 
-      .work-item:not(.watch-item):not(.pinkroom-dashboard-item):not(.coffee-item):not(.antiquehome-item) .work-desc {
+      .work-item.is-phone .work-desc {
         display: none;
       }
 
@@ -3903,6 +3869,7 @@
       <a class="nav-link" href="#about">About</a>
       <a class="nav-link" href="#skills">Services</a>
       <a class="nav-link" href="#work">Work</a>
+      <a class="nav-link" href="#ai">AI</a>
       <a class="nav-link" href="#">Blog</a>
       <a class="nav-link" href="#contact">Contact</a>
     </nav>
@@ -3927,6 +3894,7 @@
     <a href="#about">About</a>
     <a href="#skills">Services</a>
     <a href="#work">Work</a>
+    <a href="#ai">AI</a>
     <a href="#">Blog</a>
     <a href="#contact">Contact</a>
   </nav>
@@ -4053,25 +4021,22 @@
         <div class="work-head">
           <span class="work-kicker" data-reveal>Selected Work</span>
           <h2 class="work-title" data-reveal>Selected Projects</h2>
-          <p class="work-subtitle" data-reveal>A selection of my recent work and personal projects.</p>
+          <p class="work-subtitle" data-reveal>Recent websites designed and built for real brands and businesses.</p>
           <div class="work-divider" data-reveal></div>
         </div>
 
         <div class="work-list">
-          <!-- OVA PERFUME -->
-          <article class="work-item ova-item" data-reveal>
+
+          <article class="work-item is-phone" data-reveal>
             <div class="work-info">
               <span class="work-number">01</span>
-              <span class="work-category">E-Commerce</span>
-              <h3 class="work-name">Ova Perfume</h3>
-              <p class="work-desc">Luxury Perfume E-commerce Website</p>
+              <span class="work-category">Home Accessories</span>
+              <h3 class="work-name">The Pink Room</h3>
+              <span class="work-status">Featured</span>
+              <p class="work-desc">Premium, fully customized e-commerce store for a real home accessories brand.</p>
               <div class="work-actions">
-                <a class="work-btn-live" href="https://ovaperfume.com" target="_blank" rel="noopener noreferrer" data-glow>
+                <a class="work-btn-live" href="https://thepinkroomeg.com/" target="_blank" rel="noopener noreferrer" data-glow>
                   View Live
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-                <a class="work-btn-case" href="work-ova.html">
-                  Case Study
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
               </div>
@@ -4079,26 +4044,21 @@
 
             <div class="work-visual">
               <div class="work-media" data-work-media>
-                <img src="ova-cover.jpeg" alt="Ova Perfume website preview" loading="lazy" decoding="async">
-                <video src="ova-preview.mp4" muted loop playsinline preload="none"></video>
+                <img src="projects/pinkroom-cover.jpg" alt="The Pink Room website preview" loading="lazy" decoding="async">
+                <video src="projects/pinkroom-preview.mp4" muted loop playsinline preload="none"></video>
               </div>
             </div>
           </article>
 
-          <!-- LUXE -->
-          <article class="work-item theme-blue luxe-item" data-reveal>
+          <article class="work-item theme-blue is-phone" data-reveal>
             <div class="work-info">
               <span class="work-number">02</span>
-              <span class="work-category">Fashion</span>
-              <h3 class="work-name">Luxe</h3>
-              <p class="work-desc">Luxury Fashion Landing Page</p>
+              <span class="work-category">Home Accessories</span>
+              <h3 class="work-name">Maison Meka</h3>
+              <p class="work-desc">Modern e-commerce store with refined, premium product presentation.</p>
               <div class="work-actions">
-                <a class="work-btn-live" href="https://luxe-storeee.vercel.app/" target="_blank" rel="noopener noreferrer" data-glow>
+                <a class="work-btn-live" href="https://maison-meka-lemon.vercel.app/" target="_blank" rel="noopener noreferrer" data-glow>
                   View Live
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-                <a class="work-btn-case" href="work-luxe.html">
-                  Case Study
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
               </div>
@@ -4106,26 +4066,21 @@
 
             <div class="work-visual">
               <div class="work-media" data-work-media>
-                <img src="luxe-cover.jpeg" alt="Luxe website preview" loading="lazy" decoding="async">
-                <video src="luxe-preview.mp4" muted loop playsinline preload="none"></video>
+                <img src="projects/maisonmeka-cover.jpg" alt="Maison Meka website preview" loading="lazy" decoding="async">
+                <video src="projects/maisonmeka-preview.mp4" muted loop playsinline preload="none"></video>
               </div>
             </div>
           </article>
 
-          <!-- MY WATCH -->
-          <article class="work-item watch-item" data-reveal>
+          <article class="work-item is-phone" data-reveal>
             <div class="work-info">
               <span class="work-number">03</span>
-              <span class="work-category">Watches</span>
-              <h3 class="work-name">My Watch</h3>
-              <p class="work-desc">Luxury Watch Website</p>
+              <span class="work-category">Furniture &amp; Décor</span>
+              <h3 class="work-name">Antique Home</h3>
+              <p class="work-desc">Clean, elegant e-commerce store for a real furniture and home décor brand.</p>
               <div class="work-actions">
-                <a class="work-btn-live" href="https://my-watch-2.vercel.app/" target="_blank" rel="noopener noreferrer" data-glow>
+                <a class="work-btn-live" href="https://antiqueehome.com" target="_blank" rel="noopener noreferrer" data-glow>
                   View Live
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-                <a class="work-btn-case" href="work-watch.html">
-                  Case Study
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
               </div>
@@ -4133,26 +4088,21 @@
 
             <div class="work-visual">
               <div class="work-media" data-work-media>
-                <img src="watch-cover.jpeg" alt="My Watch website preview" loading="lazy" decoding="async">
-                <video src="watch-preview.mp4" muted loop playsinline preload="none"></video>
+                <img src="projects/antiquehome-cover.jpg" alt="Antique Home website preview" loading="lazy" decoding="async">
+                <video src="projects/antiquehome-preview.mp4" muted loop playsinline preload="none"></video>
               </div>
             </div>
           </article>
 
-          <!-- THE PINK ROOM -->
-          <article class="work-item pinkroom-item" data-reveal>
+          <article class="work-item theme-blue is-phone" data-reveal>
             <div class="work-info">
               <span class="work-number">04</span>
-              <span class="work-category">Home Decor</span>
-              <h3 class="work-name">The Pink Room</h3>
-              <p class="work-desc">Home Accessories E-commerce Website</p>
+              <span class="work-category">Luxury Watches</span>
+              <h3 class="work-name">Elwan Store</h3>
+              <p class="work-desc">Premium watch store focused on luxury product presentation.</p>
               <div class="work-actions">
-                <a class="work-btn-live" href="https://thepinkroomeg.com" target="_blank" rel="noopener noreferrer" data-glow>
+                <a class="work-btn-live" href="https://elwan-store.vercel.app/" target="_blank" rel="noopener noreferrer" data-glow>
                   View Live
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-                <a class="work-btn-case" href="work-pinkroom.html">
-                  Case Study
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
               </div>
@@ -4160,186 +4110,185 @@
 
             <div class="work-visual">
               <div class="work-media" data-work-media>
-                <img src="pinkroom-cover.jpeg" alt="The Pink Room website preview" loading="lazy" decoding="async">
-                <video src="pinkroom-preview.mp4" muted loop playsinline preload="none"></video>
+                <img src="projects/elwan-cover.jpg" alt="Elwan Store website preview" loading="lazy" decoding="async">
+                <video src="projects/elwan-preview.mp4" muted loop playsinline preload="none"></video>
               </div>
             </div>
           </article>
 
-          <!-- PINK ROOM DASHBOARD -->
-          <article class="work-item theme-blue pinkroom-dashboard-item" data-reveal>
+          <article class="work-item is-phone" data-reveal>
+            <div class="work-info">
+              <span class="work-number">05</span>
+              <span class="work-category">Perfume</span>
+              <h3 class="work-name">Wateen Perfume</h3>
+              <p class="work-desc">Elegant e-commerce store for a real perfume brand.</p>
+              <div class="work-actions">
+                <a class="work-btn-live" href="https://www.wateenperfumeseg.com/" target="_blank" rel="noopener noreferrer" data-glow>
+                  View Live
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="work-visual">
+              <div class="work-media" data-work-media>
+                <img src="projects/wateen-cover.jpg" alt="Wateen Perfume website preview" loading="lazy" decoding="async">
+                <video src="projects/wateen-preview.mp4" muted loop playsinline preload="none"></video>
+              </div>
+            </div>
+          </article>
+
+          <article class="work-item theme-blue is-phone" data-reveal>
+            <div class="work-info">
+              <span class="work-number">06</span>
+              <span class="work-category">Perfume</span>
+              <h3 class="work-name">OVA Perfume</h3>
+              <p class="work-desc">Customized e-commerce store showcasing a real brand's fragrance collections.</p>
+              <div class="work-actions">
+                <a class="work-btn-live" href="https://ovaperfume.com/" target="_blank" rel="noopener noreferrer" data-glow>
+                  View Live
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="work-visual">
+              <div class="work-media" data-work-media>
+                <img src="projects/ova-cover.jpg" alt="OVA Perfume website preview" loading="lazy" decoding="async">
+                <video src="projects/ova-preview.mp4" muted loop playsinline preload="none"></video>
+              </div>
+            </div>
+          </article>
+
+          <article class="work-item is-phone" data-reveal>
+            <div class="work-info">
+              <span class="work-number">07</span>
+              <span class="work-category">Corporate</span>
+              <h3 class="work-name">United Construction</h3>
+              <p class="work-desc">Professional corporate website for a real construction company.</p>
+              <div class="work-actions">
+                <a class="work-btn-live" href="https://unitedconstructioneg.com/" target="_blank" rel="noopener noreferrer" data-glow>
+                  View Live
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="work-visual">
+              <div class="work-media" data-work-media>
+                <img src="projects/united-cover.jpg" alt="United Construction website preview" loading="lazy" decoding="async">
+                <video src="projects/united-preview.mp4" muted loop playsinline preload="none"></video>
+              </div>
+            </div>
+          </article>
+
+
+        </div>
+
+        <div class="work-head work-subhead">
+          <span class="work-kicker" data-reveal>Management Systems</span>
+          <h2 class="work-title" data-reveal>Admin Dashboards</h2>
+          <p class="work-subtitle" data-reveal>Custom-built dashboards that let each brand manage its products, orders and store content.</p>
+          <div class="work-divider" data-reveal></div>
+        </div>
+
+        <div class="work-list">
+
+          <article class="work-item is-desktop" data-reveal>
+            <div class="work-info">
+              <span class="work-number">01</span>
+              <span class="work-category">Admin Dashboard</span>
+              <h3 class="work-name">The Pink Room Dashboard</h3>
+              <p class="work-desc">Custom admin dashboard for managing the online store and products.</p>
+              <div class="work-actions">
+                <a class="work-btn-live" href="https://thepinkroomeg.com/dashboard-login" target="_blank" rel="noopener noreferrer" data-glow>
+                  Open Dashboard
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="work-visual">
+              <div class="work-media" data-work-media>
+                <img src="projects/pinkroom-dashboard-cover.jpg" alt="The Pink Room admin dashboard preview" loading="lazy" decoding="async">
+              </div>
+            </div>
+          </article>
+
+          <article class="work-item theme-blue is-desktop" data-reveal>
+            <div class="work-info">
+              <span class="work-number">02</span>
+              <span class="work-category">Admin Dashboard</span>
+              <h3 class="work-name">Maison Meka Dashboard</h3>
+              <p class="work-desc">Custom dashboard for store management and product administration.</p>
+              <div class="work-actions">
+                <a class="work-btn-live" href="https://maison-meka-lemon.vercel.app/admin" target="_blank" rel="noopener noreferrer" data-glow>
+                  Open Dashboard
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="work-visual">
+              <div class="work-media" data-work-media>
+                <img src="projects/maisonmeka-dashboard-cover.jpg" alt="Maison Meka admin dashboard preview" loading="lazy" decoding="async">
+                <video src="projects/maisonmeka-dashboard-preview.mp4" muted loop playsinline preload="none"></video>
+              </div>
+            </div>
+          </article>
+
+          <article class="work-item is-desktop" data-reveal>
+            <div class="work-info">
+              <span class="work-number">03</span>
+              <span class="work-category">Admin Dashboard</span>
+              <h3 class="work-name">Antique Home Dashboard</h3>
+              <p class="work-desc">Management dashboard for products and store content.</p>
+              <div class="work-actions">
+                <a class="work-btn-live" href="https://www.antiqueehome.com/admin" target="_blank" rel="noopener noreferrer" data-glow>
+                  Open Dashboard
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="work-visual">
+              <div class="work-media" data-work-media>
+                <img src="projects/antiquehome-dashboard-cover.jpg" alt="Antique Home admin dashboard preview" loading="lazy" decoding="async">
+              </div>
+            </div>
+          </article>
+
+          <article class="work-item theme-blue is-desktop" data-reveal>
+            <div class="work-info">
+              <span class="work-number">04</span>
+              <span class="work-category">Admin Dashboard</span>
+              <h3 class="work-name">Elwan Store Dashboard</h3>
+              <p class="work-desc">Centralized admin dashboard for the watch store's products.</p>
+              <div class="work-actions">
+                <a class="work-btn-live" href="https://elwan-store.vercel.app/admin" target="_blank" rel="noopener noreferrer" data-glow>
+                  Open Dashboard
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="work-visual">
+              <div class="work-media" data-work-media>
+                <img src="projects/elwan-dashboard-cover.jpg" alt="Elwan Store admin dashboard preview" loading="lazy" decoding="async">
+                <video src="projects/elwan-dashboard-preview.mp4" muted loop playsinline preload="none"></video>
+              </div>
+            </div>
+          </article>
+
+          <article class="work-item is-desktop" data-reveal>
             <div class="work-info">
               <span class="work-number">05</span>
               <span class="work-category">Admin Dashboard</span>
-              <h3 class="work-name">Pink Room Dashboard</h3>
-              <p class="work-desc">Store Management Dashboard</p>
-              <div class="work-actions">
-                <a class="work-btn-live" href="https://thepinkroomeg.com" target="_blank" rel="noopener noreferrer" data-glow>
-                  View Live
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-                <a class="work-btn-case" href="work-pinkroom-dashboard.html">
-                  Case Study
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-              </div>
-            </div>
-
-            <div class="work-visual">
-              <div class="work-media" data-work-media>
-                <img src="pinkroom-dashboard-cover.jpeg" alt="Pink Room dashboard preview" loading="lazy" decoding="async">
-                <video src="pinkroom-dashboard-preview.mp4" muted loop playsinline preload="none"></video>
-              </div>
-            </div>
-          </article>
-
-          <!-- COFFEE BRAND -->
-          <article class="work-item coffee-item" data-reveal>
-            <div class="work-info">
-              <span class="work-number">06</span>
-              <span class="work-category">E-Commerce</span>
-              <h3 class="work-name">Coffee Brand</h3>
-              <p class="work-desc">Premium Coffee E-commerce Website</p>
-              <div class="work-actions">
-                <a class="work-btn-case" href="work-coffee.html">
-                  Case Study
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-              </div>
-            </div>
-
-            <div class="work-visual">
-              <div class="work-media" data-work-media>
-                <img src="coffee-cover.jpeg" alt="Coffee brand website preview" loading="lazy" decoding="async">
-                <video src="coffee-preview.mp4" muted loop playsinline preload="none"></video>
-              </div>
-            </div>
-          </article>
-
-          <!-- ANTIQUE HOME -->
-          <article class="work-item theme-blue antiquehome-item" data-reveal>
-            <div class="work-info">
-              <span class="work-number">07</span>
-              <span class="work-category">Antiques</span>
-              <h3 class="work-name">Antique Home</h3>
-              <span class="work-status">In Progress</span>
-              <p class="work-desc">Antiques &amp; Timeless Pieces E-commerce Website</p>
-              <div class="work-actions">
-                <a class="work-btn-live" href="https://antique-home-1.vercel.app/" target="_blank" rel="noopener noreferrer" data-glow>
-                  View Live
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-                <a class="work-btn-case" href="work-antiquehome.html">
-                  Case Study
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-              </div>
-            </div>
-
-            <div class="work-visual">
-              <div class="work-media" data-work-media>
-                <img src="antiquehome-cover.jpeg" alt="Antique Home website preview" loading="lazy" decoding="async">
-                <video src="antiquehome-preview.mp4" muted loop playsinline preload="none"></video>
-              </div>
-            </div>
-          </article>
-
-          <!-- UNITED CONSTRUCTION -->
-          <article class="work-item united-item" data-reveal>
-            <div class="work-info">
-              <span class="work-number">08</span>
-              <span class="work-category">Construction</span>
-              <h3 class="work-name">United Construction</h3>
-              <p class="work-desc">Construction &amp; GRC Works Corporate Website</p>
-              <div class="work-actions">
-                <a class="work-btn-live" href="https://unitedconstructioneg.com" target="_blank" rel="noopener noreferrer" data-glow>
-                  View Live
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-                <a class="work-btn-case" href="work-united.html">
-                  Case Study
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-              </div>
-            </div>
-
-            <div class="work-visual">
-              <div class="work-media" data-work-media>
-                <img src="united-cover.jpeg" alt="United Construction website preview" loading="lazy" decoding="async">
-                <video src="united-preview.mp4" muted loop playsinline preload="none"></video>
-              </div>
-            </div>
-          </article>
-
-          <!-- MAISON MEKA -->
-          <article class="work-item theme-blue maisonmeka-item" data-reveal>
-            <div class="work-info">
-              <span class="work-number">09</span>
-              <span class="work-category">Home Decor</span>
-              <h3 class="work-name">Maison Meka</h3>
-              <span class="work-status">In Progress</span>
-              <p class="work-desc">Curated Home Art E-commerce Website</p>
-              <div class="work-actions">
-                <a class="work-btn-live" href="https://maison-mekaaa.vercel.app/" target="_blank" rel="noopener noreferrer" data-glow>
-                  View Live
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-                <a class="work-btn-case" href="work-maisonmeka.html">
-                  Case Study
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-              </div>
-            </div>
-
-            <div class="work-visual">
-              <div class="work-media" data-work-media>
-                <img src="maisonmeka-cover.jpeg" alt="Maison Meka website preview" loading="lazy" decoding="async">
-                <video src="maisonmeka-preview.mp4" muted loop playsinline preload="none"></video>
-              </div>
-            </div>
-          </article>
-
-          <!-- WATEEN PERFUME -->
-          <article class="work-item wateen-item" data-reveal>
-            <div class="work-info">
-              <span class="work-number">10</span>
-              <span class="work-category">Perfume</span>
-              <h3 class="work-name">Wateen Perfume</h3>
-              <p class="work-desc">Perfume E-commerce Website</p>
-              <div class="work-actions">
-                <a class="work-btn-live" href="https://wateenperfumeseg.com" target="_blank" rel="noopener noreferrer" data-glow>
-                  View Live
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-                <a class="work-btn-case" href="work-wateen.html">
-                  Case Study
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-              </div>
-            </div>
-
-            <div class="work-visual">
-              <div class="work-media" data-work-media>
-                <img src="wateen-cover.jpeg" alt="Wateen Perfume website preview" loading="lazy" decoding="async">
-                <video src="wateen-preview.mp4" muted loop playsinline preload="none"></video>
-              </div>
-            </div>
-          </article>
-
-          <!-- WATEEN PERFUME DASHBOARD -->
-          <article class="work-item theme-blue wateen-dashboard-item" data-reveal>
-            <div class="work-info">
-              <span class="work-number">11</span>
-              <span class="work-category">Admin Dashboard</span>
               <h3 class="work-name">Wateen Perfume Dashboard</h3>
-              <p class="work-desc">Store Management Dashboard</p>
+              <p class="work-desc">Admin dashboard for products, store administration and daily operations.</p>
               <div class="work-actions">
-                <a class="work-btn-live" href="https://wateenperfumeseg.com" target="_blank" rel="noopener noreferrer" data-glow>
-                  View Live
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </a>
-                <a class="work-btn-case" href="work-wateen-dashboard.html">
-                  Case Study
+                <a class="work-btn-live" href="https://www.wateenperfumeseg.com/admin/" target="_blank" rel="noopener noreferrer" data-glow>
+                  Open Dashboard
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
               </div>
@@ -4347,12 +4296,70 @@
 
             <div class="work-visual">
               <div class="work-media" data-work-media>
-                <img src="wateen-dashboard-cover.jpeg" alt="Wateen Perfume dashboard preview" loading="lazy" decoding="async">
-                <video src="wateen-dashboard-preview.mp4" muted loop playsinline preload="none"></video>
+                <img src="projects/wateen-dashboard-cover.jpg" alt="Wateen Perfume admin dashboard preview" loading="lazy" decoding="async">
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="work-section ai-section" id="ai">
+      <span class="work-glow blue" aria-hidden="true"></span>
+      <span class="work-glow red" aria-hidden="true"></span>
+      <div class="container">
+        <div class="work-head">
+          <span class="work-kicker" data-reveal>AI Integrations</span>
+          <h2 class="work-title" data-reveal>AI Shopping Assistants</h2>
+          <p class="work-subtitle" data-reveal>Smart assistants built into real stores, chatting with customers and recommending products.</p>
+          <div class="work-divider" data-reveal></div>
+        </div>
+
+        <div class="work-list">
+
+          <article class="work-item is-phone" data-reveal>
+            <div class="work-info">
+              <span class="work-number">01</span>
+              <span class="work-category">AI Assistant</span>
+              <h3 class="work-name">Elwan AI</h3>
+              <p class="work-desc">AI shopping assistant that recommends watches, shows offers and helps customers pick gifts, right inside the store.</p>
+              <div class="work-actions">
+                <a class="work-btn-live" href="https://elwan-store.vercel.app/" target="_blank" rel="noopener noreferrer" data-glow>
+                  Try It Live
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="work-visual">
+              <div class="work-media" data-work-media>
+                <img src="projects/elwan-ai-cover.jpg" alt="Elwan AI assistant demo" loading="lazy" decoding="async">
+                <video src="projects/elwan-ai-preview.mp4" muted loop playsinline preload="none"></video>
               </div>
             </div>
           </article>
 
+          <article class="work-item theme-blue is-phone" data-reveal>
+            <div class="work-info">
+              <span class="work-number">02</span>
+              <span class="work-category">AI Assistant</span>
+              <h3 class="work-name">OVA AI</h3>
+              <p class="work-desc">AI fragrance assistant that understands what customers want and suggests the right perfume in seconds.</p>
+              <div class="work-actions">
+                <a class="work-btn-live" href="https://ovaperfume.com/" target="_blank" rel="noopener noreferrer" data-glow>
+                  Try It Live
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="work-visual">
+              <div class="work-media" data-work-media>
+                <img src="projects/ova-ai-cover.jpg" alt="OVA AI assistant demo" loading="lazy" decoding="async">
+                <video src="projects/ova-ai-preview.mp4" muted loop playsinline preload="none"></video>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -4379,7 +4386,7 @@
             </div>
             <figcaption class="feedback-card-info">
               <span class="feedback-brand">The Pink Room</span>
-              <a class="feedback-card-link" href="work-pinkroom.html">
+              <a class="feedback-card-link" href="https://thepinkroomeg.com/" target="_blank" rel="noopener noreferrer">
                 View Project
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
@@ -4395,7 +4402,7 @@
             </div>
             <figcaption class="feedback-card-info">
               <span class="feedback-brand">Ova Perfume</span>
-              <a class="feedback-card-link" href="work-ova.html">
+              <a class="feedback-card-link" href="https://ovaperfume.com/" target="_blank" rel="noopener noreferrer">
                 View Project
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
@@ -4411,7 +4418,7 @@
             </div>
             <figcaption class="feedback-card-info">
               <span class="feedback-brand">Wateen Perfume</span>
-              <a class="feedback-card-link" href="work-wateen.html">
+              <a class="feedback-card-link" href="https://www.wateenperfumeseg.com/" target="_blank" rel="noopener noreferrer">
                 View Project
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>

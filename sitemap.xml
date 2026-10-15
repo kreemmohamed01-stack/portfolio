@@ -5,122 +5,12 @@
 >
   <url>
     <loc>https://www.kreemaly.com/</loc>
-    <lastmod>2026-09-04</lastmod>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://www.kreemaly.com/about-photo.png</image:loc>
       <image:title>Kreem Aly portrait</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.kreemaly.com/work-luxe.html</loc>
-    <lastmod>2026-08-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://www.kreemaly.com/luxe-cover.jpeg</image:loc>
-      <image:title>Luxe case study cover</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.kreemaly.com/work-ova.html</loc>
-    <lastmod>2026-08-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://www.kreemaly.com/ova-cover.jpeg</image:loc>
-      <image:title>Ova Perfume case study cover</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.kreemaly.com/work-watch.html</loc>
-    <lastmod>2026-08-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://www.kreemaly.com/watch-cover.jpeg</image:loc>
-      <image:title>My Watch case study cover</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.kreemaly.com/work-pinkroom.html</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://www.kreemaly.com/pinkroom-cover.jpeg</image:loc>
-      <image:title>The Pink Room case study cover</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.kreemaly.com/work-pinkroom-dashboard.html</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://www.kreemaly.com/pinkroom-dashboard-cover.jpeg</image:loc>
-      <image:title>Pink Room Dashboard case study cover</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.kreemaly.com/work-coffee.html</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://www.kreemaly.com/coffee-cover.jpeg</image:loc>
-      <image:title>Coffee Brand case study cover</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.kreemaly.com/work-antiquehome.html</loc>
-    <lastmod>2026-09-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://www.kreemaly.com/antiquehome-cover.jpeg</image:loc>
-      <image:title>Antique Home case study cover</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.kreemaly.com/work-united.html</loc>
-    <lastmod>2026-09-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://www.kreemaly.com/united-cover.jpeg</image:loc>
-      <image:title>United Construction case study cover</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.kreemaly.com/work-maisonmeka.html</loc>
-    <lastmod>2026-09-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://www.kreemaly.com/maisonmeka-cover.jpeg</image:loc>
-      <image:title>Maison Meka case study cover</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.kreemaly.com/work-wateen.html</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://www.kreemaly.com/wateen-cover.jpeg</image:loc>
-      <image:title>Wateen Perfume case study cover</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.kreemaly.com/work-wateen-dashboard.html</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://www.kreemaly.com/wateen-dashboard-cover.jpeg</image:loc>
-      <image:title>Wateen Perfume Dashboard case study cover</image:title>
     </image:image>
   </url>
   <url>
