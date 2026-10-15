@@ -3858,6 +3858,85 @@
   </style>
 </head>
 <body>
+  <!-- Intro video: full-screen, plays once per visit, then fades into the site.
+       Phones get the portrait cut with sound, laptops the landscape (silent) cut. -->
+  <div class="site-intro" id="siteIntro" aria-hidden="true">
+    <video id="siteIntroVideo" playsinline webkit-playsinline preload="auto"></video>
+  </div>
+  <style>
+    .site-intro {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #000;
+      display: grid;
+      place-items: center;
+      transition: opacity 0.7s ease, visibility 0.7s ease;
+    }
+    .site-intro video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .site-intro.is-done {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    html.intro-lock, html.intro-lock body { overflow: hidden; }
+  </style>
+  <script>
+    (function () {
+      var intro = document.getElementById('siteIntro');
+      var video = document.getElementById('siteIntroVideo');
+      var seen = false;
+      try { seen = sessionStorage.getItem('introSeen') === '1'; } catch (e) {}
+      if (seen) { intro.remove(); return; }
+
+      var isMobile = window.matchMedia('(max-width: 900px)').matches;
+      var root = document.documentElement;
+      root.classList.add('intro-lock');
+      video.src = isMobile ? 'intro/intro-mobile.mp4' : 'intro/intro-desktop.mp4';
+
+      var finished = false;
+      function finish() {
+        if (finished) return;
+        finished = true;
+        try { sessionStorage.setItem('introSeen', '1'); } catch (e) {}
+        root.classList.remove('intro-lock');
+        intro.classList.add('is-done');
+        setTimeout(function () { intro.remove(); }, 800);
+      }
+
+      // Browsers only allow sound without a tap if the visitor has interacted
+      // with the site before, so try with sound first; if that is refused, keep
+      // playing muted and switch the sound on at the very first touch.
+      function unmuteOnTouch() {
+        video.muted = false;
+        ['pointerdown', 'touchstart', 'keydown'].forEach(function (t) {
+          window.removeEventListener(t, unmuteOnTouch, true);
+        });
+      }
+
+      video.muted = !isMobile;
+      video.addEventListener('ended', finish);
+      video.addEventListener('error', finish);
+      setTimeout(finish, 15000);
+
+      var p = video.play();
+      if (p && p.catch) {
+        p.catch(function () {
+          video.muted = true;
+          video.play().catch(finish);
+          if (isMobile) {
+            ['pointerdown', 'touchstart', 'keydown'].forEach(function (t) {
+              window.addEventListener(t, unmuteOnTouch, true);
+            });
+          }
+        });
+      }
+    })();
+  </script>
   <header class="site-header">
     <a class="logo-slot" href="#home" aria-label="Kreem Aly - home">
       <img src="logo_karim-removebg-preview.png" alt="Kreem Aly logo" class="logo-img">
