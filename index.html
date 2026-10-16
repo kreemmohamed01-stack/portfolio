@@ -391,7 +391,6 @@
       border-radius: 2px;
       background: linear-gradient(90deg, var(--accent), var(--accent-2));
       background-size: 200% 100%;
-      animation: linePulse 3.2s ease-in-out infinite;
     }
 
     @keyframes linePulse {
@@ -419,7 +418,6 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      animation: shimmer 5s ease-in-out infinite;
       animation-delay: calc(var(--i, 0) * 0.06s);
       text-shadow: 0 0 var(--glow, 0px) rgba(147, 197, 253, var(--glow-a, 0));
       transition: text-shadow 0.18s ease, transform 0.18s ease;
@@ -447,7 +445,6 @@
 
     .hero-role .glow-letter {
       --glow-color: rgba(147, 197, 253, 0.9);
-      animation: roleFloat 3.6s ease-in-out infinite, roleGlowPulse 3.6s ease-in-out infinite;
       animation-delay: calc(var(--i, 0) * 0.05s);
     }
 
@@ -599,7 +596,6 @@
       border-radius: 2px;
       background: var(--accent);
       transform: translateX(-50%);
-      animation: wheelDrop 1.8s ease-in-out infinite;
       box-shadow: 0 0 6px rgba(59, 130, 246, 0.8);
     }
 
@@ -612,7 +608,6 @@
     .scroll-arrow {
       width: 11px;
       height: 11px;
-      animation: arrowBounce 1.8s ease-in-out infinite;
     }
 
     @keyframes arrowBounce {
@@ -665,7 +660,6 @@
       background: rgba(6, 12, 22, 0.55);
       border: 1px solid rgba(255, 255, 255, 0.14);
       backdrop-filter: blur(6px);
-      animation: iconFloat 4.2s ease-in-out infinite;
       transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
@@ -883,7 +877,6 @@
       max-width: 620px;
       max-height: 620px;
       background: radial-gradient(circle, rgba(59, 130, 246, 0.22), transparent 70%);
-      animation: workGlowDriftA 16s ease-in-out infinite;
     }
 
     .work-glow.red {
@@ -894,7 +887,6 @@
       max-width: 560px;
       max-height: 560px;
       background: radial-gradient(circle, rgba(239, 68, 68, 0.2), transparent 70%);
-      animation: workGlowDriftB 18s ease-in-out infinite;
     }
 
     @keyframes workGlowDriftA {
@@ -969,7 +961,6 @@
       background: var(--accent-2);
       transform: translate(-50%, -50%);
       box-shadow: 0 0 14px rgba(239, 68, 68, 0.85);
-      animation: dotPulse 2.4s ease-in-out infinite;
     }
 
     @keyframes dotPulse {
@@ -1095,7 +1086,6 @@
       border-radius: 50%;
       background: #f5b24a;
       box-shadow: 0 0 0 0 rgba(245, 178, 74, 0.55);
-      animation: work-status-pulse 2.4s ease-out infinite;
     }
 
     @keyframes work-status-pulse {
@@ -1636,7 +1626,6 @@
       max-width: 540px;
       max-height: 540px;
       background: radial-gradient(circle, rgba(59, 130, 246, 0.2), transparent 70%);
-      animation: workGlowDriftA 17s ease-in-out infinite;
     }
 
     .feedback-glow.red {
@@ -1647,7 +1636,6 @@
       max-width: 480px;
       max-height: 480px;
       background: radial-gradient(circle, rgba(239, 68, 68, 0.18), transparent 70%);
-      animation: workGlowDriftB 19s ease-in-out infinite;
     }
 
     .feedback-head {
@@ -1720,7 +1708,6 @@
       background: var(--accent);
       transform: translate(-50%, -50%);
       box-shadow: 0 0 14px rgba(59, 130, 246, 0.85);
-      animation: dotPulse 2.4s ease-in-out infinite;
     }
 
     .feedback-grid {
@@ -2279,14 +2266,12 @@
       border-top-color: var(--accent-2);
       border-right-color: var(--accent-2);
       filter: drop-shadow(0 0 18px rgba(239, 68, 68, 0.55));
-      animation: ringSpin 14s linear infinite;
     }
 
     .about-photo-glow::after {
       border-bottom-color: var(--accent);
       border-left-color: var(--accent);
       filter: drop-shadow(0 0 18px rgba(59, 130, 246, 0.55));
-      animation: ringSpin 18s linear infinite reverse;
     }
 
     @keyframes ringSpin {
@@ -2298,7 +2283,6 @@
       width: min(420px, 88%);
       display: block;
       filter: drop-shadow(0 24px 44px rgba(0, 0, 0, 0.5));
-      animation: photoFloat 6s ease-in-out infinite;
     }
 
     @keyframes photoFloat {
@@ -2650,7 +2634,6 @@
       place-items: center;
       color: var(--accent-2);
       flex: 0 0 auto;
-      animation: iconFloat 4s ease-in-out infinite;
     }
 
     .about-cta-icon svg { width: 22px; height: 22px; }
@@ -2814,7 +2797,6 @@
     .skill-card.is-in {
       opacity: 1;
       transform: translateY(0) scale(1);
-      animation: cardFloat 4.4s ease-in-out 0.28s infinite;
     }
 
     .skill-card.theme-blue {
@@ -3006,14 +2988,12 @@
       border-top-color: var(--accent-2);
       border-right-color: var(--accent-2);
       filter: drop-shadow(0 0 16px rgba(239, 68, 68, 0.6));
-      animation: ringSpin 12s linear infinite;
     }
 
     .skills-ring::after {
       border-bottom-color: var(--accent);
       border-left-color: var(--accent);
       filter: drop-shadow(0 0 16px rgba(59, 130, 246, 0.6));
-      animation: ringSpin 16s linear infinite reverse;
     }
 
     .skills-photo {
@@ -3301,7 +3281,6 @@
     .why-icon-badge::after {
       inset: 8px;
       border-style: dashed;
-      animation: ringSpin 20s linear infinite;
     }
 
     .why-card.theme-blue .why-icon-badge::before,
@@ -3383,7 +3362,6 @@
     .why-quote-icon svg {
       width: 44px;
       height: 44px;
-      animation: cubeSpin 8s linear infinite;
       filter: drop-shadow(0 0 14px rgba(168, 85, 247, 0.65));
     }
 
@@ -3951,7 +3929,7 @@
       function start(url) {
         if (started || finished) return;
         started = true;
-        video.src = url;
+        if (video.src.indexOf(url) === -1) video.src = url;
         video.muted = !isMobile;
         var p = video.play();
         if (p && p.catch) {
@@ -3985,24 +3963,19 @@
         }
       }, 500);
 
-      // Download the whole clip before playing so it can never stall halfway
-      // on a slow connection. If that takes longer than 8s, skip the intro.
-      var giveUp = setTimeout(finish, 8000);
-      if (window.fetch && window.URL && URL.createObjectURL) {
-        fetch(src).then(function (r) {
-          if (!r.ok) throw new Error(r.status);
-          return r.blob();
-        }).then(function (blob) {
-          clearTimeout(giveUp);
-          start(URL.createObjectURL(blob));
-        }).catch(function () {
-          clearTimeout(giveUp);
-          finish();
-        });
-      } else {
-        clearTimeout(giveUp);
-        start(src);
-      }
+      // Stream the clip and start as soon as the browser expects to play it
+      // through without pausing. A visitor on a slow connection should never
+      // stare at a black screen, so if it isn't ready within 3.5s the intro is
+      // skipped and the site shows straight away.
+      video.preload = 'auto';
+      video.src = src;
+      video.addEventListener('canplaythrough', function () { start(src); }, { once: true });
+      setTimeout(function () {
+        if (started) return;
+        if (video.readyState >= 3) start(src);
+        else finish();
+      }, 3500);
+      video.load();
     })();
   </script>
   <header class="site-header">
@@ -5137,16 +5110,27 @@
       var header = document.querySelector('.site-header');
       var heroEl = document.getElementById('home');
 
+      // The hero's bottom edge only moves on resize/load, so measure it then
+      // instead of forcing a layout read on every scroll event.
+      var heroBottom = 0;
+      function measureHero() {
+        heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 0;
+        updateHeaderVisibility();
+      }
+
+      var headerHidden = null;
       function updateHeaderVisibility() {
-        var heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 0;
         var inHero = window.scrollY < heroBottom - 96;
-        var shouldShow = inHero || panel.classList.contains('is-open');
-        header.classList.toggle('is-hidden', !shouldShow);
+        var hide = !(inHero || panel.classList.contains('is-open'));
+        if (hide === headerHidden) return;
+        headerHidden = hide;
+        header.classList.toggle('is-hidden', hide);
       }
 
       window.addEventListener('scroll', updateHeaderVisibility, { passive: true });
-      window.addEventListener('resize', updateHeaderVisibility);
-      updateHeaderVisibility();
+      window.addEventListener('resize', measureHero);
+      window.addEventListener('load', measureHero);
+      requestAnimationFrame(measureHero);
 
       document.querySelectorAll('[data-glow]').forEach(function (el) {
         el.addEventListener('pointermove', function (e) {
@@ -5202,7 +5186,7 @@
         splitIntoLetters(line, 'letter');
       });
 
-      document.querySelectorAll('.glow-text').forEach(function (el) {
+      document.querySelectorAll('.glow-text:not(.skill-desc):not(.why-card-desc)').forEach(function (el) {
         splitIntoLetters(el);
       });
 
@@ -5263,7 +5247,16 @@
         });
       }
 
-      document.querySelectorAll('#work .work-head, #work .work-info, #feedback .feedback-head, #feedback .feedback-card-info, #about, #skills, #why, #contact').forEach(letterizeAllText);
+      // Only headings are split into letters. Splitting every paragraph,
+      // card and description as well produced ~5,800 extra elements, which
+      // made the browser's style/layout work several seconds long on phones
+      // (where the cursor glow can't even be seen).
+      document.querySelectorAll(
+        '.work-title, .feedback-title, .about-heading .line, ' +
+        '.skills-title .line1, .skills-title .line2, ' +
+        '.why-title .line1, .why-title .line2, ' +
+        '.contact-title .line1, .contact-title .line2, .contact-title .line3'
+      ).forEach(letterizeAllText);
 
       // Section headings assemble letter by letter when you scroll to them.
       // Purely CSS-driven (a class flip; the per-letter delay lives in the
@@ -5424,33 +5417,6 @@
           lastY = e.clientY;
           if (!rafId) rafId = requestAnimationFrame(updateLetterGlow);
         }, { passive: true });
-      }
-
-      // Endless decorative loops (drifting blurred glows, pulsing shadows,
-      // spinning rings, floating letters and icons…) kept the browser
-      // repainting on every frame, which is what made scrolling stutter on
-      // phones and laptops alike. Stop every infinite animation once it
-      // starts; each element simply rests in its normal look.
-      if (document.getAnimations) {
-        var calmPending = false;
-        var calmLoops = function () {
-          calmPending = false;
-          document.getAnimations().forEach(function (anim) {
-            var effect = anim.effect;
-            if (effect && effect.getTiming && effect.getTiming().iterations === Infinity) anim.cancel();
-          });
-        };
-        var scheduleCalm = function () {
-          if (calmPending) return;
-          calmPending = true;
-          setTimeout(calmLoops, 50);
-        };
-        calmLoops();
-        window.addEventListener('load', scheduleCalm);
-        // Loops can also start later, when a class is added on scroll.
-        new MutationObserver(scheduleCalm).observe(document.body, {
-          attributes: true, attributeFilter: ['class'], subtree: true
-        });
       }
 
       // Scroll-reveal for the Work section.
