@@ -193,7 +193,6 @@ section { position: relative; }
 
 /* Black & white at rest, colour while the preview plays */
 .proj-media img {
-  filter: grayscale(1) contrast(1.04);
   transform: scale(1.01);
   transition: transform 1.2s var(--ease), opacity 0.6s ease;
 }
@@ -296,12 +295,11 @@ section { position: relative; }
   height: 100%;
   object-fit: cover;
   object-position: top center;
-  filter: grayscale(1);
-  transition: filter 0.7s ease, transform 1.2s var(--ease);
+  transition: transform 1.2s var(--ease);
 }
 
 @media (hover: hover) {
-  .fb-card:hover .fb-frame img { filter: grayscale(0); transform: scale(1.03); }
+  .fb-card:hover .fb-frame img { transform: scale(1.03); }
 }
 
 .fb-info { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid var(--line); padding-top: 12px; }
@@ -634,3 +632,7 @@ section { position: relative; }
 }
 
 .footer-left { display: grid; gap: 6px; }
+
+/* Tighter gap between reviews and about */
+#feedback { padding-bottom: clamp(24px, 4vw, 48px); }
+.about { padding-top: clamp(28px, 3.5vw, 44px); }

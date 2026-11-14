@@ -23,9 +23,9 @@ body {
 /* Header is fixed now, so push the page below it */
 main#main { padding-top: var(--header-h); }
 
-/* Photos in black & white */
+/* Photos in full colour */
 .pr-hero-scene,
-.pr-card-cover { filter: grayscale(1) contrast(1.05); }
+.pr-card-cover { filter: none; }
 
 /* Cart button in the shared header */
 .cart-btn {
@@ -103,9 +103,6 @@ main#main { padding-top: var(--header-h); }
 .pr-hero-bg .pr-hero-scene {
   --scene-tint: rgba(11, 11, 11, 0.9);
   --scene-fade: 70%;
-  filter: grayscale(1) brightness(0.62) contrast(1.05);
+  filter: brightness(0.62);
 }
 
-/* Emoji icons in gray too */
-.emoji-ico,
-.pr-cart-custom-cta .ico { filter: grayscale(1); }
