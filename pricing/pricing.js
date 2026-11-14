@@ -98,7 +98,7 @@
     if (el.dataset.loaded) return;
     const file = SCENE_IMAGES[el.dataset.scene];
     if (!file) return;
-    el.style.backgroundImage = `linear-gradient(90deg, var(--scene-tint), transparent var(--scene-fade)), url('${file}')`;
+    el.style.backgroundImage = `linear-gradient(90deg, var(--scene-tint), transparent var(--scene-fade)), url('pricing/${file}')`;
     el.dataset.loaded = "1";
   }
 
@@ -769,14 +769,7 @@
       if (n) drop.querySelector("span").innerHTML = `${n} file${n > 1 ? "s" : ""} selected`;
     }
 
-    // Mobile nav
-    const navToggle = $("#navToggle");
-    const mobilePanel = $("#mobileNavPanel");
-    navToggle.addEventListener("click", () => {
-      const open = mobilePanel.classList.toggle("open");
-      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
-    });
-    $$("#mobileNavPanel a").forEach(a => a.addEventListener("click", () => mobilePanel.classList.remove("open")));
+    // Menu + header are handled by assets/site.js
 
     // Testimonial arrows
     $("#testiPrev").addEventListener("click", () => cycleTestimonial(-1));
@@ -837,11 +830,6 @@
     const initialTab = TABS.includes(urlTab) ? urlTab : "websites";
     setActiveTab(initialTab, { skipHistory: true });
 
-    // Sticky header shrink-on-scroll shadow (subtle)
-    const header = $("#siteHeader");
-    window.addEventListener("scroll", () => {
-      header.style.boxShadow = window.scrollY > 10 ? "0 8px 24px rgba(0,0,0,0.35)" : "none";
-    });
   }
 
   document.addEventListener("DOMContentLoaded", init);

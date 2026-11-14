@@ -1,0 +1,111 @@
+/* Pricing page on the monochrome system. Loaded after pricing.css (already
+   converted to grays) and assets/site.css. The page stays dark — black,
+   grays and white — matching the black sections of the home page. */
+
+:root {
+  --bg: #0b0b0b;
+  --panel: #141414;
+  --panel-2: #1a1a1a;
+  --text: #ffffff;
+  --muted: #a3a3a3;
+  --accent: #ffffff;
+  --accent-2: #9a9a9a;
+  --gold: #e2e2e2;
+  --border: rgba(255, 255, 255, 0.12);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+}
+
+/* Header is fixed now, so push the page below it */
+main#main { padding-top: var(--header-h); }
+
+/* Photos in black & white */
+.pr-hero-scene,
+.pr-card-cover { filter: grayscale(1) contrast(1.05); }
+
+/* Cart button in the shared header */
+.cart-btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  color: var(--ink);
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+.cart-btn .icon { width: 17px; height: 17px; }
+
+@media (hover: hover) { .cart-btn:hover { background: var(--ink); color: var(--white); } }
+
+.cart-btn .cart-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border-radius: 2px;
+  background: var(--ink);
+  color: var(--white);
+  font-size: 10px;
+  line-height: 17px;
+  text-align: center;
+}
+
+/* Where white used to sit on a colour, it now sits on white — so the text
+   flips to black */
+.pr-billing-toggle button.active,
+.pr-card-btn.solid,
+.pr-cart-badge,
+.pr-cart-progress-step.active span,
+.pr-cstep.active span {
+  background: var(--white);
+  border-color: var(--white);
+  color: var(--ink);
+}
+
+.pr-card-btn.solid:hover { background: var(--paper-2); box-shadow: none; }
+.pr-card-btn.added { background: var(--ink-3); border-color: var(--gray-2); color: var(--white); }
+
+.pr-btn-solid {
+  background: var(--white);
+  color: var(--ink);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.pr-btn-solid:hover { background: var(--paper-2); box-shadow: none; filter: none; }
+
+.pr-title,
+.pr-section-title {
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.pr-kicker,
+.pr-eyebrow { letter-spacing: 0.22em; text-transform: uppercase; }
+
+.pr-title .accent { color: var(--gray-2); }
+
+.site-footer { margin-top: 0; }
+
+/* Darker veil over the hero photo so the headline stays crisp */
+.pr-hero-bg .pr-hero-scene {
+  --scene-tint: rgba(11, 11, 11, 0.9);
+  --scene-fade: 70%;
+  filter: grayscale(1) brightness(0.62) contrast(1.05);
+}
+
+/* Emoji icons in gray too */
+.emoji-ico,
+.pr-cart-custom-cta .ico { filter: grayscale(1); }
