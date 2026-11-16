@@ -166,7 +166,7 @@
   function planCardHTML(plan, index) {
     const inCart = isInCart(plan.id);
     const tagHTML = plan.tag
-      ? (plan.tag.includes("YOUR VISION") ? `<div class="pr-card-tag corner">${plan.tag.replace(/ /g, "<br>")}</div>` : `<div class="pr-card-tag">${plan.tag}</div>`)
+      ? (plan.tag.includes("YOUR VISION") ? `<div class="pr-card-tag corner">${plan.tag}</div>` : `<div class="pr-card-tag">${plan.tag}</div>`)
       : "";
 
     const btnLabel = plan.isCustomCta ? plan.cta : (inCart ? "Added ✓" : plan.cta);

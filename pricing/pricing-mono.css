@@ -1,108 +1,162 @@
-/* Pricing page on the monochrome system. Loaded after pricing.css (already
-   converted to grays) and assets/site.css. The page stays dark — black,
-   grays and white — matching the black sections of the home page. */
+/* Pricing page on the monochrome system: white page, black type, no
+   background photos. Loaded after pricing.css and assets/site.css. */
 
 :root {
-  --bg: #0b0b0b;
-  --panel: #141414;
-  --panel-2: #1a1a1a;
-  --text: #ffffff;
-  --muted: #a3a3a3;
-  --accent: #ffffff;
-  --accent-2: #9a9a9a;
-  --gold: #e2e2e2;
-  --border: rgba(255, 255, 255, 0.12);
+  --bg: #ffffff;
+  --panel: #ffffff;
+  --panel-2: #f5f5f5;
+  --text: #0b0b0b;
+  --muted: #5f5f5f;
+  --accent: #0b0b0b;
+  --accent-2: #6e6e6e;
+  --gold: #0b0b0b;
+  --border: rgba(0, 0, 0, 0.1);
 }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font);
-}
-
-/* Header is fixed now, so push the page below it */
+body { background: #fff; color: var(--text); font-family: var(--font); }
 main#main { padding-top: var(--header-h); }
 
-/* Photos in full colour */
-.pr-hero-scene,
-.pr-card-cover { filter: none; }
+/* ---------- No photos anywhere ---------- */
+.pr-hero-bg, .pr-hero-scrim, .pr-hero-side, .pr-card-cover { display: none !important; }
 
-/* Cart button in the shared header */
+.pr-hero { background: #fff !important; min-height: 0 !important; padding-top: clamp(56px, 8vw, 110px) !important; padding-bottom: 0 !important; }
+.pr-hero-text { max-width: 760px; }
+
+.pr-title, .pr-section-title { color: var(--ink); font-weight: 500; letter-spacing: -0.035em; text-transform: uppercase; }
+.pr-title .accent { color: var(--gray); }
+.pr-kicker, .pr-eyebrow { color: var(--gray); letter-spacing: 0.22em; text-transform: uppercase; }
+.pr-sub, .pr-packages-desc, .pr-custom-lead { color: #444; }
+.pr-section-title::after { display: none !important; }
+
+/* ---------- Category tabs: clean underline bar ---------- */
+.pr-tabsbar {
+  background: #fff !important;
+  border: 0 !important;
+  border-top: 1px solid var(--line) !important;
+  border-bottom: 1px solid var(--line) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  padding: 0 !important;
+  margin-top: clamp(40px, 6vw, 72px);
+}
+.pr-tab {
+  border-radius: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: var(--gray);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 20px 16px !important;
+  box-shadow: inset 0 -2px 0 transparent !important;
+  transition: color 0.3s ease, box-shadow 0.3s ease;
+}
+.pr-tab:hover { color: var(--ink); }
+.pr-tab.active, .pr-tab[aria-selected="true"] { color: var(--ink) !important; box-shadow: inset 0 -2px 0 var(--ink) !important; }
+
+/* ---------- Sections ---------- */
+.pr-packages-section, .pr-custom-section, .pr-bottom-section { background: #fff !important; }
+.pr-packages-section { padding-top: clamp(48px, 6vw, 80px) !important; }
+.pr-packages-head { padding-bottom: 28px; border-bottom: 1px solid var(--line); margin-bottom: 28px !important; }
+.pr-common-notes { background: var(--panel-2) !important; border: 0 !important; border-radius: 2px !important; }
+
+/* ---------- Plan cards ---------- */
+.pr-cards-grid { gap: 20px !important; align-items: start; }
+.pr-card {
+  background: #fff !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+  padding-top: 32px !important;
+  transition: border-color 0.35s ease, transform 0.5s var(--ease), box-shadow 0.5s ease !important;
+}
+.pr-card:hover { border-color: var(--ink) !important; transform: translateY(-4px); box-shadow: 0 22px 40px -26px rgba(0, 0, 0, 0.3) !important; }
+.pr-card.highlight { border-color: var(--ink) !important; }
+.pr-card-tag, .pr-badge { background: var(--ink) !important; color: #fff !important; border-radius: 2px !important; box-shadow: none !important; }
+.pr-card-price { border-top: 1px solid var(--line); padding-top: 18px; margin-top: 18px; }
+
+.pr-card-btn, .pr-btn-outline, .pr-btn-outline-dark {
+  border-radius: 2px !important;
+  border: 1px solid var(--ink) !important;
+  background: #fff !important;
+  color: var(--ink) !important;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  box-shadow: none !important;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+.pr-card-btn:hover, .pr-btn-outline:hover, .pr-btn-outline-dark:hover { background: var(--ink) !important; color: #fff !important; }
+
+.pr-card-btn.solid, .pr-btn-solid,
+.pr-billing-toggle button.active, .pr-cart-badge,
+.pr-cart-progress-step.active span, .pr-cstep.active span {
+  background: var(--ink) !important;
+  border-color: var(--ink) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+.pr-btn-solid { letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; font-size: 12px; border-radius: 2px !important; }
+.pr-card-btn.solid:hover, .pr-btn-solid:hover { background: #2a2a2a !important; filter: none !important; }
+
+.pr-billing-toggle { border: 1px solid var(--line) !important; border-radius: 2px !important; background: #fff !important; }
+.pr-billing-toggle button { border-radius: 2px !important; }
+
+/* Compare table, panels, form */
+.pr-compare, .pr-conversation-card, .pr-custom-form-card, .pr-cform-card,
+.pr-howitworks, .pr-testimonial-card, .pr-build-item, .pr-step, .pr-custom-project-card {
+  background: #fff !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+}
+.pr-compare-table tr:nth-child(even) td { background: var(--panel-2); }
+.emoji-ico, .pr-build-ico { filter: grayscale(1); }
+
+/* ---------- Cart button in the shared header ---------- */
 .cart-btn {
   position: relative;
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   border: 1px solid var(--line);
   border-radius: 2px;
   color: var(--ink);
   transition: background-color 0.35s ease, color 0.35s ease;
 }
-
 .cart-btn .icon { width: 17px; height: 17px; }
-
-@media (hover: hover) { .cart-btn:hover { background: var(--ink); color: var(--white); } }
-
+@media (hover: hover) { .cart-btn:hover { background: var(--ink); color: #fff; } }
 .cart-btn .cart-count {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  min-width: 17px;
-  height: 17px;
-  padding: 0 4px;
-  border-radius: 2px;
-  background: var(--ink);
-  color: var(--white);
-  font-size: 10px;
-  line-height: 17px;
-  text-align: center;
+  position: absolute; top: -6px; right: -6px;
+  min-width: 17px; height: 17px; padding: 0 4px;
+  border-radius: 2px; background: var(--ink); color: #fff;
+  font-size: 10px; line-height: 17px; text-align: center;
 }
-
-/* Where white used to sit on a colour, it now sits on white — so the text
-   flips to black */
-.pr-billing-toggle button.active,
-.pr-card-btn.solid,
-.pr-cart-badge,
-.pr-cart-progress-step.active span,
-.pr-cstep.active span {
-  background: var(--white);
-  border-color: var(--white);
-  color: var(--ink);
-}
-
-.pr-card-btn.solid:hover { background: var(--paper-2); box-shadow: none; }
-.pr-card-btn.added { background: var(--ink-3); border-color: var(--gray-2); color: var(--white); }
-
-.pr-btn-solid {
-  background: var(--white);
-  color: var(--ink);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-weight: 500;
-  font-size: 12px;
-}
-
-.pr-btn-solid:hover { background: var(--paper-2); box-shadow: none; filter: none; }
-
-.pr-title,
-.pr-section-title {
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  text-transform: uppercase;
-}
-
-.pr-kicker,
-.pr-eyebrow { letter-spacing: 0.22em; text-transform: uppercase; }
-
-.pr-title .accent { color: var(--gray-2); }
 
 .site-footer { margin-top: 0; }
 
-/* Darker veil over the hero photo so the headline stays crisp */
-.pr-hero-bg .pr-hero-scene {
-  --scene-tint: rgba(11, 11, 11, 0.9);
-  --scene-fade: 70%;
-  filter: brightness(0.62);
-}
+/* ---------- Tidier spacing ---------- */
+.pr-hero { padding-top: clamp(40px, 6vw, 72px) !important; }
+.pr-hero-inner { min-height: 0 !important; padding: 0 !important; }
+.pr-tabsbar { margin-top: clamp(36px, 5vw, 56px) !important; }
+.pr-packages-section { padding-top: clamp(40px, 5vw, 64px) !important; padding-bottom: clamp(48px, 6vw, 80px) !important; }
+.pr-compare { padding: clamp(20px, 3vw, 32px) !important; margin-top: clamp(48px, 6vw, 72px) !important; margin-bottom: 0 !important; }
+.pr-compare-table-wrap { border: 1px solid var(--line); }
+.pr-bottom-section { padding-bottom: clamp(56px, 7vw, 96px) !important; }
 
+/* Hero feature chips: hairline, not filled */
+#prHeroBadges .pr-badge { background: #fff !important; color: var(--ink) !important; border: 1px solid var(--line) !important; padding: 9px 14px !important; gap: 8px; }
+#prHeroBadges .pr-badge .ico { background: transparent !important; border: 0 !important; color: var(--ink); }
+
+/* "Your vision, our execution" corner tag → small chip like the others */
+.pr-card-tag.corner { position: absolute; top: -12px; left: 50%; right: auto; transform: translateX(-50%); white-space: nowrap; padding: 6px 12px; font-size: 10px; line-height: 1; }
+.pr-card-tag.corner br { display: none; }
+.pr-card-tag.corner br + * { margin-left: 4px; }
+
+/* White header on this page */
+body:has(.pr-hero) .site-header { background: rgba(255, 255, 255, 0.92); border-bottom-color: var(--line); backdrop-filter: blur(10px); }
+#prHeroBadges { display: flex !important; flex-wrap: wrap; gap: 8px !important; }
+@media (max-width: 600px) { #prHeroBadges { display: grid !important; grid-template-columns: 1fr 1fr; } #prHeroBadges .pr-badge { font-size: 12px; padding: 9px 10px !important; } }
