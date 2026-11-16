@@ -62,7 +62,7 @@
   requestAnimationFrame(function () { body.classList.add('is-ready'); });
 })();
 
-// Numbers count up from 0 the first time they scroll into view
+// Numbers count up from 0 every time they scroll into view
 (function () {
   var els = document.querySelectorAll('.stat strong, .pr-stats-row span, [data-count]');
   if (!els.length || !('IntersectionObserver' in window)) return;
@@ -79,9 +79,10 @@
   var fmt = function (n, c) { return c ? n.toLocaleString('en-US') : String(n); };
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (en) {
-      if (!en.isIntersecting) return;
-      io.unobserve(en.target);
       var it = items.filter(function (x) { return x.el === en.target; })[0];
+      if (!en.isIntersecting) { if (en.boundingClientRect.top > 0 || en.boundingClientRect.bottom < 0) { it.el.textContent = it.pre + '0' + it.post; it.run = 0; } return; }
+      if (it.run) return;
+      it.run = 1;
       var t0 = performance.now(), dur = Math.min(2200, 1200 + it.end * 0.8);
       (function step(now) {
         var p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 4);
