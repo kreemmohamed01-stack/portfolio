@@ -77,3 +77,24 @@
     bars.forEach(function (b) { b.classList.add('in'); });
   }
 })();
+
+// Hero portrait: gentle 3D tilt that follows the pointer (desktop only)
+(function () {
+  var el = document.getElementById('hero3d');
+  if (!el || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var hero = el.closest('.hero'), raf = 0, x = 0, y = 0;
+  hero.addEventListener('pointermove', function (e) {
+    var r = hero.getBoundingClientRect();
+    x = (e.clientX - r.left) / r.width - 0.5;
+    y = (e.clientY - r.top) / r.height - 0.5;
+    if (!raf) raf = requestAnimationFrame(function () {
+      raf = 0;
+      el.style.setProperty('--ry', (-5 + x * 14).toFixed(2) + 'deg');
+      el.style.setProperty('--rx', (-y * 8).toFixed(2) + 'deg');
+    });
+  });
+  hero.addEventListener('pointerleave', function () {
+    el.style.removeProperty('--ry'); el.style.removeProperty('--rx');
+  });
+})();
