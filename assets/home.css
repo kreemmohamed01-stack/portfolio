@@ -858,6 +858,18 @@ section { position: relative; }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 
+/* ---------- Exact media ratios: never crop a preview ---------- */
+.proj-media { aspect-ratio: 430 / 930 !important; }
+.grid-desk .proj-media, #work .grid-desk .proj-media { aspect-ratio: 16 / 10 !important; }
+.proj-media img, .proj-media video { object-fit: contain !important; object-position: center !important; }
+.proj-media img, .js-reveal .proj-media img, .js-reveal .proj-media.is-shown img,
+.proj:hover .proj-media img { transform: none !important; }
+.js-reveal .proj-media { clip-path: inset(6% 0 0 0 round 4px); }
+#work .grid-desk .proj-media { max-height: none; height: auto; width: min(100%, calc((100svh - var(--header-h) - 90px) * 1.6)); }
+@media (max-width: 860px) {
+  #work .grid-phone .proj-media { height: 100%; min-height: 0; width: auto; max-width: 100%; justify-self: center; }
+}
+
 /* ---------- Cursor follower ---------- */
 .view-cursor {
   position: fixed; left: 0; top: 0; z-index: 999; pointer-events: none;
