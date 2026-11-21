@@ -880,38 +880,36 @@ html.lenis, html.lenis body { height: auto; }
 .fb-frame img { object-fit: contain; object-position: center; }
 .fb-card:hover .fb-frame img { transform: none; }
 
-/* ---------- Website panels v3: video centred and full height,
-   giant name behind it, details pinned to the corners ---------- */
+/* ---------- Website panels v4: text beside (desktop) or above (phone)
+   the video, never on top of it. Video as tall as the screen allows. ---------- */
 #work .grid-phone .proj {
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
-  place-items: center;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: 1fr auto auto 1fr;
+  column-gap: clamp(32px, 6vw, 120px);
+  row-gap: 22px;
+  align-items: center;
   padding: calc(var(--header-h) + 14px) var(--gutter) 18px;
 }
 #work .grid-phone .proj-media {
-  grid-column: 1; grid-row: 1; z-index: 2;
+  grid-column: 2; grid-row: 1 / -1; z-index: 2;
   height: calc(100svh - var(--header-h) - 32px) !important;
   width: auto !important; max-width: 100%;
-  justify-self: center; align-self: center;
+  justify-self: end; align-self: center;
 }
 #work .grid-phone .proj-info {
-  grid-column: 1; grid-row: 1; z-index: 1;
-  display: block; position: static; width: 100%; text-align: center; pointer-events: none;
+  grid-column: 1; grid-row: 2; position: static; z-index: 1;
+  display: flex; flex-direction: column-reverse; align-items: flex-start; gap: 18px;
+  text-align: left; pointer-events: auto; padding: 0; width: auto;
 }
 #work .grid-phone .proj-name {
-  font-size: clamp(64px, 12.5vw, 240px); line-height: .84; letter-spacing: -0.06em;
-  color: var(--ink); opacity: .95;
+  font-size: clamp(48px, 7.4vw, 140px); line-height: .88; letter-spacing: -0.055em; color: var(--ink);
 }
 #work .grid-phone .proj-num,
-#work .grid-phone .proj-cat {
-  position: absolute; top: calc(var(--header-h) + 22px); margin: 0;
-  font-size: 12px; letter-spacing: .2em; color: var(--ink);
-}
-#work .grid-phone .proj-num { left: var(--gutter); }
-#work .grid-phone .proj-cat { right: var(--gutter); text-transform: uppercase; }
+#work .grid-phone .proj-cat { position: static; display: block; font-size: 12px; letter-spacing: .2em; color: var(--gray); }
+#work .grid-phone .proj-cat { margin-top: 16px; text-transform: uppercase; }
 #work .grid-phone .proj-desc {
-  position: absolute; left: var(--gutter); bottom: 26px; z-index: 1;
-  grid-row: auto; max-width: 320px; font-size: 14px; color: #4a4a4a;
+  position: static; grid-column: 1; grid-row: 3; display: block;
+  max-width: 420px; font-size: 15px; color: #4a4a4a;
 }
 #work .grid-phone .proj-cta {
   left: 50%; bottom: 20px; translate: -50% 0;
@@ -920,24 +918,22 @@ html.lenis, html.lenis body { height: auto; }
 #work .grid-phone .proj-cta .icon { width: 14px; height: 14px; }
 
 @media (max-width: 860px) {
-  #work .grid-phone .proj { padding: calc(var(--header-h) + 8px) 12px 12px; }
-  #work .grid-phone .proj-media {
-    height: calc(100svh - var(--header-h) - 20px) !important;
-    max-width: 100%;
+  #work .grid-phone .proj {
+    grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr);
+    row-gap: 12px; align-items: start;
+    padding: calc(var(--header-h) + 10px) 14px 12px;
   }
-  /* Name and details sit over the bottom of the video */
-  #work .grid-phone .proj-media::after { opacity: 1; background: linear-gradient(to top, rgba(0,0,0,.75), transparent 40%); }
-  #work .grid-phone .proj-info {
-    z-index: 3; align-self: end; text-align: left;
-    padding: 0 calc(50% - min(50%, (100svh - var(--header-h) - 20px) * 0.231) + 18px) 74px;
-    color: var(--white);
-  }
-  #work .grid-phone .proj-name { font-size: clamp(30px, 9vw, 46px); color: var(--white); letter-spacing: -0.04em; }
-  #work .grid-phone .proj-num, #work .grid-phone .proj-cat { position: static; display: block; color: rgba(255,255,255,.8); font-size: 10px; }
-  #work .grid-phone .proj-num { margin-bottom: 8px; }
-  #work .grid-phone .proj-cat { margin-top: 8px; }
+  #work .grid-phone .proj-info { grid-column: 1; grid-row: 1; gap: 6px; }
+  #work .grid-phone .proj-name { font-size: clamp(28px, 8.5vw, 44px); line-height: .95; }
+  #work .grid-phone .proj-num, #work .grid-phone .proj-cat { font-size: 10px; }
+  #work .grid-phone .proj-cat { margin-top: 6px; }
   #work .grid-phone .proj-desc { display: none !important; }
-  #work .grid-phone .proj-cta { bottom: 16px; height: 36px; font-size: 10px; }
+  #work .grid-phone .proj-media {
+    grid-column: 1; grid-row: 2; justify-self: center; align-self: stretch;
+    height: 100% !important; min-height: 0;
+  }
+  #work .grid-phone .proj-media::after { opacity: 0; }
+  #work .grid-phone .proj-cta { bottom: 14px; height: 36px; font-size: 10px; }
 }
 
 /* ---------- Cursor follower ---------- */
