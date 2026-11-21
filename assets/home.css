@@ -867,8 +867,18 @@ html.lenis, html.lenis body { height: auto; }
 .js-reveal .proj-media { clip-path: inset(6% 0 0 0 round 4px); }
 #work .grid-desk .proj-media { max-height: none; height: auto; width: min(100%, calc((100svh - var(--header-h) - 90px) * 1.6)); }
 @media (max-width: 860px) {
-  #work .grid-phone .proj-media { height: 100%; min-height: 0; width: auto; max-width: 100%; justify-self: center; }
+  #work .grid-phone .proj { grid-template-rows: auto auto auto; align-content: start; }
+  #work .grid-phone .proj-media {
+    height: calc(100svh - var(--header-h) - var(--txt, 200px) - 60px);
+    min-height: 0; width: auto; max-width: 100%; justify-self: center; align-self: start;
+  }
 }
+#work .proj-media[data-href] { cursor: pointer; }
+
+/* Reviews: show the whole screenshot */
+.fb-frame { aspect-ratio: 722 / 1600; }
+.fb-frame img { object-fit: contain; object-position: center; }
+.fb-card:hover .fb-frame img { transform: none; }
 
 /* ---------- Cursor follower ---------- */
 .view-cursor {
