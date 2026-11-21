@@ -39,7 +39,7 @@
           if (entry.isIntersecting) play(); else stop(false);
         });
       }, { threshold: 0.6 }).observe(media);
-    } else {
+    } else if (!media.closest('#work')) {
       card.addEventListener('mouseenter', play);
       card.addEventListener('mouseleave', function () { stop(true); });
     }
@@ -97,4 +97,155 @@
   hero.addEventListener('pointerleave', function () {
     el.style.removeProperty('--ry'); el.style.removeProperty('--rx');
   });
+})();
+
+// ===== Premium showcase layer (v2) =====
+(function () {
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var work = document.getElementById('work');
+  if (!work) return;
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+  // Marquee band
+  var mq = document.createElement('div');
+  mq.className = 'work-marquee';
+  mq.setAttribute('aria-hidden', 'true');
+  var words = ['Websites', 'Stores', 'Dashboards', 'AI Agents'];
+  var spans = '';
+  for (var k = 0; k < 4; k++) words.forEach(function (w) { spans += '<span>' + w + ' —</span>'; });
+  mq.innerHTML = '<div class="work-marquee__track">' + spans + '</div>';
+  work.insertBefore(mq, work.firstElementChild);
+
+  // Clip-path reveal
+  if (!reduce && 'IntersectionObserver' in window) {
+    document.documentElement.classList.add('js-reveal');
+    var rio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-shown'); rio.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.proj-media').forEach(function (m) { rio.observe(m); });
+  }
+
+  // Autoplay previews while in view (desktop too)
+  if (fine && 'IntersectionObserver' in window) {
+    var vio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var v = e.target.querySelector('video');
+        if (!v) return;
+        if (e.isIntersecting) {
+          e.target.classList.add('is-playing');
+          var p = v.play(); if (p && p.catch) p.catch(function () {});
+        } else { e.target.classList.remove('is-playing'); v.pause(); }
+      });
+    }, { threshold: 0.6 });
+    document.querySelectorAll('#work [data-work-media]').forEach(function (m) { vio.observe(m); });
+  }
+
+  // Websites rail
+  var rail = work.querySelector('.grid-phone');
+  if (rail) {
+    var total = rail.children.length;
+    var ui = document.createElement('div');
+    ui.className = 'rail-ui';
+    ui.innerHTML = '<span class="rail-count">01 / ' + pad(total) + '</span>' +
+      '<div class="rail-progress"><i></i></div>' +
+      '<button type="button" class="rail-btn prev" aria-label="Previous project"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>' +
+      '<button type="button" class="rail-btn next" aria-label="Next project"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>';
+    rail.parentNode.insertBefore(ui, rail.nextSibling);
+    var bar = ui.querySelector('.rail-progress i'), count = ui.querySelector('.rail-count');
+    function step() { var c = rail.children[0]; return c ? c.getBoundingClientRect().width + 20 : 300; }
+    ui.querySelector('.prev').addEventListener('click', function () { rail.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    ui.querySelector('.next').addEventListener('click', function () { rail.scrollBy({ left: step(), behavior: 'smooth' }); });
+    function upd() {
+      var max = rail.scrollWidth - rail.clientWidth, r = max > 0 ? rail.scrollLeft / max : 0;
+      bar.style.transform = 'scaleX(' + Math.max(0.06, r) + ')';
+      count.textContent = pad(Math.min(total, Math.round(r * (total - 1)) + 1)) + ' / ' + pad(total);
+    }
+    rail.addEventListener('scroll', upd, { passive: true });
+    upd();
+
+    if (fine) {
+      var down = false, sx = 0, sl = 0, moved = 0;
+      rail.addEventListener('pointerdown', function (e) {
+        if (e.pointerType !== 'mouse' || e.button !== 0) return;
+        down = true; moved = 0; sx = e.clientX; sl = rail.scrollLeft;
+      });
+      window.addEventListener('pointermove', function (e) {
+        if (!down) return;
+        var dx = e.clientX - sx; moved = Math.max(moved, Math.abs(dx));
+        if (moved > 6) { rail.classList.add('is-dragging'); rail.scrollLeft = sl - dx; }
+      });
+      window.addEventListener('pointerup', function () {
+        if (!down) return; down = false;
+        setTimeout(function () { rail.classList.remove('is-dragging'); }, 0);
+      });
+      rail.addEventListener('click', function (e) { if (moved > 6) { e.preventDefault(); e.stopPropagation(); } }, true);
+      rail.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    }
+  }
+
+  // Dashboards: shrink + dim each card as the next one stacks over it
+  var stack = Array.prototype.slice.call(work.querySelectorAll('.grid-desk .proj'));
+  if (stack.length > 1 && !reduce) {
+    var ticking = false;
+    function onScroll() {
+      ticking = false;
+      for (var i = 0; i < stack.length - 1; i++) {
+        var a = stack[i].getBoundingClientRect(), b = stack[i + 1].getBoundingClientRect();
+        var t = Math.min(1, Math.max(0, 1 - (b.top - a.top) / a.height));
+        stack[i].style.setProperty('--stack-scale', (1 - t * 0.06).toFixed(4));
+        stack[i].style.setProperty('--stack-dim', (1 - t * 0.5).toFixed(3));
+      }
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+    }, { passive: true });
+    onScroll();
+  }
+
+  // Scroll progress line
+  var line = document.createElement('div');
+  line.className = 'scroll-line';
+  document.body.appendChild(line);
+  function prog() {
+    var h = document.documentElement.scrollHeight - innerHeight;
+    line.style.setProperty('--p', h > 0 ? (scrollY / h).toFixed(4) : 0);
+  }
+  addEventListener('scroll', prog, { passive: true }); prog();
+
+  // Smooth inertial scrolling on desktop (Lenis)
+  if (fine && !reduce) {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js';
+    s.onload = function () {
+      if (!window.Lenis) return;
+      var lenis = new Lenis({ lerp: 0.1, anchors: { offset: -64 } });
+      (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(0);
+      var obs = new MutationObserver(function () {
+        if (document.documentElement.classList.contains('intro-lock')) lenis.stop(); else lenis.start();
+      });
+      obs.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+      if (document.documentElement.classList.contains('intro-lock')) lenis.stop();
+    };
+    document.head.appendChild(s);
+  }
+
+  // "View" cursor over project media
+  if (fine && !reduce) {
+    var cur = document.createElement('div');
+    cur.className = 'view-cursor';
+    cur.setAttribute('aria-hidden', 'true');
+    cur.textContent = 'View';
+    document.body.appendChild(cur);
+    window.addEventListener('pointermove', function (e) {
+      cur.style.setProperty('--x', e.clientX + 'px');
+      cur.style.setProperty('--y', e.clientY + 'px');
+    }, { passive: true });
+    document.querySelectorAll('.proj-media').forEach(function (m) {
+      m.addEventListener('mouseenter', function () { cur.classList.add('on'); });
+      m.addEventListener('mouseleave', function () { cur.classList.remove('on'); });
+    });
+  }
 })();
