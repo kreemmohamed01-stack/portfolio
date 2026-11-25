@@ -303,11 +303,62 @@
   // keep the grain moving between scroll events
   setInterval(function () { if (fog && !reduce) { var r = fog.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) updateFog(); } }, 90);
 
+  /* ---------- hero polish ---------- */
+  // live local time in Alexandria
+  var clock = document.getElementById('jmClock');
+  function tickClock() {
+    if (!clock) return;
+    try {
+      clock.textContent = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Africa/Cairo' }).format(new Date());
+    } catch (e) { clock.textContent = new Date().toTimeString().slice(0, 8); }
+  }
+  tickClock(); setInterval(tickClock, 1000);
+
+  // animated film grain over the hero (small canvas stretched, redrawn ~12fps)
+  var gc = document.querySelector('.jhero-grain');
+  if (gc && !reduce) {
+    var gx = gc.getContext("2d"), GW = Math.min(900, Math.round(innerWidth / 1.6)), GH = Math.min(700, Math.round(innerHeight / 1.6));
+    gc.width = GW; gc.height = GH;
+    var img = gx.createImageData(GW, GH), heroOn = true;
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { heroOn = es[0].isIntersecting; }).observe(gc);
+    setInterval(function () {
+      if (!heroOn) return;
+      var d = img.data;
+      for (var i = 0; i < d.length; i += 4) { var v = (Math.random() * 255) | 0; d[i] = d[i + 1] = d[i + 2] = v; d[i + 3] = 255; }
+      gx.putImageData(img, 0, 0);
+    }, 85);
+  }
+
+  // wordmark letters break into grain on hover; the star spins with scroll
+  if (word && !reduce && matchMedia('(hover: hover)').matches) {
+    word.addEventListener('pointerover', function (e) {
+      var ch = e.target.closest && e.target.closest('.ch, .jw-star');
+      if (!ch || ch._g === undefined && !(ch._g = new Grain(ch, { scatter: 22, freq: 0.7 }))) return;
+      ch._g.tween(0, 0.7, 220, function () { ch._g.tween(0.7, 0, 520); });
+      if (ch.classList.contains('ch')) { ch.style.translate = '0 -6%'; setTimeout(function () { ch.style.translate = ''; }, 380); }
+    });
+  }
+  var star = document.querySelector('.jw-star');
+  function updateStar() { if (star && !reduce) star.style.setProperty('--spin', (scrollY * 0.25).toFixed(1) + 'deg'); }
+
+  // magnetic buttons in the hero
+  if (!reduce && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('.jhero .btn, .jm-scroll').forEach(function (b) {
+      b.classList.add('is-magnet');
+      b.addEventListener('pointermove', function (e) {
+        var r = b.getBoundingClientRect();
+        var x = (e.clientX - r.left - r.width / 2) * 0.25, y = (e.clientY - r.top - r.height / 2) * 0.35;
+        b.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
+      });
+      b.addEventListener('pointerleave', function () { b.style.transform = ''; });
+    });
+  }
+
   /* ---------- frame loop ---------- */
   var ticking = false;
   function frame() {
     ticking = false;
-    updateHero(); updateWords(); updateReel(); updateDark(); updateFog();
+    updateHero(); updateWords(); updateReel(); updateDark(); updateFog(); updateStar();
   }
   function req() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
   addEventListener('scroll', req, { passive: true });
