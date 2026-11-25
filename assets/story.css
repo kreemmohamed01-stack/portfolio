@@ -310,3 +310,9 @@ html, body { overflow-x: clip !important; }
 }
 .jw-star svg { display: block; width: 1.3em; height: 1.08em; margin-inline: .12em; }
 .jw-star { rotate: 0deg !important; }
+
+/* ---------- Phone: same travelling hero video as desktop ---------- */
+@media (max-width: 760px) {
+  .jhero-video { position: relative; width: 58%; align-self: flex-end; border-width: 3px; border-radius: 10px; }
+  .jstatement-landing { display: block; width: 100%; margin-top: 56px; }
+}

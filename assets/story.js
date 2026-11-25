@@ -160,7 +160,7 @@
   var landing = document.getElementById('heroVideoLanding');
   var hvGeo = null;
   function measureHero() {
-    if (!hv || !landing || phone.matches || reduce) { hvGeo = null; if (hv) hv.style.transform = ''; return; }
+    if (!hv || !landing || reduce) { hvGeo = null; if (hv) hv.style.transform = ''; return; }
     var prev = hv.style.transform; hv.style.transform = 'none';
     var a = hv.getBoundingClientRect(), b = landing.getBoundingClientRect();
     hv.style.transform = prev;
