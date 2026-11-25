@@ -4,7 +4,6 @@
 (function () {
   var D = typeof PRICING_DATA !== 'undefined' ? PRICING_DATA : window.PRICING_DATA;
   if (!D) return;
-  var WA = '201211179625';
   var CATS = [
     { key: 'websites', label: 'Websites', short: 'Stores & brand websites' },
     { key: 'dashboards', label: 'Dashboards', short: 'Admin panels for your business' },
@@ -25,7 +24,8 @@
     var st = state[plan.id] || { extra: 0, ai: false };
     return plan.basePrice + st.extra * plan.productStepPrice + (st.ai ? plan.aiAgent.price : 0);
   }
-  function waLink(cat, plan) {
+  var IG = 'https://ig.me/m/kreemaly.dev';
+  function orderText(cat, plan) {
     var lines = ['Hi Kreem! I\'d like to order:', '', '• ' + CATS.filter(function (c) { return c.key === cat; })[0].label + ' — ' + plan.name + ' package'];
     if (plan.configurable) {
       var st = state[plan.id] || { extra: 0, ai: false };
@@ -34,8 +34,24 @@
     }
     if (plan.price === null && !plan.configurable) lines.push('', 'I\'d like a custom quote.');
     else lines.push('', 'Total: ' + fmt(total(plan)) + ' EGP');
-    return 'https://wa.me/' + WA + '?text=' + encodeURIComponent(lines.join('\n'));
+    return lines.join('\n');
   }
+  // Instagram can't prefill a DM, so copy the order and tell the visitor to paste it
+  function toast(msg) {
+    var t = document.querySelector('.ps-toast');
+    if (!t) { t = document.createElement('div'); t.className = 'ps-toast'; t.setAttribute('role', 'status'); document.body.appendChild(t); }
+    t.textContent = msg; t.classList.add('on');
+    clearTimeout(t._h); t._h = setTimeout(function () { t.classList.remove('on'); }, 4200);
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('.ps-order'); if (!a) return;
+    var art = a.closest('.ps-plan'), plan = find(art.dataset.plan), text = orderText(current, plan);
+    var done = function () { toast('Order copied — paste it in the Instagram chat'); };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, done);
+      else { var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); done(); }
+    } catch (err) { done(); }
+  });
 
   /* ---------- categories (services-style list) ---------- */
   var list = document.getElementById('svcList');
@@ -97,8 +113,8 @@
         '<h3 class="ps-plan-name">' + plan.name + '</h3><p class="ps-blurb">' + plan.blurb + '</p></div>' +
       '<ul class="ps-feats">' + plan.features.map(function (f) { return '<li>' + check + '<span>' + f + '</span></li>'; }).join('') + '</ul>' +
       '<div class="ps-buy"><div class="ps-price">' + price + '</div>' + calc +
-        '<a class="btn ' + (plan.highlight ? 'btn-white' : '') + ' ps-order" target="_blank" rel="noopener noreferrer" href="' + waLink(cat, plan) + '">' +
-        (plan.price === null && !plan.configurable ? 'Request a quote' : 'Order on WhatsApp') +
+        '<a class="btn ' + (plan.highlight ? 'btn-white' : '') + ' ps-order" target="_blank" rel="noopener noreferrer" href="' + IG + '">' +
+        (plan.price === null && !plan.configurable ? 'Request a quote' : 'Order on Instagram') +
         ' <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>' +
       '</article>';
   }
@@ -132,7 +148,6 @@
     var t = art.querySelector('[data-total]');
     t.textContent = fmt(total(plan));
     t.classList.remove('bump'); void t.offsetWidth; t.classList.add('bump');
-    art.querySelector('.ps-order').href = waLink(current, plan);
   }
 
   /* ---------- comparison ---------- */

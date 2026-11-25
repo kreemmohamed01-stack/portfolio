@@ -151,3 +151,12 @@
 
 /* the closing block runs straight into the footer */
 .ps + .dark { margin-top: 0; }
+
+/* order-copied toast */
+.ps-toast {
+  position: fixed; left: 50%; bottom: 24px; z-index: 1000; transform: translate(-50%, 20px); opacity: 0;
+  padding: 14px 20px; border-radius: 99px; background: var(--ink); color: var(--white);
+  font-size: 13px; font-weight: 500; box-shadow: 0 14px 40px rgba(0,0,0,.25);
+  transition: opacity .3s ease, transform .45s var(--ease); pointer-events: none; max-width: calc(100% - 32px); text-align: center;
+}
+.ps-toast.on { opacity: 1; transform: translate(-50%, 0); }
