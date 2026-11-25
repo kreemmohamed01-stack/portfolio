@@ -345,13 +345,24 @@
   if (gc && !reduce) {
     var gx = gc.getContext("2d"), GW = Math.min(900, Math.round(innerWidth / 1.6)), GH = Math.min(700, Math.round(innerHeight / 1.6));
     gc.width = GW; gc.height = GH;
-    var img = gx.createImageData(GW, GH), heroOn = true;
+    // pre-render a few noise tiles once, then just tile one at a random offset each tick
+    var tiles = [];
+    for (var k = 0; k < 4; k++) {
+      var tc = document.createElement('canvas'); tc.width = tc.height = 192;
+      var tx = tc.getContext('2d'), ti = tx.createImageData(192, 192), td = ti.data;
+      for (var i = 0; i < td.length; i += 4) { var v = (Math.random() * 255) | 0; td[i] = td[i + 1] = td[i + 2] = v; td[i + 3] = 255; }
+      tx.putImageData(ti, 0, 0);
+      tiles.push(gx.createPattern(tc, 'repeat'));
+    }
+    var heroOn = !document.hidden, fi = 0;
     document.addEventListener('visibilitychange', function () { heroOn = !document.hidden; });
     setInterval(function () {
       if (!heroOn) return;
-      var d = img.data;
-      for (var i = 0; i < d.length; i += 4) { var v = (Math.random() * 255) | 0; d[i] = d[i + 1] = d[i + 2] = v; d[i + 3] = 255; }
-      gx.putImageData(img, 0, 0);
+      fi = (fi + 1) % tiles.length;
+      var ox = (Math.random() * 192) | 0, oy = (Math.random() * 192) | 0;
+      gx.setTransform(1, 0, 0, 1, -ox, -oy);
+      gx.fillStyle = tiles[fi];
+      gx.fillRect(ox, oy, GW, GH);
     }, 85);
   }
 
@@ -392,4 +403,12 @@
   addEventListener('load', function () { measureHero(); req(); });
   measureHero(); frame();
   if (hv) hv.querySelector('video') && play(hv.querySelector('video'));
+
+  // pause the hero video and grain when they are off screen (saves CPU/GPU while reading below)
+  if ('IntersectionObserver' in window) {
+    var hvv = hv && hv.querySelector('video');
+    if (hvv) new IntersectionObserver(function (en) {
+      if (en[0].isIntersecting) play(hvv); else hvv.pause();
+    }).observe(hv);
+  }
 })();
