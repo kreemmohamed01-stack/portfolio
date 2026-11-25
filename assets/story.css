@@ -308,3 +308,5 @@ html, body { overflow-x: clip !important; }
   .jhero-grain { display: none; }
   .jm-dot::after, .jm-scroll i::after { animation: none; }
 }
+.jw-star svg { display: block; width: 1.3em; height: 1.08em; margin-inline: .12em; }
+.jw-star { rotate: 0deg !important; }
