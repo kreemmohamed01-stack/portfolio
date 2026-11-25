@@ -320,7 +320,7 @@
     var gx = gc.getContext("2d"), GW = Math.min(900, Math.round(innerWidth / 1.6)), GH = Math.min(700, Math.round(innerHeight / 1.6));
     gc.width = GW; gc.height = GH;
     var img = gx.createImageData(GW, GH), heroOn = true;
-    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { heroOn = es[0].isIntersecting; }).observe(gc);
+    document.addEventListener('visibilitychange', function () { heroOn = !document.hidden; });
     setInterval(function () {
       if (!heroOn) return;
       var d = img.data;
