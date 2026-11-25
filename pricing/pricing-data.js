@@ -36,7 +36,10 @@ const PRICING_DATA = {
     /* Notes shown once above the cards — shared basics every website
        package includes, so they don't need repeating card by card. */
     commonNotes: [
-      "Domain &amp; hosting setup included, ready to go live",
+      "Domain + 1 year of hosting included in every package — renewal is yearly, not monthly",
+      "Prices include Standard hosting (≈300–400 visitors/day · ~10,000/month · limited photos &amp; videos)",
+      "Need more? Pro hosting (up to 2,000 visitors/day · ~70,000/month · lots of photos &amp; videos) adds 2,000 EGP",
+      "Yearly renewal (domain + hosting): 3,000 EGP with Standard · 4,500 EGP with Pro",
       "Full control from your own dashboard — add products, prices, photos &amp; content yourself, anytime, free",
       "Super easy dashboard — no coding, no waiting for me, no extra fees",
       "Fully responsive on desktop, tablet, and mobile",
@@ -53,6 +56,7 @@ const PRICING_DATA = {
         highlight: true,
         price: 12000,
         currency: "EGP",
+        hostingUpgrade: 2000,
         features: [
           "Unlimited products — you add them all yourself from the dashboard",
           "Adding products is very easy: name, price, photos, done",
@@ -84,6 +88,7 @@ const PRICING_DATA = {
           label: "AI Agent (answers customers, recommends products, works 24/7)",
           desc: "A friendly AI agent trained on your whole website — reads every page, answers customer questions, and recommends the right products round the clock."
         },
+        hostingUpgrade: 2000,
         features: [
           "100 Products Added By Me &amp; 10 Categories",
           "+1,000 EGP per extra 50 products I add (or add them yourself free)",
@@ -116,6 +121,7 @@ const PRICING_DATA = {
           label: "AI Agent + Full Dashboard Control (image uploads, live order updates)",
           desc: "Everything the Premium AI agent does, plus image uploads from customers, full control over your dashboard, live order tracking, and automatic status updates sent to every customer."
         },
+        hostingUpgrade: 2000,
         features: [
           "200 Products Added By Me &amp; 20 Categories",
           "+500 EGP per extra 50 products I add (or add them yourself free)",
@@ -160,6 +166,9 @@ const PRICING_DATA = {
         ["Products you add yourself", "Unlimited, free", "Unlimited, free", "Unlimited, free"],
         ["Extra products added by me", "—", "+1,000 EGP / 50", "+500 EGP / 50"],
         ["Full dashboard control", true, true, true],
+        ["Domain + 1st year hosting", true, true, true],
+        ["Pro hosting upgrade", "+2,000 EGP", "+2,000 EGP", "+2,000 EGP"],
+        ["Yearly renewal", "3,000 / 4,500 EGP", "3,000 / 4,500 EGP", "3,000 / 4,500 EGP"],
         ["Custom UI/UX Design", true, true, true],
         ["SEO Setup", "Advanced", "Advanced", "Advanced"],
         ["Performance Optimization", false, false, true],

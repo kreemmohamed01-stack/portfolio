@@ -1,6 +1,6 @@
 /* Pricing page (story layout). Renders categories, packages, the live
    product / AI-agent calculator and the comparison table from
-   PRICING_DATA, and sends orders to WhatsApp with the total filled in. */
+   PRICING_DATA; orders are copied for an Instagram DM. */
 (function () {
   var D = typeof PRICING_DATA !== 'undefined' ? PRICING_DATA : window.PRICING_DATA;
   if (!D) return;
@@ -20,9 +20,10 @@
     return Math.min.apply(null, ps);
   }
   function total(plan) {
-    if (!plan.configurable) return plan.price;
-    var st = state[plan.id] || { extra: 0, ai: false };
-    return plan.basePrice + st.extra * plan.productStepPrice + (st.ai ? plan.aiAgent.price : 0);
+    var st = state[plan.id] || { extra: 0, ai: false, host: false };
+    var hostAdd = plan.hostingUpgrade && st.host ? plan.hostingUpgrade : 0;
+    if (!plan.configurable) return plan.price === null ? null : plan.price + hostAdd;
+    return plan.basePrice + st.extra * plan.productStepPrice + (st.ai ? plan.aiAgent.price : 0) + hostAdd;
   }
   var IG = 'https://ig.me/m/kreemaly.dev';
   function orderText(cat, plan) {
@@ -31,6 +32,10 @@
       var st = state[plan.id] || { extra: 0, ai: false };
       lines.push('• Products: ' + fmt(plan.baseProducts + st.extra * plan.productStep));
       if (st.ai) lines.push('• + ' + strip(plan.aiAgent.label));
+    }
+    if (plan.hostingUpgrade) {
+      var hs = state[plan.id] || {};
+      lines.push('• Hosting: ' + (hs.host ? 'Pro (up to 2,000 visitors/day) — renewal 4,500 EGP/year' : 'Standard (300–400 visitors/day) — renewal 3,000 EGP/year'));
     }
     if (plan.price === null && !plan.configurable) lines.push('', 'I\'d like a custom quote.');
     else lines.push('', 'Total: ' + fmt(total(plan)) + ' EGP');
@@ -93,8 +98,9 @@
     var price;
     if (plan.configurable) price = '<span class="ps-price-num" data-total>' + fmt(total(plan)) + '</span><span class="ps-cur">EGP</span>';
     else if (plan.price === null) price = '<span class="ps-price-num ps-talk">' + (plan.priceLabel || 'Let\'s Talk') + '</span>';
-    else price = '<span class="ps-price-num">' + fmt(plan.price) + '</span><span class="ps-cur">' + (plan.currency || 'EGP') + '</span>';
+    else price = '<span class="ps-price-num"' + (plan.hostingUpgrade ? ' data-total' : '') + '>' + fmt(total(plan)) + '</span><span class="ps-cur">' + (plan.currency || 'EGP') + '</span>';
     var calc = '';
+    if (plan.hostingUpgrade && !state[plan.id]) state[plan.id] = { extra: 0, ai: false, host: false };
     if (plan.configurable) {
       var st = state[plan.id] || (state[plan.id] = { extra: 0, ai: false });
       calc = '<div class="ps-calc">' +
@@ -106,6 +112,12 @@
         '<label class="ps-ai"><input type="checkbox" data-ai' + (st.ai ? ' checked' : '') + '><span class="ps-ai-box" aria-hidden="true"></span>' +
           '<span><b>Add AI Agent &middot; +' + fmt(plan.aiAgent.price) + ' EGP</b><small>' + plan.aiAgent.desc + '</small></span></label>' +
         '</div>';
+    }
+    if (plan.hostingUpgrade) {
+      var hst = state[plan.id];
+      calc += '<div class="ps-calc ps-host"><label class="ps-ai"><input type="checkbox" data-host' + (hst.host ? ' checked' : '') + '><span class="ps-ai-box" aria-hidden="true"></span>' +
+        '<span><b>Pro hosting &middot; +' + fmt(plan.hostingUpgrade) + ' EGP</b><small>Up to 2,000 visitors/day (~70,000/month), lots of photos &amp; videos. Renewal 4,500 EGP/year instead of 3,000.</small></span></label>' +
+        '<p class="ps-calc-note">Price includes domain + Standard hosting for 1 year (300&ndash;400 visitors/day, ~10,000/month).</p></div>';
     }
     return '<article class="ps-plan' + (plan.highlight ? ' is-featured' : '') + '" data-plan="' + plan.id + '" data-r>' +
       '<div class="ps-plan-id"><span class="ps-plan-num">' + pad(i + 1) + '</span>' +
@@ -136,15 +148,17 @@
     refresh(art, plan);
   });
   planList.addEventListener('change', function (e) {
-    if (!e.target.matches('[data-ai]')) return;
+    var isHost = e.target.matches('[data-host]');
+    if (!isHost && !e.target.matches('[data-ai]')) return;
     var art = e.target.closest('.ps-plan'), plan = find(art.dataset.plan);
-    state[plan.id].ai = e.target.checked;
+    state[plan.id][isHost ? 'host' : 'ai'] = e.target.checked;
     refresh(art, plan);
   });
   function find(id) { return D[current].plans.filter(function (p) { return p.id === id; })[0]; }
   function refresh(art, plan) {
     var st = state[plan.id];
-    art.querySelector('[data-products]').textContent = fmt(plan.baseProducts + st.extra * plan.productStep);
+    var pr = art.querySelector('[data-products]');
+    if (pr) pr.textContent = fmt(plan.baseProducts + st.extra * plan.productStep);
     var t = art.querySelector('[data-total]');
     t.textContent = fmt(total(plan));
     t.classList.remove('bump'); void t.offsetWidth; t.classList.add('bump');
