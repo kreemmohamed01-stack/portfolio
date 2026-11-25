@@ -316,3 +316,25 @@ html, body { overflow-x: clip !important; }
   .jhero-video { position: relative; width: 58%; align-self: flex-end; border-width: 3px; border-radius: 10px; }
   .jstatement-landing { display: block; width: 100%; margin-top: 56px; }
 }
+
+/* Film grain on buttons (same noise as the page) */
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1.6 -.45'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 110px 110px;
+  mix-blend-mode: overlay;
+  opacity: .55;
+}
+.btn:hover::after { animation: btnGrain .5s steps(4) infinite; }
+@keyframes btnGrain {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-7%, 5%); }
+  50% { transform: translate(6%, -6%); }
+  75% { transform: translate(-4%, -3%); }
+  100% { transform: translate(0, 0); }
+}
+@media (prefers-reduced-motion: reduce) { .btn:hover::after { animation: none; } }
