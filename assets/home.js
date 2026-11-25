@@ -107,16 +107,6 @@
   if (!work) return;
   function pad(n) { return (n < 10 ? '0' : '') + n; }
 
-  // Marquee band
-  var mq = document.createElement('div');
-  mq.className = 'work-marquee';
-  mq.setAttribute('aria-hidden', 'true');
-  var words = ['Websites', 'Stores', 'Dashboards', 'AI Agents'];
-  var spans = '';
-  for (var k = 0; k < 4; k++) words.forEach(function (w) { spans += '<span>' + w + ' —</span>'; });
-  mq.innerHTML = '<div class="work-marquee__track">' + spans + '</div>';
-  work.insertBefore(mq, work.firstElementChild);
-
   // Clip-path reveal
   if (!reduce && 'IntersectionObserver' in window) {
     document.documentElement.classList.add('js-reveal');
@@ -243,7 +233,9 @@
     s.src = 'https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js';
     s.onload = function () {
       if (!window.Lenis) return;
-      var lenis = new Lenis({ lerp: 0.1, anchors: { offset: -64 } });
+      var lenis = new Lenis({ lerp: 0.12, anchors: { offset: -64 } });
+      window.__lenis = lenis;
+      if (window.ScrollTrigger) lenis.on('scroll', window.ScrollTrigger.update);
       (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(0);
       var obs = new MutationObserver(function () {
         if (document.documentElement.classList.contains('intro-lock')) lenis.stop(); else lenis.start();
