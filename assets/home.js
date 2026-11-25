@@ -228,7 +228,7 @@
   addEventListener('scroll', prog, { passive: true }); prog();
 
   // Smooth inertial scrolling on desktop (Lenis)
-  if (fine && !reduce) {
+  if (false) { // moved to story.js (shared by home + pricing)
     var s = document.createElement('script');
     s.src = 'https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js';
     s.onload = function () {

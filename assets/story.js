@@ -9,6 +9,32 @@
   var easeInOut = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
   var docTop = function (el) { var r = el.getBoundingClientRect(); return r.top + scrollY; };
 
+  /* ---------- smooth scroll (Lenis, long expo glide like the reference) ---------- */
+  if (!reduce && !window.__lenisLoading) {
+    window.__lenisLoading = true;
+    var ls = document.createElement('script');
+    ls.src = 'https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js';
+    ls.onload = function () {
+      if (!window.Lenis) return;
+      var lenis = new Lenis({
+        duration: 1.35,
+        easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+        smoothWheel: true,
+        wheelMultiplier: 0.9,
+        touchMultiplier: 1.4,
+        anchors: { offset: -64 }
+      });
+      window.__lenis = lenis;
+      lenis.on('scroll', function () { if (window.ScrollTrigger) window.ScrollTrigger.update(); });
+      (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(0);
+      var root = document.documentElement;
+      var sync = function () { if (root.classList.contains('intro-lock')) lenis.stop(); else lenis.start(); };
+      new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ['class'] });
+      sync();
+    };
+    document.head.appendChild(ls);
+  }
+
   /* ---------- pick desktop / phone recording ---------- */
   function setSources() {
     document.querySelectorAll('video[data-desktop]').forEach(function (v) {
