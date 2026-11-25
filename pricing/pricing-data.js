@@ -37,22 +37,44 @@ const PRICING_DATA = {
        package includes, so they don't need repeating card by card. */
     commonNotes: [
       "Domain &amp; hosting setup included, ready to go live",
-      "Comes with its own management dashboard — orders, products &amp; content",
+      "Full control from your own dashboard — add products, prices, photos &amp; content yourself, anytime, free",
+      "Super easy dashboard — no coding, no waiting for me, no extra fees",
       "Fully responsive on desktop, tablet, and mobile",
       "Every order's full details sent straight to your WhatsApp &amp; email — and to your customer too"
     ],
 
     plans: [
       {
-        id: "web-premium",
-        name: "Premium",
+        id: "web-essential",
+        name: "Essential",
         tag: "MOST POPULAR",
-        blurb: "For growing online stores",
+        blurb: "You add every product yourself — and save a lot",
         cover: "photo",
         highlight: true,
+        price: 12000,
+        currency: "EGP",
+        features: [
+          "Unlimited products — you add them all yourself from the dashboard",
+          "Adding products is very easy: name, price, photos, done",
+          "Saves you a lot of money — no per-product fees, ever",
+          "Full control of the whole website from your dashboard",
+          "Dashboard tailored to what you want to control",
+          "Custom UI/UX Design",
+          "Advanced SEO Setup",
+          "2 Weeks Free Follow-Up — Then 500 EGP / Edit"
+        ],
+        cta: "Order"
+      },
+      {
+        id: "web-premium",
+        name: "Premium",
+        tag: "I ADD YOUR PRODUCTS",
+        blurb: "I upload your first 100 products for you",
+        cover: "photo",
+        highlight: false,
         configurable: true,
-        basePrice: 12000,
-        baseProducts: 150,
+        basePrice: 13000,
+        baseProducts: 100,
         baseCategories: 10,
         maxCategories: 10,
         productStep: 50,
@@ -63,8 +85,9 @@ const PRICING_DATA = {
           desc: "A friendly AI agent trained on your whole website — reads every page, answers customer questions, and recommends the right products round the clock."
         },
         features: [
-          "Up to 150 Products &amp; 10 Categories Included",
-          "+1,000 EGP per extra 50 products (categories stay free)",
+          "100 Products Added By Me &amp; 10 Categories",
+          "+1,000 EGP per extra 50 products I add (or add them yourself free)",
+          "Full control — add &amp; edit anything yourself from the dashboard",
           "Unlimited Pages",
           "Full Management Dashboard",
           "Custom UI/UX Design",
@@ -82,20 +105,21 @@ const PRICING_DATA = {
         cover: "photo",
         highlight: false,
         configurable: true,
-        basePrice: 15000,
-        baseProducts: 400,
+        basePrice: 14000,
+        baseProducts: 200,
         baseCategories: 20,
         maxCategories: 20,
         productStep: 50,
-        productStepPrice: 1000,
+        productStepPrice: 500,
         aiAgent: {
           price: 6000,
           label: "AI Agent + Full Dashboard Control (image uploads, live order updates)",
           desc: "Everything the Premium AI agent does, plus image uploads from customers, full control over your dashboard, live order tracking, and automatic status updates sent to every customer."
         },
         features: [
-          "Up to 400 Products &amp; 20 Categories Included",
-          "+1,000 EGP per extra 50 products (categories stay free)",
+          "200 Products Added By Me &amp; 20 Categories",
+          "+500 EGP per extra 50 products I add (or add them yourself free)",
+          "Full control — add &amp; edit anything yourself from the dashboard",
           "Unlimited Pages",
           "Full Management Dashboard",
           "Custom UI/UX Design",
@@ -129,18 +153,19 @@ const PRICING_DATA = {
     ],
 
     compare: {
-      headers: ["Feature", "Premium", "Signature"],
+      headers: ["Feature", "Essential", "Premium", "Signature"],
       rows: [
-        ["Products Included", "150", "400"],
-        ["Categories Included", "10", "20"],
-        ["Extra Products", "+1,000 EGP / 50", "+1,000 EGP / 50"],
-        ["Management Dashboard", true, true],
-        ["Custom UI/UX Design", true, true],
-        ["SEO Setup", "Advanced", "Advanced"],
-        ["Performance Optimization", false, true],
-        ["Priority Support", false, true],
-        ["Free Follow-Up", "2 Weeks", "1 Month"],
-        ["AI Agent (optional)", "+4,000 EGP", "+6,000 EGP"]
+        ["Price", "12,000 EGP", "13,000 EGP", "14,000 EGP"],
+        ["Products added by me", "—", "100", "200"],
+        ["Products you add yourself", "Unlimited, free", "Unlimited, free", "Unlimited, free"],
+        ["Extra products added by me", "—", "+1,000 EGP / 50", "+500 EGP / 50"],
+        ["Full dashboard control", true, true, true],
+        ["Custom UI/UX Design", true, true, true],
+        ["SEO Setup", "Advanced", "Advanced", "Advanced"],
+        ["Performance Optimization", false, false, true],
+        ["Priority Support", false, false, true],
+        ["Free Follow-Up", "2 Weeks", "2 Weeks", "1 Month"],
+        ["AI Agent (optional)", false, "+4,000 EGP", "+6,000 EGP"]
       ]
     },
 
