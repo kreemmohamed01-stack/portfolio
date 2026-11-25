@@ -202,3 +202,57 @@ html, body { overflow-x: clip !important; }
   .write-on__text .w { opacity: 1; }
   .write-on__ghost { display: none; }
 }
+
+/* ---------- Gray instead of black: dashboards + AI ---------- */
+#work .grid-desk .proj { background: #c4c4c4; color: var(--ink); box-shadow: 0 -20px 60px rgba(0,0,0,.10); }
+#work .grid-desk .proj-num, #work .grid-desk .proj-name { color: var(--ink); }
+#work .grid-desk .proj-cat, #work .grid-desk .proj-desc { color: #3d3d3d; }
+#work .grid-desk .proj-info { border-top-color: rgba(0,0,0,.18); }
+#work .grid-desk .proj-media { background: #b3b3b3; }
+#ai.sec.dark { background: #c4c4c4; color: var(--ink); }
+#ai .kicker, #ai .sec-head p, #ai .proj-cat, #ai .proj-desc, #ai .proj-num { color: #3d3d3d; }
+#ai .proj-info { border-top-color: rgba(0,0,0,.18); }
+#ai .proj-media { background: #b3b3b3; }
+
+/* ---------- About: grain storytelling ---------- */
+.fog-story { position: relative; height: calc(5 * 100svh); margin-inline: calc(var(--gutter) * -1); }
+.fog-stage {
+  position: sticky; top: 0; height: 100svh; overflow: hidden;
+  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center;
+  padding: var(--header-h) var(--gutter) 0; column-gap: clamp(24px, 5vw, 90px);
+  background: var(--paper-3);
+}
+.fog-layer { display: none; }
+.fog-kicker { position: absolute; top: calc(var(--header-h) + 24px); left: var(--gutter); }
+.fog-chapters { position: relative; grid-column: 1; grid-row: 1; height: 60svh; }
+.fog-chapter { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; gap: 22px; visibility: hidden; }
+.fog-chapter.is-on { visibility: visible; }
+.fog-num { font-size: 12px; letter-spacing: .2em; color: var(--gray); }
+.fog-line {
+  font-family: var(--display); font-weight: 600; letter-spacing: -0.035em; line-height: .95;
+  font-size: clamp(42px, 6.4vw, 120px);
+}
+.fog-chapter p { max-width: 460px; font-size: clamp(15px, 1.2vw, 19px); color: #3a3a3a; line-height: 1.5; }
+.fog-chapter .about-actions { margin-top: 6px; }
+.fog-portrait {
+  grid-column: 2; grid-row: 1; justify-self: center; width: min(100%, 460px); aspect-ratio: 1;
+  border-radius: 16px; overflow: hidden; background: var(--paper-2);
+  transform: scale(var(--ps, .9)); will-change: transform, filter;
+}
+.fog-portrait img { width: 100%; height: 100%; object-fit: cover; }
+.fog-progress { position: absolute; left: var(--gutter); right: var(--gutter); bottom: 28px; height: 1px; background: var(--line); }
+.fog-progress i { position: absolute; inset: 0; background: var(--ink); transform-origin: left; transform: scaleX(var(--fp, 0)); }
+
+@media (max-width: 860px) {
+  .fog-stage { grid-template-columns: 1fr; grid-template-rows: auto 1fr; align-content: start; row-gap: 16px; padding-top: calc(var(--header-h) + 56px); }
+  .fog-portrait { grid-column: 1; grid-row: 1; width: min(62vw, 260px); }
+  .fog-chapters { grid-row: 2; height: 46svh; }
+  .fog-chapter { justify-content: flex-start; gap: 14px; }
+  .fog-line { font-size: clamp(32px, 9vw, 48px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fog-story { height: auto; }
+  .fog-stage { position: relative; height: auto; display: block; padding-block: 100px; }
+  .fog-chapters { height: auto; }
+  .fog-chapter { position: relative; visibility: visible; margin-bottom: 48px; }
+}

@@ -265,11 +265,49 @@
     });
   }
 
+  /* ---------- About: chapters assemble from grain and dissolve back ---------- */
+  var fog = document.querySelector('[data-fog-story]');
+  var chapters = fog ? Array.prototype.slice.call(fog.querySelectorAll('[data-fog-chapter]')) : [];
+  var portrait = fog && fog.querySelector('[data-fog-portrait]');
+  var chGrains = [], portraitGrain = null, fogBar = fog && fog.querySelector('.fog-progress');
+  if (fog && !reduce) {
+    chapters.forEach(function (c) { chGrains.push(new Grain(c, { scatter: 16, freq: 0.75 })); });
+    if (portrait) portraitGrain = new Grain(portrait, { scatter: 20, freq: 0.6 });
+  } else chapters.forEach(function (c) { c.classList.add('is-on'); });
+  var lastBoil = 0;
+  function updateFog() {
+    if (!fog || reduce) return;
+    var r = fog.getBoundingClientRect(), span = fog.offsetHeight - innerHeight;
+    var t = clamp(-r.top / Math.max(1, span), 0, 1);
+    var p = t * chapters.length;                       // 0..n
+    var boil = performance.now() - lastBoil > 70;      // new noise ~14 times a second
+    if (boil) lastBoil = performance.now();
+    chapters.forEach(function (c, i) {
+      // inside its slot: grain clears in the first 30%, holds, breaks up in the last 25%
+      var local = p - i, g;
+      if (local < 0 || local > 1) g = 1;
+      else if (local < 0.3) g = 1 - local / 0.3;
+      else if (local > 0.75 && i < chapters.length - 1) g = (local - 0.75) / 0.25;
+      else g = 0;
+      if (i === chapters.length - 1 && local > 1) g = 0;
+      c.classList.toggle('is-on', g < 0.98);
+      if (g < 0.98 && (boil || g === 0)) chGrains[i].set(g);
+    });
+    if (portrait) {
+      var pg = clamp(1 - p / 0.6, 0, 1);
+      if (boil || pg === 0) portraitGrain.set(pg);
+      portrait.style.setProperty('--ps', (0.88 + Math.min(1, p / chapters.length) * 0.12).toFixed(3));
+    }
+    if (fogBar) fogBar.style.setProperty('--fp', t.toFixed(3));
+  }
+  // keep the grain moving between scroll events
+  setInterval(function () { if (fog && !reduce) { var r = fog.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) updateFog(); } }, 90);
+
   /* ---------- frame loop ---------- */
   var ticking = false;
   function frame() {
     ticking = false;
-    updateHero(); updateWords(); updateReel(); updateDark();
+    updateHero(); updateWords(); updateReel(); updateDark(); updateFog();
   }
   function req() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
   addEventListener('scroll', req, { passive: true });
