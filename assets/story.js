@@ -416,7 +416,7 @@
   if (!reduce && matchMedia('(hover: hover) and (pointer: fine)').matches) {
     var kroot = document.documentElement;
     var kd = document.createElement('div'), kr = document.createElement('div');
-    kd.className = 'kc-dot'; kr.className = 'kc-ring'; kr.innerHTML = '<span>View</span>';
+    kd.className = 'kc-dot'; kr.className = 'kc-ring'; kr.innerHTML = '<svg viewBox="0 0 120 100"><g fill="none" stroke="currentColor" stroke-width="13" stroke-linecap="square"><polyline points="46,16 14,50 46,84"/><polyline points="74,16 106,50 74,84"/></g></svg><span>View</span>';
     kd.setAttribute('aria-hidden', 'true'); kr.setAttribute('aria-hidden', 'true');
     document.body.appendChild(kd); document.body.appendChild(kr);
     kroot.classList.add('has-kc', 'kc-out');
@@ -428,6 +428,8 @@
       kd.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)';
       kroot.classList.remove('kc-out');
       if (!kmoving) { kmoving = true; requestAnimationFrame(kloop); }
+      var sp = Math.hypot(e.movementX || 0, e.movementY || 0);
+      if (sp > 4 && Math.random() < Math.min(1, sp / 18)) spark(mx, my, 1, sp);
     }, { passive: true });
     function kloop() {
       rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
@@ -440,7 +442,35 @@
       kroot.classList.toggle('kc-view', !!view && !(link && !link.closest(VIEW)));
       kroot.classList.toggle('kc-link', !!link && !view);
     });
-    document.addEventListener('pointerdown', function () { kroot.classList.add('kc-down'); });
+    document.addEventListener('pointerdown', function (e) { kroot.classList.add('kc-down'); spark(e.clientX, e.clientY, 16, 30); });
+
+    // sparks: tiny streaks that fly off the cursor and fade
+    var sc = document.createElement('canvas'); sc.className = 'kc-sparks'; sc.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(sc);
+    var sx = sc.getContext('2d'), dpr = Math.min(2, devicePixelRatio || 1), parts = [], sparking = false;
+    function sizeSparks() { sc.width = innerWidth * dpr; sc.height = innerHeight * dpr; sx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+    sizeSparks(); addEventListener('resize', sizeSparks);
+    function spark(x, y, n, power) {
+      for (var i = 0; i < n; i++) {
+        var a = Math.random() * Math.PI * 2, v = (n > 1 ? 3 + Math.random() * 6 : 1.5 + Math.random() * Math.min(4, power / 8));
+        parts.push({ x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - (n > 1 ? 1 : .5), life: 1, decay: .025 + Math.random() * .03 });
+      }
+      if (parts.length > 160) parts.splice(0, parts.length - 160);
+      if (!sparking) { sparking = true; requestAnimationFrame(sdraw); }
+    }
+    function sdraw() {
+      sx.clearRect(0, 0, innerWidth, innerHeight);
+      sx.lineCap = 'round';
+      for (var i = parts.length - 1; i >= 0; i--) {
+        var p = parts[i];
+        p.vx *= .93; p.vy = p.vy * .93 + .12; p.life -= p.decay;
+        if (p.life <= 0) { parts.splice(i, 1); continue; }
+        sx.strokeStyle = 'rgba(255,255,255,' + p.life.toFixed(2) + ')';
+        sx.lineWidth = 1.6 * p.life + .4;
+        sx.beginPath(); sx.moveTo(p.x, p.y); p.x += p.vx; p.y += p.vy; sx.lineTo(p.x, p.y); sx.stroke();
+      }
+      if (parts.length) requestAnimationFrame(sdraw); else { sparking = false; sx.clearRect(0, 0, innerWidth, innerHeight); }
+    }
     document.addEventListener('pointerup', function () { kroot.classList.remove('kc-down'); });
     document.documentElement.addEventListener('pointerleave', function () { kroot.classList.add('kc-out'); });
   }
