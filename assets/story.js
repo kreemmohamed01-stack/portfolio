@@ -411,4 +411,37 @@
       if (en[0].isIntersecting) play(hvv); else hvv.pause();
     }).observe(hv);
   }
+
+  /* ---------- custom cursor: dot + trailing ring that reacts to links & media ---------- */
+  if (!reduce && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    var kroot = document.documentElement;
+    var kd = document.createElement('div'), kr = document.createElement('div');
+    kd.className = 'kc-dot'; kr.className = 'kc-ring'; kr.innerHTML = '<span>View</span>';
+    kd.setAttribute('aria-hidden', 'true'); kr.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(kd); document.body.appendChild(kr);
+    kroot.classList.add('has-kc', 'kc-out');
+    var mx = -100, my = -100, rx = -100, ry = -100, kmoving = false;
+    var VIEW = '.reel-slide, .proj-media, .jhero-video, .jstatement-landing, video';
+    var LINK = 'a, button, summary, label, [role="tab"], .ps-svc';
+    addEventListener('pointermove', function (e) {
+      mx = e.clientX; my = e.clientY;
+      kd.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)';
+      kroot.classList.remove('kc-out');
+      if (!kmoving) { kmoving = true; requestAnimationFrame(kloop); }
+    }, { passive: true });
+    function kloop() {
+      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+      kr.style.transform = 'translate3d(' + rx.toFixed(1) + 'px,' + ry.toFixed(1) + 'px,0)';
+      if (Math.abs(mx - rx) > .2 || Math.abs(my - ry) > .2) requestAnimationFrame(kloop); else kmoving = false;
+    }
+    document.addEventListener('pointerover', function (e) {
+      var t = e.target;
+      var view = t.closest && t.closest(VIEW), link = t.closest && t.closest(LINK);
+      kroot.classList.toggle('kc-view', !!view && !(link && !link.closest(VIEW)));
+      kroot.classList.toggle('kc-link', !!link && !view);
+    });
+    document.addEventListener('pointerdown', function () { kroot.classList.add('kc-down'); });
+    document.addEventListener('pointerup', function () { kroot.classList.remove('kc-down'); });
+    document.documentElement.addEventListener('pointerleave', function () { kroot.classList.add('kc-out'); });
+  }
 })();
