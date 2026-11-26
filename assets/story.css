@@ -338,29 +338,3 @@ html, body { overflow-x: clip !important; }
   100% { transform: translate(0, 0); }
 }
 @media (prefers-reduced-motion: reduce) { .btn:hover::after { animation: none; } }
-
-/* ---------- custom cursor (desktop) ---------- */
-.view-cursor { display: none !important; }
-html.has-kc, html.has-kc * { cursor: none !important; }
-html.has-kc input, html.has-kc textarea, html.has-kc select { cursor: text !important; }
-.kc-dot, .kc-ring {
-  width: 34px; height: 28px; margin: -14px 0 0 -17px; border-radius: 0;
-  color: #fff; mix-blend-mode: difference;
-  display: flex; align-items: center; gap: 8px;
-}
-.kc-ring svg { width: 100%; height: 100%; flex: none; overflow: visible;
-  transition: scale .35s cubic-bezier(.2,.8,.2,1), rotate .5s cubic-bezier(.2,.8,.2,1); }
-.kc-ring span {
-  position: absolute; left: 100%; top: 50%; translate: 10px -50%;
-  font: 600 11px/1 Inter, system-ui, sans-serif; letter-spacing: .14em; text-transform: uppercase;
-  color: #fff; opacity: 0; transition: opacity .25s, translate .3s; white-space: nowrap;
-}
-html.kc-link .kc-ring svg { scale: 1.55; rotate: 180deg; }
-html.kc-link .kc-dot { scale: 0; }
-html.kc-view .kc-ring svg { scale: 1.9; }
-html.kc-view .kc-ring span { opacity: 1; translate: 22px -50%; }
-html.kc-view .kc-dot { scale: 0; }
-html.kc-down .kc-ring svg { scale: .75; }
-.kc-sparks { position: fixed; inset: 0; z-index: 9999; pointer-events: none; mix-blend-mode: difference; }
-html.kc-out .kc-dot, html.kc-out .kc-ring { opacity: 0; }
-.kc-ring { transition: opacity .3s; }
