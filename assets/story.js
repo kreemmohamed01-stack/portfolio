@@ -119,7 +119,7 @@
     var assemble = function (el) {
       var g = el._grain; el._busy = true;
       g.set(1); el.style.visibility = '';
-      g.tween(1, 0, 900, function () { el._busy = false; g.set(0); });
+      g.tween(1, 0, 600, function () { el._busy = false; g.set(0); });
     };
     if ('IntersectionObserver' in window) {
       var gio = new IntersectionObserver(function (es) {
@@ -153,6 +153,7 @@
       el.innerHTML = el.textContent.split('').map(function (c) { return '<span class="ch">' + c + '</span>'; }).join('');
     });
     var tl = gsap.timeline({ onComplete: function () { root.classList.add('story-ready'); } });
+    tl.timeScale(1.55); // snappier first paint
     gsap.set('.jhero-lead, .jhero-video', { opacity: 0, y: 24 });
     tl.from('.jw-a .ch', { yPercent: 110, duration: .9, ease: 'back.out(0.7)', stagger: .06 })
       .from('.jw-star', { y: '-70vh', rotate: -90, duration: .8, ease: 'back.out(1)' }, '-=0.6')
@@ -163,22 +164,21 @@
           setTimeout(function () {
             var g = el._grain; if (!g) { el.style.visibility = ''; return; }
             g.set(1); el.style.visibility = ''; el._busy = true;
-            g.tween(1, 0, 900, function () { el._busy = false; g.set(0); });
-          }, i * 180);
+            g.tween(1, 0, 600, function () { el._busy = false; g.set(0); });
+          }, i * 110);
         });
       }, '-=0.2')
-      .to('.jhero-lead, .jhero-video', { opacity: 1, y: 0, duration: .8, ease: 'power3.out', stagger: .1 }, '+=0.15');
+      .to('.jhero-lead, .jhero-video', { opacity: 1, y: 0, duration: .8, ease: 'power3.out', stagger: .1 }, '-=0.35');
   }
   // Wait for the intro video overlay (if any) before playing the hero intro
   (function waitIntro() {
     var root = document.documentElement;
     if (root.classList.contains('intro-lock')) {
       var mo = new MutationObserver(function () {
-        if (!root.classList.contains('intro-lock')) { mo.disconnect(); setTimeout(heroIntro, 150); }
+        if (!root.classList.contains('intro-lock')) { mo.disconnect(); heroIntro(); }
       });
       mo.observe(root, { attributes: true, attributeFilter: ['class'] });
-    } else if (document.readyState === 'complete') heroIntro();
-    else addEventListener('load', heroIntro);
+    } else heroIntro(); // don't wait for every image/video to load
   })();
 
   /* ---------- hero video travels down into the next section ---------- */
