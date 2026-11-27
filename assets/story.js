@@ -411,4 +411,75 @@
       if (en[0].isIntersecting) play(hvv); else hvv.pause();
     }).observe(hv);
   }
+
+  /* ---------- projects: phones carousel (swipe / drag / arrows) ---------- */
+  var phWrap = document.getElementById('phones'), phTrack = document.getElementById('phonesTrack');
+  if (phWrap && phTrack) {
+    var phCards = Array.prototype.slice.call(phTrack.querySelectorAll('.phone-card'));
+    var phNow = document.getElementById('phonesNow'), phBar = document.getElementById('phonesBar');
+    var phBtns = phWrap.querySelectorAll('.phones-btn');
+    var pad2 = function (n) { return (n < 10 ? '0' : '') + n; };
+    var step = function () { return phCards.length > 1 ? phCards[1].offsetLeft - phCards[0].offsetLeft : phTrack.clientWidth; };
+    var phUpdate = function () {
+      var max = phTrack.scrollWidth - phTrack.clientWidth, x = phTrack.scrollLeft;
+      var first = Math.max(0, Math.min(phCards.length - 2, Math.round(x / step())));
+      if (phNow) phNow.innerHTML = pad2(first + 1) + '&ndash;' + pad2(first + 2);
+      if (phBar) {
+        var w = phTrack.clientWidth / phTrack.scrollWidth;
+        phBar.style.width = (w * 100) + '%';
+        phBar.style.translate = (max > 0 ? (x / max) * (1 / w - 1) * 100 : 0) + '% 0';
+      }
+      phBtns[0].disabled = x < 4; phBtns[1].disabled = x > max - 4;
+    };
+    phTrack.addEventListener('scroll', phUpdate, { passive: true });
+    addEventListener('resize', phUpdate);
+    Array.prototype.forEach.call(phBtns, function (b) {
+      b.addEventListener('click', function () { phTrack.scrollBy({ left: step() * 2 * (+b.dataset.dir), behavior: 'smooth' }); });
+    });
+    phTrack.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); phTrack.scrollBy({ left: step() * (e.key === 'ArrowRight' ? 1 : -1), behavior: 'smooth' }); }
+    });
+    // mouse drag (touch swipes natively)
+    var dragX = null, dragS = 0, moved = 0;
+    phTrack.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      dragX = e.clientX; dragS = phTrack.scrollLeft; moved = 0;
+    });
+    addEventListener('pointermove', function (e) {
+      if (dragX === null) return;
+      var dx = e.clientX - dragX; moved = Math.max(moved, Math.abs(dx));
+      if (moved > 6) { phTrack.classList.add('is-drag'); phTrack.scrollLeft = dragS - dx; }
+    });
+    addEventListener('pointerup', function () {
+      if (dragX === null) return;
+      dragX = null;
+      if (phTrack.classList.contains('is-drag')) {
+        var s = step(), target = Math.round(phTrack.scrollLeft / s) * s;
+        phTrack.classList.remove('is-drag');
+        phTrack.scrollTo({ left: target, behavior: 'smooth' });
+      }
+    });
+    phTrack.addEventListener('click', function (e) { if (moved > 6) { e.preventDefault(); moved = 0; } }, true);
+    phTrack.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    // only the phones on screen play their video
+    if ('IntersectionObserver' in window) {
+      var vio = new IntersectionObserver(function (ens) {
+        ens.forEach(function (en) {
+          var v = en.target.querySelector('video');
+          if (en.isIntersecting && en.intersectionRatio > 0.5) {
+            if (!v.getAttribute('src')) { v.src = v.dataset.src; v.preload = 'auto'; }
+            var p = v.play(); if (p && p.catch) p.catch(function () {});
+          } else if (!v.paused) v.pause();
+        });
+      }, { threshold: [0, 0.5, 1] });
+      phCards.forEach(function (c) { vio.observe(c); });
+      new IntersectionObserver(function (ens, o) {
+        if (ens[0].isIntersecting) { phWrap.classList.add('in'); o.disconnect(); }
+      }, { threshold: 0.15 }).observe(phWrap);
+    } else {
+      phWrap.classList.add('in');
+      phCards.forEach(function (c) { var v = c.querySelector('video'); v.src = v.dataset.src; });
+    }
+    phUpdate();
+  }
 })();

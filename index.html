@@ -324,132 +324,109 @@
         <header class="sec-head">
           <span class="kicker" data-r>Selected Work</span>
           <h2 class="h-display" data-grain-title>Selected Projects</h2>
-          <p data-r>Scroll &mdash; each website opens full screen.</p>
+          <p data-r>Swipe left or right &mdash; every website, live on a phone.</p>
         </header>
       </div>
-      <div class="reel" id="reel" style="--count:8">
-        <div class="reel-stage">
-          <article class="reel-slide" data-index="0">
-            <div class="reel-anim">
-              <a class="reel-media" href="https://residue-umber.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open Residue live website">
-                <video muted loop playsinline preload="none" poster="projects/residue-desktop-poster.jpg"
-                  data-desktop="projects/residue-desktop.mp4" data-mobile="projects/residue-mobile.mp4"></video>
-              </a>
-              <div class="reel-shade" aria-hidden="true"></div>
-              <div class="reel-caption">
-                <span class="reel-count">01 / 08</span>
-                <h3 class="reel-name">Residue</h3>
-                <span class="reel-cat">Streetwear Fashion</span>
-                <a class="reel-live" href="https://residue-umber.vercel.app/" target="_blank" rel="noopener noreferrer">View live <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-              </div>
+      <div class="phones" id="phones">
+        <div class="wrap phones-bar">
+          <span class="phones-hint"><i aria-hidden="true">&larr;</i> Swipe to browse the websites <i aria-hidden="true">&rarr;</i></span>
+          <span class="phones-count"><b id="phonesNow">01&ndash;02</b> / 08</span>
+          <div class="phones-nav">
+            <button type="button" class="phones-btn" data-dir="-1" aria-label="Previous websites"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>
+            <button type="button" class="phones-btn" data-dir="1" aria-label="Next websites"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>
+          </div>
+        </div>
+        <div class="phones-track" id="phonesTrack" tabindex="0" aria-label="Websites — scroll sideways">
+          <article class="phone-card" style="--i:0">
+            <a class="phone" href="https://residue-umber.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open Residue live website">
+              <span class="phone-notch" aria-hidden="true"></span>
+              <video muted loop playsinline preload="none" poster="projects/residue-mobile-poster.jpg" data-src="projects/residue-mobile.mp4"></video>
+            </a>
+            <div class="phone-cap">
+              <span class="phone-num">01</span>
+              <div><h3 class="phone-name">Residue</h3><span class="phone-cat">Streetwear Fashion</span></div>
+              <a class="phone-live" href="https://residue-umber.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="View Residue live"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
             </div>
           </article>
-          <article class="reel-slide" data-index="1">
-            <div class="reel-anim">
-              <a class="reel-media" href="https://thepinkroomeg.com/" target="_blank" rel="noopener noreferrer" aria-label="Open The Pink Room live website">
-                <video muted loop playsinline preload="none" poster="projects/pinkroom-desktop-poster.jpg"
-                  data-desktop="projects/pinkroom-desktop.mp4" data-mobile="projects/pinkroom-mobile.mp4"></video>
-              </a>
-              <div class="reel-shade" aria-hidden="true"></div>
-              <div class="reel-caption">
-                <span class="reel-count">02 / 08</span>
-                <h3 class="reel-name">The Pink Room</h3>
-                <span class="reel-cat">Home Accessories</span>
-                <a class="reel-live" href="https://thepinkroomeg.com/" target="_blank" rel="noopener noreferrer">View live <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-              </div>
+          <article class="phone-card" style="--i:1">
+            <a class="phone" href="https://thepinkroomeg.com/" target="_blank" rel="noopener noreferrer" aria-label="Open The Pink Room live website">
+              <span class="phone-notch" aria-hidden="true"></span>
+              <video muted loop playsinline preload="none" poster="projects/pinkroom-mobile-poster.jpg" data-src="projects/pinkroom-mobile.mp4"></video>
+            </a>
+            <div class="phone-cap">
+              <span class="phone-num">02</span>
+              <div><h3 class="phone-name">The Pink Room</h3><span class="phone-cat">Home Accessories</span></div>
+              <a class="phone-live" href="https://thepinkroomeg.com/" target="_blank" rel="noopener noreferrer" aria-label="View The Pink Room live"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
             </div>
           </article>
-          <article class="reel-slide" data-index="2">
-            <div class="reel-anim">
-              <a class="reel-media" href="https://maisonmeka.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Maison Meka live website">
-                <video muted loop playsinline preload="none" poster="projects/maisonmeka-desktop-poster.jpg"
-                  data-desktop="projects/maisonmeka-desktop.mp4" data-mobile="projects/maisonmeka-mobile.mp4"></video>
-              </a>
-              <div class="reel-shade" aria-hidden="true"></div>
-              <div class="reel-caption">
-                <span class="reel-count">03 / 08</span>
-                <h3 class="reel-name">Maison Meka</h3>
-                <span class="reel-cat">Home Accessories</span>
-                <a class="reel-live" href="https://maisonmeka.com/" target="_blank" rel="noopener noreferrer">View live <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-              </div>
+          <article class="phone-card" style="--i:2">
+            <a class="phone" href="https://maisonmeka.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Maison Meka live website">
+              <span class="phone-notch" aria-hidden="true"></span>
+              <video muted loop playsinline preload="none" poster="projects/maisonmeka-mobile-poster.jpg" data-src="projects/maisonmeka-mobile.mp4"></video>
+            </a>
+            <div class="phone-cap">
+              <span class="phone-num">03</span>
+              <div><h3 class="phone-name">Maison Meka</h3><span class="phone-cat">Home Accessories</span></div>
+              <a class="phone-live" href="https://maisonmeka.com/" target="_blank" rel="noopener noreferrer" aria-label="View Maison Meka live"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
             </div>
           </article>
-          <article class="reel-slide" data-index="3">
-            <div class="reel-anim">
-              <a class="reel-media" href="https://antiqueehome.com" target="_blank" rel="noopener noreferrer" aria-label="Open Antique Home live website">
-                <video muted loop playsinline preload="none" poster="projects/antiquehome-desktop-poster.jpg"
-                  data-desktop="projects/antiquehome-desktop.mp4" data-mobile="projects/antiquehome-mobile.mp4"></video>
-              </a>
-              <div class="reel-shade" aria-hidden="true"></div>
-              <div class="reel-caption">
-                <span class="reel-count">04 / 08</span>
-                <h3 class="reel-name">Antique Home</h3>
-                <span class="reel-cat">Furniture &amp; Décor</span>
-                <a class="reel-live" href="https://antiqueehome.com" target="_blank" rel="noopener noreferrer">View live <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-              </div>
+          <article class="phone-card" style="--i:3">
+            <a class="phone" href="https://antiqueehome.com" target="_blank" rel="noopener noreferrer" aria-label="Open Antique Home live website">
+              <span class="phone-notch" aria-hidden="true"></span>
+              <video muted loop playsinline preload="none" poster="projects/antiquehome-mobile-poster.jpg" data-src="projects/antiquehome-mobile.mp4"></video>
+            </a>
+            <div class="phone-cap">
+              <span class="phone-num">04</span>
+              <div><h3 class="phone-name">Antique Home</h3><span class="phone-cat">Furniture &amp; Décor</span></div>
+              <a class="phone-live" href="https://antiqueehome.com" target="_blank" rel="noopener noreferrer" aria-label="View Antique Home live"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
             </div>
           </article>
-          <article class="reel-slide" data-index="4">
-            <div class="reel-anim">
-              <a class="reel-media" href="https://elwanstores.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Elwan Store live website">
-                <video muted loop playsinline preload="none" poster="projects/elwan-desktop-poster.jpg"
-                  data-desktop="projects/elwan-desktop.mp4" data-mobile="projects/elwan-mobile.mp4"></video>
-              </a>
-              <div class="reel-shade" aria-hidden="true"></div>
-              <div class="reel-caption">
-                <span class="reel-count">05 / 08</span>
-                <h3 class="reel-name">Elwan Store</h3>
-                <span class="reel-cat">Luxury Watches</span>
-                <a class="reel-live" href="https://elwanstores.com/" target="_blank" rel="noopener noreferrer">View live <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-              </div>
+          <article class="phone-card" style="--i:4">
+            <a class="phone" href="https://elwanstores.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Elwan Store live website">
+              <span class="phone-notch" aria-hidden="true"></span>
+              <video muted loop playsinline preload="none" poster="projects/elwan-mobile-poster.jpg" data-src="projects/elwan-mobile.mp4"></video>
+            </a>
+            <div class="phone-cap">
+              <span class="phone-num">05</span>
+              <div><h3 class="phone-name">Elwan Store</h3><span class="phone-cat">Luxury Watches</span></div>
+              <a class="phone-live" href="https://elwanstores.com/" target="_blank" rel="noopener noreferrer" aria-label="View Elwan Store live"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
             </div>
           </article>
-          <article class="reel-slide" data-index="5">
-            <div class="reel-anim">
-              <a class="reel-media" href="https://www.wateenperfumeseg.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Wateen Perfume live website">
-                <video muted loop playsinline preload="none" poster="projects/wateen-desktop-poster.jpg"
-                  data-desktop="projects/wateen-desktop.mp4" data-mobile="projects/wateen-mobile.mp4"></video>
-              </a>
-              <div class="reel-shade" aria-hidden="true"></div>
-              <div class="reel-caption">
-                <span class="reel-count">06 / 08</span>
-                <h3 class="reel-name">Wateen Perfume</h3>
-                <span class="reel-cat">Perfume</span>
-                <a class="reel-live" href="https://www.wateenperfumeseg.com/" target="_blank" rel="noopener noreferrer">View live <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-              </div>
+          <article class="phone-card" style="--i:5">
+            <a class="phone" href="https://www.wateenperfumeseg.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Wateen Perfume live website">
+              <span class="phone-notch" aria-hidden="true"></span>
+              <video muted loop playsinline preload="none" poster="projects/wateen-mobile-poster.jpg" data-src="projects/wateen-mobile.mp4"></video>
+            </a>
+            <div class="phone-cap">
+              <span class="phone-num">06</span>
+              <div><h3 class="phone-name">Wateen Perfume</h3><span class="phone-cat">Perfume</span></div>
+              <a class="phone-live" href="https://www.wateenperfumeseg.com/" target="_blank" rel="noopener noreferrer" aria-label="View Wateen Perfume live"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
             </div>
           </article>
-          <article class="reel-slide" data-index="6">
-            <div class="reel-anim">
-              <a class="reel-media" href="https://ovaperfume.com/" target="_blank" rel="noopener noreferrer" aria-label="Open OVA Perfume live website">
-                <video muted loop playsinline preload="none" poster="projects/ova-desktop-poster.jpg"
-                  data-desktop="projects/ova-desktop.mp4" data-mobile="projects/ova-mobile.mp4"></video>
-              </a>
-              <div class="reel-shade" aria-hidden="true"></div>
-              <div class="reel-caption">
-                <span class="reel-count">07 / 08</span>
-                <h3 class="reel-name">OVA Perfume</h3>
-                <span class="reel-cat">Perfume</span>
-                <a class="reel-live" href="https://ovaperfume.com/" target="_blank" rel="noopener noreferrer">View live <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-              </div>
+          <article class="phone-card" style="--i:6">
+            <a class="phone" href="https://ovaperfume.com/" target="_blank" rel="noopener noreferrer" aria-label="Open OVA Perfume live website">
+              <span class="phone-notch" aria-hidden="true"></span>
+              <video muted loop playsinline preload="none" poster="projects/ova-mobile-poster.jpg" data-src="projects/ova-mobile.mp4"></video>
+            </a>
+            <div class="phone-cap">
+              <span class="phone-num">07</span>
+              <div><h3 class="phone-name">OVA Perfume</h3><span class="phone-cat">Perfume</span></div>
+              <a class="phone-live" href="https://ovaperfume.com/" target="_blank" rel="noopener noreferrer" aria-label="View OVA Perfume live"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
             </div>
           </article>
-          <article class="reel-slide" data-index="7">
-            <div class="reel-anim">
-              <a class="reel-media" href="https://unitedconstructioneg.com/" target="_blank" rel="noopener noreferrer" aria-label="Open United Construction live website">
-                <video muted loop playsinline preload="none" poster="projects/united-desktop-poster.jpg"
-                  data-desktop="projects/united-desktop.mp4" data-mobile="projects/united-mobile.mp4"></video>
-              </a>
-              <div class="reel-shade" aria-hidden="true"></div>
-              <div class="reel-caption">
-                <span class="reel-count">08 / 08</span>
-                <h3 class="reel-name">United Construction</h3>
-                <span class="reel-cat">Corporate</span>
-                <a class="reel-live" href="https://unitedconstructioneg.com/" target="_blank" rel="noopener noreferrer">View live <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-              </div>
+          <article class="phone-card" style="--i:7">
+            <a class="phone" href="https://unitedconstructioneg.com/" target="_blank" rel="noopener noreferrer" aria-label="Open United Construction live website">
+              <span class="phone-notch" aria-hidden="true"></span>
+              <video muted loop playsinline preload="none" poster="projects/united-mobile-poster.jpg" data-src="projects/united-mobile.mp4"></video>
+            </a>
+            <div class="phone-cap">
+              <span class="phone-num">08</span>
+              <div><h3 class="phone-name">United Construction</h3><span class="phone-cat">Corporate</span></div>
+              <a class="phone-live" href="https://unitedconstructioneg.com/" target="_blank" rel="noopener noreferrer" aria-label="View United Construction live"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
             </div>
           </article>
         </div>
+        <div class="wrap"><div class="phones-progress" aria-hidden="true"><i id="phonesBar"></i></div></div>
       </div>
       <div class="wrap">
         <header class="sec-head sub-head">
