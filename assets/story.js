@@ -482,4 +482,18 @@
     }
     phUpdate();
   }
+
+  /* ---------- offer banner: hides after scrolling, can be closed ---------- */
+  var promo = document.getElementById('promo');
+  if (promo) {
+    var proot = document.documentElement;
+    var px = promo.querySelector('.promo-x');
+    px.addEventListener('click', function () {
+      proot.classList.add('promo-up');
+      try { sessionStorage.setItem('promoX', '1'); } catch (e) {}
+      setTimeout(function () { proot.classList.remove('has-promo', 'promo-up'); proot.classList.add('promo-closed'); }, 600);
+    });
+    var pUp = function () { if (proot.classList.contains('has-promo')) proot.classList.toggle('promo-up', scrollY > 120); };
+    addEventListener('scroll', pUp, { passive: true }); pUp();
+  }
 })();
